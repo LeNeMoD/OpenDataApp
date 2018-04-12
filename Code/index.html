@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- check how to change path -->
+        <script src="https://d3js.org/d3.v4.js"></script>        
+        <!--<link rel="stylesheet" type="text/css" href="externalCss.css">-->
+
+    </head>
+
+
+    <body>
+        <script>
+
+            const p = new Promise((resolve, reject) => 
+                                  {   d3.json('mydata.json', (err, data1) => 
+                                    {     
+                                      if (err) {
+                                          reject(err);     } 
+                                      else {       
+                                          resolve(data1);     
+                                            }   
+                                    }); 
+                                  }); 
+            
+            p.then(data => console.log(data) & console.log("juuuu ein and")) 
+                .catch(err => console.error(err));
+                console.log("blubberino2");
+
+            d3.json("mydata.json", function(error, data) {
+                if(error)throw error ; 
+
+                else{
+                    console.log(data); // no output
+                    console.log(data[0]); //no output
+                    console.log(data[0].name); //no output
+                    console.log("blubber2");
+                }
+                console.log(data); // no output
+                console.log(data[0]); //no output
+                console.log(data[0].name); //no output
+                console.log("blubber2");
+
+            });
+
+            console.log("blubber");
+
+            d3.json("mydata.json").then(function (d){
+                console.log("blubber3");
+                console.log(d);  
+                console.log(d[0]); 
+                console.log(d[0].name); 
+                console.log("blubber4")});
+
+
+            var dataVar = d3.json("mydata.json").then(function (d){console.log("blubber5"); console.log(d)});
+
+            console.log("blubber6");
+            console.log(dataVar); //promise pending 
+
+            console.log("blubber7");
+
+            var dataVar2 = d3.json("mydata.json");
+            console.log(dataVar2);
+
+            console.log("blubber8");
+
+
+        </script>
+
+    </body>
+</html>
