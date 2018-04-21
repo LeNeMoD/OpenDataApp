@@ -9,17 +9,47 @@
     
 
     <body>
-        
-        <svg>
-        
-        </svg>
-        
+
         <script>
         
-            var someNumbers = [ 1, 2, 12, 55, 66, 0,16 , 22, 123];
+            var svg = d3.select("body")
+                        .append("svg")
+
+            
+            var someNumbers = [ 5, 25, 12, 16, 55, 88];
+            var numbers = [7];
+
             
             var filteredNumbers = someNumbers 
-                .filter(function(d){return d >= 5 ? this : null;});
+                .filter(function(d){return d <= 50 ? this : null;});
+            
+            var circleInPage = svg.append("circle")
+                .attr("cx", 20)
+                .attr("cy", 20)
+                .attr("r", 20)
+            
+            
+            // more data than tha elements
+            var d3CirclesEnterSel = svg.selectAll("circle")
+                                    .data(someNumbers)
+                                    //attribute to one existing element in dom
+                                    .attr("fill", "red")
+                                    .enter()
+                                    .append("circle")
+                                    .attr("cx", function(d,i){return i*50})
+                                    .attr("cy", function(d,i){return i*50})
+                                    .attr("r", function(d,i){return d})
+                                    .attr("fill", "yellow")
+                                    .attr("stroke", "black")
+                                    
+                
+            //less data than elements
+           var d3CirclesExitSel = svg.selectAll("circle")
+                                    .data(filteredNumbers)
+                                    .exit()
+                                    .attr("fill", "green")
+                                    .attr("stroke", "green")
+           
             
             /**d3.select("svg").selectAll("circle")
                 .data(filteredNumbers)
