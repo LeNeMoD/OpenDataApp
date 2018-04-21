@@ -2,9 +2,9 @@
 <html>
     <head>
         <!-- check how to change path -->
-        <!--<script src="https://d3js.org/d3.v4.js"></script> -->
+        <script src="https://d3js.org/d3.v4.js"></script> 
 
-        <script src=d3.js></script> 
+        <!--<script src=d3.js></script> -->
 
         <link rel="stylesheet" type="text/css" href="externalCss.css">
 
@@ -15,10 +15,32 @@
 
         <script>
         
+                    
             var svg = d3.select("body")
                         .append("svg")
 
+            /**
+            //simple json import bar chart 
+            d3.json("simpleJsonFile.json" , function(data){
+                svg.selectAll("rect")
+                    .data(data)
+                    .enter()
+                        .append("rect")
+                        .attr("height", 20)
+                        .attr("width", function(d){return d.age * 10 ;})
+                        .attr("y", function(d,i){return i*40})
+                        .attr("fill", "green");
+
+                svg.selectAll("text")
+                    .data(data)
+                    .enter()
+                        .append("text")
+                        .attr("fill", "blue")
+                        .attr("y" , function(d,i) {return ((i*40)+15)})
+                        .text(function(d) {return d.name}) 
+                    })*/
             
+            /**
             var someNumbers = [ 5, 25, 12, 16, 55, 88];
             var numbers = [7];
 
@@ -29,7 +51,7 @@
             var circleInPage = svg.append("circle")
                 .attr("cx", 20)
                 .attr("cy", 20)
-                .attr("r", 20);
+                .attr("r", 20);*/
             
             /**
             //transition on end and start of the transiotion .. attribs to last call 
