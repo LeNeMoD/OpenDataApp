@@ -2,7 +2,10 @@
 <html>
     <head>
         <!-- check how to change path -->
-        <script src="https://d3js.org/d3.v4.js"></script>        
+        <!--<script src="https://d3js.org/d3.v4.js"></script> -->
+
+        <script src=d3.js></script> 
+
         <link rel="stylesheet" type="text/css" href="externalCss.css">
 
     </head>
@@ -26,10 +29,18 @@
             var circleInPage = svg.append("circle")
                 .attr("cx", 20)
                 .attr("cy", 20)
-                .attr("r", 20)
+                .attr("r", 20);
             
-            
-            // more data than tha elements
+            /**
+            //transition on end and start of the transiotion .. attribs to last call 
+            circleInPage.transition().duration(1000).attr("cx", 100 )
+                        .delay(500)
+                        .on("start", function(){d3.select(this).attr("fill", "red");})
+                        .transition().duration(1000).attr("cy", 100 )
+                        .on("end", function(){d3.select(this).attr("fill", "blue");})
+                        .on("start", function(){d3.select(this).attr("fill", "yellow");})*/
+            /**
+            // more data than elements
             var d3CirclesEnterSel = svg.selectAll("circle")
                                     .data(someNumbers)
                                     //attribute to one existing element in dom
@@ -50,6 +61,7 @@
                                     .attr("fill", "green")
                                     .attr("stroke", "green")
            
+            */
             
             /**d3.select("svg").selectAll("circle")
                 .data(filteredNumbers)
