@@ -6,3 +6,7 @@ svg {
 h1{
     color: royalblue;
 }
+
+.clicked{
+    color: brown;
+}
