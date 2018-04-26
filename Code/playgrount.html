@@ -39,12 +39,26 @@
         <script>
 
 
+            //Rand Color Gen
+            function get_random_color() {
+                return '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
+            
+            function get_random_colors(d) {
+                var colArray = [];
+                for(i=0 ; i<d ; i++){
+                    colArray[i]='#'+Math.floor(Math.random()*16777215).toString(16);
+                }
+                return colArray;
+            }
+
+            
             var svgPie = d3.select("body").append("svg")
             .attr("width", 500)
             .attr("height", 500);
 
             var group = svgPie.append("g")
-            .attr("transform", "translate(300,300)");
+            .attr("transform", "translate(250,250)");
 
             //arc generator
             var arc = d3.arc()
@@ -53,34 +67,51 @@
 
             //pie generator
             var pie = d3.pie()
-            .value(function(d) {return d; }) ;
-
-            //Rand Color Gen
-            function get_random_color() {
-                return '#'+Math.floor(Math.random()*16777215).toString(16);
-            }
-
-
-            d3.json("2013-Cut-OhneWert-CSV-kurz.json" , function(error,data){
+            .value(function(d) {
+                console.log("d itself: ");
+                console.log(d)
+                console.log(" the d values: ");
+                console.log(d.values)
+                return d.values.lenght; }) ;
+            
+            d3.json("2013-Cut-OhneWert-CSV.json" , function(error,data){
                 if (error) throw error;
 
-
                 console.log(data[0]);                               console.log(data[0].PbTyp);
-
-
                 console.log(data);
+                
+                //sort for parameter
+                var parameter_list = console.log(d3.nest().key(function(d){
+                    return d.Parameter; })
+                    .entries(data));
+                
+                console.log(parameter_list);
+                
+                //sort for Gruppe
+                var gruppen_list = (d3.nest().key(function(d){
+                    return d.Gruppe; })
+                    .entries(data));
+                
+                console.log(gruppen_list);   
+                
+                var dummyData = [10, 20, 30, 50, 100];
+                
+                var arcs = group.selectAll(".arc")
+                    .data(pie(gruppen_list))
+                    .enter()
+                    .append("g")
+                    .attr("class", "arc");
+                    
+                arcs.append("path")
+                    .attr("d", arc)
+                    .style("fill", function(d) 
+                           {var colors = get_random_colors(d.length); 
+                           return colors.d} );
+                
+                
             })
 
-            d3.csv("2013-Cut-OhneWert-CSV-kurz-komma.csv", function(d) {
-                return {
-                    gruppe : d.Gruppe,
-                    parameter : d.Parameter,
-                    mg : +d.mg_pro_24h,
-                    
-                };
-            }, function(data) {
-                console.log(data[0]);
-            });
+            
 
         </script>
 
