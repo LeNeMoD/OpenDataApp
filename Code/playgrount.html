@@ -35,102 +35,143 @@
     </head>
 
     <body>
-    
-        
+
+        <script>
+
+            
+            var svgPie = d3.select("body").append("svg")
+            .attr("width", 500)
+            .attr("height", 500);
+
+            var group = svgPie.append("g")
+            .attr("transform", "translate(300,300)");
+
+            //arc generator
+            var arc = d3.arc()
+            .innerRadius(50)
+            .outerRadius(100);
+
+            //pie generator
+            var pie = d3.pie()
+            .value(function(d) {return d; }) ;
+
+                                            
+            //Rand Color Gen
+            function get_random_color() {
+                return '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
+            
+            var dataOuter = 
+            d3.csv("2013-Cut-OhneWert-CSV-kurz.csv" , function(error,data){
+                if (error) throw error;
+
+                
+                console.log(data);
+                console.log(data.Parameter); 
+                console.log(data[0].Parameter); 
+                console.log(data[1].Parameter); 
+                console.log(data[2].Parameter); 
+                console.log(data[3].Parameter); 
+
+
+            })
+            
+        </script>
+
         <!-- ask how inheritation is overvritten from bootstrap to get the own css inherited values -->
         <!--
-        <div class="container">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#"> tab 1 </a></li>
-                <li><a href="#"> tab 2 </a></li>
-                <li><a href="#"> tab 3 </a></li>
-                <li><a href="#"> tab 4 </a></li>
-            </ul>
-            
-        </div>
-        
-        <script>
-            $(".nav li").on("click", function(){
-                $(".nav li").removeClass("active");
-                $(this).addClass("active");
-                $(this).toggleClass("clicked");
-            })
-        </script>
-        -->
-        
-        
+<div class="container">
+<ul class="nav nav-tabs">
+<li class="active"><a href="#"> tab 1 </a></li>
+<li><a href="#"> tab 2 </a></li>
+<li><a href="#"> tab 3 </a></li>
+<li><a href="#"> tab 4 </a></li>
+</ul>
+
+</div>
+
+<script>
+$(".nav li").on("click", function(){
+$(".nav li").removeClass("active");
+$(this).addClass("active");
+$(this).toggleClass("clicked");
+})
+</script>
+-->
+
+
         <!--
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12 col-lg-4">
-                    <a href="#"> I'm a AnchorTag</a>
-                    <button> I'm a BTN </button>
-                    <input type="submit" value="I'm a SubmitInput">
-                </div>
-            </div>
-            
-            <!-- global btn bootstrap class , also available for color and size, activation ... etc ... check tut 12 -->
-          <!--  <div class="row">
-                <div class="col-xs-12 col-lg-4">
-                    <a href="#" class="btn btn-default"> AnchorTag btnDefClass </a>
-                    <button class="btn btn-default"> BTN btnDefClass </button>
-                    <input class="btn btn-default" type="submit" value="SubmitInput btnDefClass">
-                </div>
-            </div>
-        </div>
-        -->
-        
-        
+<div class="container-fluid">
+<div class="row">
+<div class="col-xs-12 col-lg-4">
+<a href="#"> I'm a AnchorTag</a>
+<button> I'm a BTN </button>
+<input type="submit" value="I'm a SubmitInput">
+</div>
+</div>
+
+<!-- global btn bootstrap class , also available for color and size, activation ... etc ... check tut 12 -->
+        <!--  <div class="row">
+<div class="col-xs-12 col-lg-4">
+<a href="#" class="btn btn-default"> AnchorTag btnDefClass </a>
+<button class="btn btn-default"> BTN btnDefClass </button>
+<input class="btn btn-default" type="submit" value="SubmitInput btnDefClass">
+</div>
+</div>
+</div>
+-->
+
+
         <!--
-        <div class="jumbotron text-center">
-            <h1>My First Bootstrap Page</h1>
-            <p>Resize this responsive page to see the effect!</p> 
-        </div>
+<div class="jumbotron text-center">
+<h1>My First Bootstrap Page</h1>
+<p>Resize this responsive page to see the effect!</p> 
+</div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                    <h3>Column 1</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                    <h3>Column 2</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                    <h3>Column 3</h3>        
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-                </div>
-            </div>
-        </div>
+<div class="container">
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<h3>Column 1</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<h3>Column 2</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<h3>Column 3</h3>        
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+</div>
+</div>
+</div>
 
 
-        
-        <div class="container-fluid text-center background-color: #eee ">
-            <h1>My First Fluid container </h1>
-            <p>This is some text.</p> 
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                    <h3>Column 1</h3>
-                    <p>blubber</p>
-                    <p>blub</p>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                    <h3>Column 2</h3>
-                    <p>looooooooong bluuuuuuubbbbbeeeeeeeer</p>
-                    <p>blub</p>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                    <h3>Column 3</h3>        
-                    <p>.......................</p>
-                    <p>.......................</p>
-                </div>
-            </div>
-        </div> 
-        -->
+
+<div class="container-fluid text-center background-color: #eee ">
+<h1>My First Fluid container </h1>
+<p>This is some text.</p> 
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<h3>Column 1</h3>
+<p>blubber</p>
+<p>blub</p>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<h3>Column 2</h3>
+<p>looooooooong bluuuuuuubbbbbeeeeeeeer</p>
+<p>blub</p>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<h3>Column 3</h3>        
+<p>.......................</p>
+<p>.......................</p>
+</div>
+</div>
+</div> 
+-->
 
         <script>
 
