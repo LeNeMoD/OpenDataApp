@@ -71,6 +71,17 @@
                 console.log(data);
             })
 
+            d3.csv("2013-Cut-OhneWert-CSV-kurz-komma.csv", function(d) {
+                return {
+                    gruppe : d.Gruppe,
+                    parameter : d.Parameter,
+                    mg : +d.mg_pro_24h,
+                    
+                };
+            }, function(data) {
+                console.log(data[0]);
+            });
+
         </script>
 
         <!-- ask how inheritation is overvritten from bootstrap to get the own css inherited values -->
