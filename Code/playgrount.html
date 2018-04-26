@@ -38,7 +38,7 @@
 
         <script>
 
-            
+
             var svgPie = d3.select("body").append("svg")
             .attr("width", 500)
             .attr("height", 500);
@@ -55,27 +55,22 @@
             var pie = d3.pie()
             .value(function(d) {return d; }) ;
 
-                                            
             //Rand Color Gen
             function get_random_color() {
                 return '#'+Math.floor(Math.random()*16777215).toString(16);
             }
-            
-            var dataOuter = 
-            d3.csv("2013-Cut-OhneWert-CSV-kurz.csv" , function(error,data){
+
+
+            d3.csv("2013-Cut-OhneWert-CSV-kurz-komma.csv" , function(error,data){
                 if (error) throw error;
 
-                
+
+                console.log(data[0]);                               console.log(data[0].PbTyp);
+
+
                 console.log(data);
-                console.log(data.Parameter); 
-                console.log(data[0].Parameter); 
-                console.log(data[1].Parameter); 
-                console.log(data[2].Parameter); 
-                console.log(data[3].Parameter); 
-
-
             })
-            
+
         </script>
 
         <!-- ask how inheritation is overvritten from bootstrap to get the own css inherited values -->
