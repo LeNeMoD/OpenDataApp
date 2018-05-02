@@ -10,3 +10,8 @@ h1{
 .clicked{
     color: brown;
 }
+
+#sidebar {
+    font-family: cursive;
+    font-size: 12px;
+}
