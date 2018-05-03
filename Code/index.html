@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- responsive style viewport for mobile  wichtig für boodstrap responsive -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- to include the language <html lang="en"> to the page -->
-
         <!-- Charset -->
         <meta charset="utf-8">
+        <!-- responsive style viewport for mobile  wichtig für boodstrap responsive -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- to include the language <html lang="en"> to the page -->
 
-        <!-- Offline resources -->
-        <!-- todo: Add d3 Bootstrap JQuery -->
 
-        <link rel="stylesheet" type="text/css" href="externalCss.css">
 
 
         <!-- Online resources -->
-        <!-- d3 -->
+        <!-- d3 V4 -->
         <script src="https://d3js.org/d3.v4.js"></script> 
+        <!-- d3 V3 -->
+        <!--<script src="https://d3js.org/d3.v3.js"></script> -->
         <!-- JQuery --> 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <!-- Popper -->         
@@ -28,6 +24,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
+        <!-- Offline resources -->
         <!-- external CSS -->
         <link rel="stylesheet" type="text/css" href="externalCss.css">
 
@@ -37,7 +34,8 @@
 
     <body>
         <div class="container-fluid ">
-            <div class="row display-flex">
+            <div class="row">
+                <!--<div class="row display-flex">-->
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" >
                     <div class="form-group">
                         <select multiple class="form-control" id="sidebar">
@@ -50,6 +48,8 @@
                 </div>
             </div>    
         </div>
+
+
         <!--<div class="row"> 
 <div class="col-2" >
 </div>
@@ -65,10 +65,6 @@
 
             var selectedPestizide;
 
-
-
-
-
             d3.json("2013-Cut-Pestizide-JSON.json" , function(error,data){
                 if (error) throw error;
                 //console.log(data);
@@ -80,7 +76,7 @@
                     d.M_in_mg_L = d.M_in_mg_L;
 
                 });
-                
+
                 var nestedData = renderNestParams(data);
                 //console.log(nestedData);
 
@@ -98,45 +94,85 @@
                 //-------------------end date conversion function-----------------//
 
                 //--------------start render .. nest data for parameter --------------//
-                
+
                 function renderNestParams(data){
                     var nested = d3.nest()
-                        .key(function(d) {return d["Parameter"];})
-                        .entries(data);
-                    
+                    .key(function(d) {return d["Parameter"];})
+                    .entries(data);
+
                     //d3.select("body").append("pre")
                     //    .text(JSON.stringify(nested, null, 2));
                     //console.log(nested);
                     return nested;
                 }
-                
+
                 //--------------end render .. nest data for parameter --------------//
-                
+
                 //-------------------start diagram-----------------//
-                
+
                 var outherWidth = 500;
                 var outherHeight = 250;
                 var margin = {left: 50, top: 5, right: 50, bottom: 5};
-                
+
                 var innerWidth = outherWidth - margin.left - margin.right;
                 var innerHeight = outherHeight -margin.top - margin.bottom;
-                
+
                 var xColumn = "Datum_Start";
                 var yColumn = "M_in_mg_L";
-                
+
                 var xAxisLabelText = "Datum";
                 var xAxisLabelOffset = 50;
                 var yAxisLabelText = "Milligramm";
                 var yAxisLabelOffset = 50;
-                
+
                 var svg = d3.select("#diagramm").append("svg")
-                    .attr("border","12px");
-                    .("width", )
+                .attr("border","12px")
+                .attr("width", outherWidth)
+                .attr("height", outherHeight);
+
+                var g = svg.append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                var xAxisG = g.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + innerHeight + ")")
+
+                var xAxisLabel = xAxisG.append("text")
+                .style("text-anchor", "middle")
+                .attr("transform", "translate(" + (innerWidth / 2) + "," + xAxisLabelOffset + ")")
+                .attr("class", "label")
+                .text(xAxisLabelText);
+
+                var yAxisG = g.append("g")
+                .attr("class", "y axis");
+
+                var yAxisLabel = yAxisG.append("text")
+                .style("text-anchor", "middle")
+                .attr("transform", "translate(-" + yAxisLabelOffset + "," + (innerHeight / 2) + ") rotate(-90)")
+                .attr("class", "label")
+                .text(yAxisLabelText);
+
+                var xScale = d3.scaleTime().range([0, innerWidth]);
+                var yScale = d3.scaleLinear().range([innerHeight, 0]);
+
+                var xAxis = d3.axisBottom(xScale)
+                .ticks(5)
+                .tickSizeOuter(0);
                 
+                var yAxis = d3.axisLeft(yScale)
+                .ticks(5)
+                .tickSizeOuter(0);
+                
+                var line = d3.line()
+                .x(function(d) { return xScale(d[xColumn]); })
+                .y(function(d) { return yScale(d[yColumn]); });
+
                 var svg = d3.select("#diagramm").append("svg")
                 .attr("border","12px");
+                
 
-                var margin = {top: 20, right: 20, bottom: 30, left: 50},
+
+                /*var margin = {top: 20, right: 20, bottom: 30, left: 50},
                     width = 960 - margin.left - margin.right,
                     height = 500 - margin.top - margin.bottom;
 
@@ -150,7 +186,7 @@
                     return x(d.Datum_Start); })
                 .y(function(d) { //console.log(d.M_in_mg_L);
                     return y(d.M_in_mg_L); });
- 
+
                 // Scale the range of the data
                 x.domain(d3.extent(data, function(d) { return d[xColumn]; }));
                 y.domain([0, d3.max(data, function(d) { return d[yColumn]; })]);
@@ -168,7 +204,7 @@
 
                 // Add the Y Axis
                 svg.append("g")
-                    .call(d3.axisLeft(y));
+                    .call(d3.axisLeft(y));*/
 
 
 
