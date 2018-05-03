@@ -7,6 +7,9 @@
         <svg width="960" height="500"></svg>
         <script>
 
+            d3.json("2013-Cut-Pestizide-Atrazin-JSON.json", function(error, data) {
+                if (error) throw error;
+                
             var svg = d3.select("svg"),
                 margin = {top: 20, right: 20, bottom: 30, left: 50},
                 width = +svg.attr("width") - margin.left - margin.right,
@@ -17,49 +20,48 @@
 
             var x = d3.scaleTime().rangeRound([0, width]);
             var y = d3.scaleLinear().rangeRound([height, 0]);
-            var z = d3.scaleOrdinal(d3.schemeCategory20b);
+            var z = d3.scaleOrdinal(d3.schemeCategory20d);
 
             var line = d3.line()
-                .curve(d3.curveBasis)
+                .defined(function(d) { return d; })
                 .x(function(d) { return x(d.Datum_Start); })
-                .y(function(d) { return y(+d.M_in_mg_L); });
-
-            d3.json("2013-Cut-Pestizide-JSON.json", function(error, data) {
-                if (error) throw error;
-
-                var existingParameters = [];
-                for(i=0; i<data.length; i++){
-                    existingParameters.indexOf(data[i].Parameter) === -1 ? existingParameters.push(data[i].Parameter) : null ;
-                } 
+                .y(function(d) { return y(d.M_in_mg_L); });
+            //d3.line()
+              //  .curve(d3.curveBasis)
+                //.x(function(d) { return x(d.Datum_Start); })
+                //.y(function(d) { return y(+d.M_in_mg_L); });
+     
+                // format the data
+                data.forEach(function(d) {
+                    d.Datum_Start = parseTime(d.Datum_Start);
+                    d.M_in_mg_L = +d.M_in_mg_L;
+                });
                 
-                function renderNestParams(data){
+                function nestParams(data){
                     var nested = d3.nest()
                     .key(function(d) {return d["Parameter"];})
                     .entries(data);
                     //d3.select("body").append("pre")
                     //    .text(JSON.stringify(nested, null, 2));
-                    //console.log(nested);
                     return nested;
                 }
                 
-                var nestedData = renderNestParams(data);
-                console.log("nested data is logged: ");
-                console.log(nestedData);
+                //console.log("nestParams is logged: ");
+                //console.log(nestParams(data));
                 
-                // format the data
-                nestedData.forEach(function(d) {
+                var nestedDataParams = nestParams(data);
+                //console.log("nestedDataParams Variable is logged: ");
+                //console.log(nestedDataParams);
+                
+                nestedDataParams.forEach(function(d) {
                     d.Datum_Start = parseTime(d.Datum_Start);
+                    console.log(d);
+                    console.log(d.values[1]);
                     d.M_in_mg_L = +d.M_in_mg_L;
                 });
-                
+
                 x.domain(d3.extent(data, function(d) { return d.Datum_Start; }));
-                y.domain([0, d3.max(data, function(d) { return d.M_in_mg_L; })]);
-                
-                //x.domain(d3.extent(nestedData, function(d) { return d.Datum_Start; }));
-                //y.domain([d3.min(nestedData, function(c) { return d3.min(c.values, function(d) { return d.M_in_mg_L; }); }),
-                //        d3.max(nestedData, function(c) { return d3.max(c.values, function(d) { return d.M_in_mg_L; }); })
-  //]);
-                y.domain(d3.extent(nestedData, function(d) { return d.M_in_mg_L; }));
+                y.domain(d3.extent(data, function(d) { return d.M_in_mg_L; }));
 
                 svgG.append("g")
                     .attr("transform", "translate(0," + height + ")")
@@ -77,18 +79,27 @@
                     .attr("text-anchor", "middle")
                     .text("MG/L");
 
-                 svg.selectAll(".line")
-                     .data(nestedData)
-                     .enter()
+                svg.selectAll("line")
+                    .data(data)
+                    .enter()
                         .append("path")
-                        .attr("fill", "none")
+                        .attr("class", "line")
                         .attr("stroke", "steelblue")
-                        .attr("stroke-linejoin", "round")
-                        .attr("stroke-linecap", "round")
                         .attr("stroke-width", 1.5)
-                    .attr("class", "line")
-                    .attr("d", line)
-                        //.attr("d",  function(d){console.log("logging all d values ");console.log(d.values);return //line(d.values);});
+                        .attr("d", line);
+                
+                svg.selectAll(".dot")
+                    .data(data.filter(function(d) { return d; }))
+                    .enter()
+                        .append("circle")
+                        .attr("class", "dot")
+                        .attr("cx", line.x())
+                        .attr("cy", line.y())
+                        .attr("r", 2.5)
+                        .attr("stroke", "blue")
+                        .attr("stroke-width", 1)
+                        .attr("fill", "white");
+
             });
 
         </script>
