@@ -27,7 +27,6 @@
             </nav>
             <div id="page-content-wrapper">
                 <div class="content-header">
-
                 </div>
                 <!-- Keep all page content within the page-content inset div! -->
                 <div class="page-content inset">
@@ -45,7 +44,7 @@
                 if (error) throw error;
 
                 //--------START---------Parse Date--------------//
-            var parseTime = d3.timeParse("%d.%m.%Y");
+                var parseTime = d3.timeParse("%d.%m.%Y");
 
                 data.forEach(function(d) {
                     d.Datum_Start = parseTime(d.Datum_Start);
@@ -74,11 +73,11 @@
                 //--------END---------Nest Data--------------//
 
                 //--------Start---------Visual HTML Elements--------------//
-                var svg = d3.select("svg");
+                /*var svg = d3.select("svg");
                 var margin = {top: 20, right: 20, bottom: 30, left: 400};
                 var width = +svg.attr("width") - margin.left - margin.right;
                 var height = +svg.attr("height") - margin.top - margin.bottom;
-                var g = svg.append("g").attr("transform", "translate(" + margin.left + "," +            margin.top + ")");
+                var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
                 //--------Start---------Graph things--------------//
@@ -119,7 +118,7 @@
                     .attr("stroke-linecap", "round")
                     .attr("stroke-width", 1.5)
                     .attr("d", line);
-            
+                */
                 //--------END---------Graph things--------------//
 
 
