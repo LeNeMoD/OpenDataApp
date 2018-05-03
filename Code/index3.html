@@ -32,20 +32,20 @@
                 <!-- Keep all page content within the page-content inset div! -->
                 <div class="page-content inset">
                     <div class="row">
-                        <svg>
-                        </svg>
-
+                        <svg width="2000" height="500">
                     </div>
                 </div>
             </div>
         </div>
+        <!--<svg width="960" height="500">-->
+        </svg>
         <script>
 
-            d3.json("2013-Cut-Pestizide-JSON.json", function(error, data) {
+            d3.json("2013-Cut-Pestizide-Atrazin-JSON.json", function(error, data) {
                 if (error) throw error;
 
                 //--------START---------Parse Date--------------//
-                var parseTime = d3.timeParse("%d.%m.%Y");
+            var parseTime = d3.timeParse("%d.%m.%Y");
 
                 data.forEach(function(d) {
                     d.Datum_Start = parseTime(d.Datum_Start);
@@ -75,19 +75,51 @@
 
                 //--------Start---------Visual HTML Elements--------------//
                 var svg = d3.select("svg");
-
-                var margin = {top: 20, right: 20, bottom: 30, left: 50};
+                var margin = {top: 20, right: 20, bottom: 30, left: 400};
                 var width = +svg.attr("width") - margin.left - margin.right;
                 var height = +svg.attr("height") - margin.top - margin.bottom;
-
-                var svgGElem = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                var g = svg.append("g").attr("transform", "translate(" + margin.left + "," +            margin.top + ")");
 
 
                 //--------Start---------Graph things--------------//
+                
                 var x = d3.scaleTime().rangeRound([0, width]);
                 var y = d3.scaleLinear().rangeRound([height, 0]);
-                var z = d3.scaleOrdinal(d3.schemeCategory20d);
+                var z = d3.scaleOrdinal(d3.schemeCategory10);
+                
+                var line = d3.line()
+                    .curve(d3.curveBasis)
+                    .x(function(d) { return x(d.Datum_Start); })
+                    .y(function(d) { return y(d.M_in_mg_L); });
+                
+                x.domain(d3.extent(data, function(d) { return d.Datum_Start; }));
+                y.domain(d3.extent(data, function(d) { return d.M_in_mg_L; }));
 
+                g.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x))
+                    .select(".domain")
+                    .remove();
+
+                g.append("g")
+                    .call(d3.axisLeft(y))
+                    .append("text")
+                    .attr("fill", "#000")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 6)
+                    .attr("dy", "0.71em")
+                    .attr("text-anchor", "middle")
+                    .text("MG/L");
+
+                g.append("path")
+                    .datum(data)
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-linejoin", "round")
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", line);
+            
                 //--------END---------Graph things--------------//
 
 
