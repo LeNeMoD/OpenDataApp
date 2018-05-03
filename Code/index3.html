@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="externalCss2.css">
+
+    </head>
+    <body>
+        <nav class="navbar navbar-default" role="navigation">
+	<div class="container">
+		<div id="sidebar-wrapper" class="sidebar-toggle">
+			<ul class="sidebar-nav" id="sidebar">
+		    	<li>
+		    	</li>
+
+		  	</ul>
+		</div>
+  	</div>
+</nav>
+        <svg width="960" height="500"></svg>
+        <script>
+
+            d3.json("2013-Cut-Pestizide-JSON.json", function(error, data) {
+                if (error) throw error;
+                
+                //--------START---------Parse Date--------------//
+                var parseTime = d3.timeParse("%d.%m.%Y");
+                
+                data.forEach(function(d) {
+                    d.Datum_Start = parseTime(d.Datum_Start);
+                    //console.log(d.Datum_Start);
+                    d.M_in_mg_L = +d.M_in_mg_L;
+                    //console.log(d.M_in_mg_L);
+                });
+                //--------END---------Parse Date--------------//
+
+                
+                //--------START---------Nest Data--------------//
+                function nestParams(data){
+                    var nested = d3.nest()
+                    .key(function(d) {return d["Parameter"];})
+                    .entries(data);
+                    //d3.select("body").append("pre")
+                    //    .text(JSON.stringify(nested, null, 2));
+                    return nested;
+                }
+                //console.log("nestParams is logged: ");
+                //console.log(nestParams(data));
+                
+                var nestedDataParamTypes = nestParams(data);
+                    //console.log("nestedDataParams Variable is logged: ");
+                    //console.log(nestedDataParamTypes);
+                //--------END---------Nest Data--------------//
+                
+                //--------Start---------Visual HTML Elements--------------//
+                var svg = d3.select("svg");
+                
+                var margin = {top: 20, right: 20, bottom: 30, left: 50};
+                var width = +svg.attr("width") - margin.left - margin.right;
+                var height = +svg.attr("height") - margin.top - margin.bottom;
+                
+                var svgGElem = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                
+                
+                //--------Start---------Graph things--------------//
+                var x = d3.scaleTime().rangeRound([0, width]);
+                var y = d3.scaleLinear().rangeRound([height, 0]);
+                var z = d3.scaleOrdinal(d3.schemeCategory20d);
+                
+                //--------END---------Graph things--------------//
+
+                
+                var existingParameters = [];
+                for(i=0; i<data.length; i++){
+                    existingParameters.indexOf(data[i].Parameter) === -1 ? existingParameters.push(data[i].Parameter) : null ;
+
+                }  
+                console.log(existingParameters);
+
+                /*var ul = d3.select('#sidebar')
+                    .selectAll('option')
+                    .data(existingParameters)
+                    .enter()
+                    .append('option')
+                    .html(String);*/
+                
+                var ul = d3.select('#sidebar')
+                    .selectAll("li")
+                    .data(existingParameters)
+                    .enter()
+                    .append("li")
+                        .append("a")
+                        .attr("href", String)
+                    .html(String);
+
+        }); 
+            
+        </script>
+
+    </body>
+
+</html>
