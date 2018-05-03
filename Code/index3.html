@@ -19,8 +19,6 @@
                 <div class="container">
                     <div id="sidebar-wrapper" class="sidebar-toggle">
                         <ul class="sidebar-nav" id="sidebar">
-                            <li>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -31,16 +29,16 @@
                 <!-- Keep all page content within the page-content inset div! -->
                 <div class="page-content inset">
                     <div class="row">
-                        <svg width="2000" height="500">
+                        <svg width="2000" height="500"></svg>
                     </div>
                 </div>
             </div>
         </div>
         <!--<svg width="960" height="500">-->
-        </svg>
+        
         <script>
 
-            d3.json("2013-Cut-Pestizide-Atrazin-JSON.json", function(error, data) {
+            d3.json("2013-Cut-Pestizide-JSON.json", function(error, data) {
                 if (error) throw error;
 
                 //--------START---------Parse Date--------------//
@@ -73,7 +71,7 @@
                 //--------END---------Nest Data--------------//
 
                 //--------Start---------Visual HTML Elements--------------//
-                /*var svg = d3.select("svg");
+                var svg = d3.select("svg");
                 var margin = {top: 20, right: 20, bottom: 30, left: 400};
                 var width = +svg.attr("width") - margin.left - margin.right;
                 var height = +svg.attr("height") - margin.top - margin.bottom;
@@ -118,14 +116,14 @@
                     .attr("stroke-linecap", "round")
                     .attr("stroke-width", 1.5)
                     .attr("d", line);
-                */
+                
                 //--------END---------Graph things--------------//
 
 
                 var existingParameters = [];
                 for(i=0; i<data.length; i++){
                     existingParameters.indexOf(data[i].Parameter) === -1 ? existingParameters.push(data[i].Parameter) : null ;
-
+                    existingParameters.sort();
                 }  
                 console.log(existingParameters);
 
