@@ -14,7 +14,10 @@
 
     </head>
     <body>
+        <div class="container-fluid">
+        <div class="row">
         <div id="wrapper">
+            <div class="col-sm-12 col-lg-3">
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container">
                     <div id="sidebar-wrapper" class="sidebar-toggle">
@@ -23,16 +26,20 @@
                     </div>
                 </div>
             </nav>
+
+            <div class="col-sm-12 col-lg-9">
             <div id="page-content-wrapper">
                 <div class="content-header">
                 </div>
                 <!-- Keep all page content within the page-content inset div! -->
                 <div class="page-content inset">
-                    <div class="row">
                         <svg width="2000" height="500"></svg>
-                    </div>
                 </div>
             </div>
+        </div>
+            </div>
+            </div>
+            </div>                                          
         </div>
         <!--<svg width="960" height="500">-->
         
@@ -75,7 +82,9 @@
                 var margin = {top: 20, right: 20, bottom: 30, left: 400};
                 var width = +svg.attr("width") - margin.left - margin.right;
                 var height = +svg.attr("height") - margin.top - margin.bottom;
-                var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                var g = svg.append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                    .attr("id", "svgGofGraph");
 
 
                 //--------Start---------Graph things--------------//
@@ -121,15 +130,16 @@
                     .data(data)
                     .enter()
                         .append("circle")
-                        .attr("r", 3.5)
+                        .attr("r", 1.5)
                         .attr("cx", function(d) { return x(d.Datum_Start); })
                         .attr("cy", function(d) { return y(d.M_in_mg_L); })
                         .on("mouseover", handleMouseEnter)
-                        .on("mouseout", tipMouseout);
+                        .on("mouseout", handleMouseLeave);
                 
                 //--------END---------Graph things--------------//
                 //--------START-------Other Elements------------
-                
+                //var circleGroup = svg.select("g").append("g")
+                //    .attr('id', 'circleGroup');
                 
                 var existingParameters = [];
                 for(i=0; i<data.length; i++){
@@ -161,35 +171,23 @@
                 //--------START-------Event Handlers------------//
                 
                 function handleMouseEnter(d, i) {
-        d3.select(this).attr("opacity", 0.5)
-                    .style("fill","yellow");
-        //d3.select(this).style("fill","green");
-    }
+                    d3.select(this)
+                        .attr("opacity", 1.0)
+                        .attr("r", 5)
+                        .style("fill","yellow");
+                    //d3.select(this).style("fill","green");
+                    }
                 
-                // tooltip mouseover event handler
-                var tipMouseover = function(d) {
-                    console.log("Mouse-Over is called");
-                    /*var html  = d.cereal + "<br/>" +
-                        "<span style='color:" + color + ";'>" + d.manufacturer + "</span><br/>" +
-                        "<b>" + d.sugar + "</b> sugar, <b/>" + d.calories + "</b> calories";
-*/
-                    tooltip//.html(html)
-                        //.style("left", (d3.event.pageX + 15) + "px")
-                        //.style("top", (d3.event.pageY - 28) + "px")
-                        .transition()
-                        .duration(200) // ms
-                        .style("fill", "yellow")
-                        .style("opacity", .9); // started as 0!
-
-              };
+                function handleMouseLeave(d, i) {
+                    d3.select(this)
+                        .attr("opacity" , 1.0)
+                        .attr("r", 1.5)
+                        .style("fill","black");
+                }
                 
-                // tooltip mouseout event handler
-                var tipMouseout = function(d) {
-                    console.log("Mouse-OUT is called");
-                    tooltip.transition()
-                      .duration(300) // ms
-                      .style("fill", "red"); // don't care about position!
-                    };
+                window.addEventListener('resize', function() {
+                        console.log("The window was resized!");
+                        });                
                 //--------END---------Event Handlers------------//
             }); 
 
