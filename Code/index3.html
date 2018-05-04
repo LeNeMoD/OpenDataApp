@@ -117,24 +117,26 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", line);
                 
-                g.selectAll("dot")
+                g.selectAll("circle")
                     .data(data)
                     .enter()
                         .append("circle")
                         .attr("r", 3.5)
                         .attr("cx", function(d) { return x(d.Datum_Start); })
                         .attr("cy", function(d) { return y(d.M_in_mg_L); })
-                        .on("mouseover", tipMouseover)
+                        .on("mouseover", handleMouseEnter)
                         .on("mouseout", tipMouseout);
                 
                 //--------END---------Graph things--------------//
-
+                //--------START-------Other Elements------------
+                
+                
                 var existingParameters = [];
                 for(i=0; i<data.length; i++){
                     existingParameters.indexOf(data[i].Parameter) === -1 ? existingParameters.push(data[i].Parameter) : null ;
                     existingParameters.sort();
                 }  
-                console.log(existingParameters);
+                //console.log(existingParameters);
 
                 /*var ul = d3.select('#sidebar')
                     .selectAll('option')
@@ -156,11 +158,17 @@
                 .html(String)
                 .style("color", "white");
                 
-                                //--------START-------Event Handlers------------//
+                //--------START-------Event Handlers------------//
+                
+                function handleMouseEnter(d, i) {
+        d3.select(this).attr("opacity", 0.5)
+                    .style("fill","yellow");
+        //d3.select(this).style("fill","green");
+    }
                 
                 // tooltip mouseover event handler
                 var tipMouseover = function(d) {
-                    var color = color("blue");
+                    console.log("Mouse-Over is called");
                     /*var html  = d.cereal + "<br/>" +
                         "<span style='color:" + color + ";'>" + d.manufacturer + "</span><br/>" +
                         "<b>" + d.sugar + "</b> sugar, <b/>" + d.calories + "</b> calories";
@@ -177,6 +185,7 @@
                 
                 // tooltip mouseout event handler
                 var tipMouseout = function(d) {
+                    console.log("Mouse-OUT is called");
                     tooltip.transition()
                       .duration(300) // ms
                       .style("fill", "red"); // don't care about position!
