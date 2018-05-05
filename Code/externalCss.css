@@ -6,3 +6,36 @@ svg {
 h1{
     color: royalblue;
 }
+
+.clicked{
+    color: brown;
+}
+
+#sidebar {
+    font-family: arial;
+    font-size: 12px;
+}
+
+.line {
+    fill: none;
+    stroke: black;
+    stroke-width: 2px;
+}
+/*
+.flex-container{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    background-color: #cceeee;
+}
+
+.parent {
+  display: flex;
+  height: auto; 
+}
+
+.child {
+  width: auto;  
+  height: auto; 
+  margin: auto;  
+}*/

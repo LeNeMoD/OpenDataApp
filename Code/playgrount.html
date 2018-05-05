@@ -1,23 +1,225 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- check how to change path -->
-        <script src="https://d3js.org/d3.v4.js"></script> 
 
-        <!--<script src=d3.js></script> -->
+        <!-- responsive style viewport for mobile  wichtig für boodstrap responsive -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- to include the language <html lang="en"> to the page -->
+
+        <!-- Charset -->
+        <meta charset="utf-8">
+
+        <!-- Offline resources -->
+        <!-- todo: Add d3 Bootstrap JQuery -->
 
         <link rel="stylesheet" type="text/css" href="externalCss.css">
 
+
+        <!-- Online resources -->
+        <!-- d3 -->
+        <script src="https://d3js.org/d3.v4.js"></script> 
+        <!-- JQuery --> 
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <!-- Popper -->         
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <!-- latest Bootstrap’s compiled CSS and JS --> 
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+        <!-- external CSS -->
+        <link rel="stylesheet" type="text/css" href="externalCss.css">
+
+
     </head>
-    
 
     <body>
 
         <script>
-        
+
+
+            //Rand Color Gen
+            function get_random_color() {
+                return '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
+            
+            function get_random_colors(d) {
+                var colArray = [];
+                for(i=0 ; i<d ; i++){
+                    colArray[i]='#'+Math.floor(Math.random()*16777215).toString(16);
+                }
+                return colArray;
+            }
+
+            
+            var svgPie = d3.select("body").append("svg")
+            .attr("width", 500)
+            .attr("height", 500);
+
+            var group = svgPie.append("g")
+            .attr("transform", "translate(250,250)");
+
+            //arc generator
+            var arc = d3.arc()
+            .innerRadius(50)
+            .outerRadius(100);
+
+            //pie generator
+            var pie = d3.pie()
+            .value(function(d) {
+                console.log("d itself: ");
+                console.log(d)
+                console.log(" the d values: ");
+                console.log(d.values)
+                return d.values.lenght; }) ;
+            
+            d3.json("2013-Cut-OhneWert-CSV.json" , function(error,data){
+                if (error) throw error;
+
+                console.log(data[0]);                               console.log(data[0].PbTyp);
+                console.log(data);
+                
+                //sort for parameter
+                var parameter_list = console.log(d3.nest().key(function(d){
+                    return d.Parameter; })
+                    .entries(data));
+                
+                console.log(parameter_list);
+                
+                //sort for Gruppe
+                var gruppen_list = (d3.nest().key(function(d){
+                    return d.Gruppe; })
+                    .entries(data));
+                
+                console.log(gruppen_list);   
+                
+                var dummyData = [10, 20, 30, 50, 100];
+                
+                var arcs = group.selectAll(".arc")
+                    .data(pie(gruppen_list))
+                    .enter()
+                    .append("g")
+                    .attr("class", "arc");
                     
-            var svg = d3.select("body")
-                        .append("svg")
+                arcs.append("path")
+                    .attr("d", arc)
+                    .style("fill", function(d) 
+                           {var colors = get_random_colors(d.length); 
+                           return colors.d} );
+                
+                
+            })
+
+            
+
+        </script>
+
+        <!-- ask how inheritation is overvritten from bootstrap to get the own css inherited values -->
+        <!--
+<div class="container">
+<ul class="nav nav-tabs">
+<li class="active"><a href="#"> tab 1 </a></li>
+<li><a href="#"> tab 2 </a></li>
+<li><a href="#"> tab 3 </a></li>
+<li><a href="#"> tab 4 </a></li>
+</ul>
+
+</div>
+
+<script>
+$(".nav li").on("click", function(){
+$(".nav li").removeClass("active");
+$(this).addClass("active");
+$(this).toggleClass("clicked");
+})
+</script>
+-->
+
+
+        <!--
+<div class="container-fluid">
+<div class="row">
+<div class="col-xs-12 col-lg-4">
+<a href="#"> I'm a AnchorTag</a>
+<button> I'm a BTN </button>
+<input type="submit" value="I'm a SubmitInput">
+</div>
+</div>
+
+<!-- global btn bootstrap class , also available for color and size, activation ... etc ... check tut 12 -->
+        <!--  <div class="row">
+<div class="col-xs-12 col-lg-4">
+<a href="#" class="btn btn-default"> AnchorTag btnDefClass </a>
+<button class="btn btn-default"> BTN btnDefClass </button>
+<input class="btn btn-default" type="submit" value="SubmitInput btnDefClass">
+</div>
+</div>
+</div>
+-->
+
+
+        <!--
+<div class="jumbotron text-center">
+<h1>My First Bootstrap Page</h1>
+<p>Resize this responsive page to see the effect!</p> 
+</div>
+
+<div class="container">
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<h3>Column 1</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<h3>Column 2</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<h3>Column 3</h3>        
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+</div>
+</div>
+</div>
+
+
+
+<div class="container-fluid text-center background-color: #eee ">
+<h1>My First Fluid container </h1>
+<p>This is some text.</p> 
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<h3>Column 1</h3>
+<p>blubber</p>
+<p>blub</p>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<h3>Column 2</h3>
+<p>looooooooong bluuuuuuubbbbbeeeeeeeer</p>
+<p>blub</p>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<h3>Column 3</h3>        
+<p>.......................</p>
+<p>.......................</p>
+</div>
+</div>
+</div> 
+-->
+
+        <script>
+
+            /**
+                var svg = d3.select("body")
+                .append("svg")
+
+                svg.append("calendar-container").attr("blubber")
+                */
+
+
 
             /**
             //simple json import bar chart 
@@ -39,20 +241,20 @@
                         .attr("y" , function(d,i) {return ((i*40)+15)})
                         .text(function(d) {return d.name}) 
                     })*/
-            
+
             /**
             var someNumbers = [ 5, 25, 12, 16, 55, 88];
             var numbers = [7];
 
-            
+
             var filteredNumbers = someNumbers 
                 .filter(function(d){return d <= 50 ? this : null;});
-            
+
             var circleInPage = svg.append("circle")
                 .attr("cx", 20)
                 .attr("cy", 20)
                 .attr("r", 20);*/
-            
+
             /**
             //transition on end and start of the transiotion .. attribs to last call 
             circleInPage.transition().duration(1000).attr("cx", 100 )
@@ -74,17 +276,17 @@
                                     .attr("r", function(d,i){return d})
                                     .attr("fill", "yellow")
                                     .attr("stroke", "black")
-                                    
-                
+
+
             //less data than elements
            var d3CirclesExitSel = svg.selectAll("circle")
                                     .data(filteredNumbers)
                                     .exit()
                                     .attr("fill", "green")
                                     .attr("stroke", "green")
-           
+
             */
-            
+
             /**d3.select("svg").selectAll("circle")
                 .data(filteredNumbers)
                 .enter()
@@ -93,7 +295,7 @@
                 .attr("cy", function(d,i){return i*100;})
                 .attr("r", function(d){return d;})
                 .style("fill", function(d){return d<100? "green":"red" ;})*/
-            
+
             /**d3.select("body").selectAll("div")
                 .data(filteredNumbers)
                 .enter()
@@ -101,9 +303,7 @@
                 .html(function (d){return d})
                 .append("span")
                 .html(function(d,i){ return " was array index : " + i ;});*/
-            
-            
+
         </script>
-        
     </body>
 </html>
