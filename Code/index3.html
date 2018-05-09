@@ -112,7 +112,6 @@
                 subdataArray = [];
                 for(i=0 ; i<data.length; i++){
                     if(data[i].key === key){
-                        //console.log(data[i]);
                         subdataArray = data[i];
                     }
                 }
@@ -125,7 +124,7 @@
                 //console.log("first list params");
                 console.log(data);
                 for(i=0 ; i<data.length; i++){
-                    console.log(data[i].key);
+                    //console.log(data[i].key);
                     existingParametersArray[i] = data[i].key;
                 }
                 //console.log(existingParametersArray);
@@ -149,13 +148,12 @@
                     .style("fill","black");
             }
 
-            var selectedButtonSidebar = "placeholder";
+            var selectedParamaterOnSidebar = "placeholder";
 
             function handleMouseClickSidebar(d, i) {
-                var selectedParamaterOnSidebar = d3.select(this)
+                selectedParamaterOnSidebar = d3.select(this)
                 .text();
-                //console.log(selectedParamaterOnSidebar);
-                dravChart(getSubDataArray(nestedDataParamTypes, selectedButtonSidebar));
+                dravChart(getSubDataArray(nestedDataParamTypes, selectedParamaterOnSidebar));
 
             }
 
@@ -170,15 +168,19 @@
             function dravChart(data){
                 var x = d3.scaleTime().rangeRound([0, width]);
                 var y = d3.scaleLinear().rangeRound([height, 0]);
-                var z = d3.scaleOrdinal(d3.schemeCategory10);
+                
+                console.log("data for the GRAPH:");
+                console.log(data);
+                console.log(data.values[1].Datum_Start);
 
                 var line = d3.line()
                 .curve(d3.curveBasis)
-                .x(function(d) { return x(d.Datum_Start); })
-                .y(function(d) { return y(d.M_in_mg_L); });
+                .x(function(d) { 
+                    return x(d.values.Datum_Start); })
+                .y(function(d) { return y(d.values.M_in_mg_L); });
 
-                x.domain(d3.extent(data, function(d) { return d.Datum_Start; }));
-                y.domain(d3.extent(data, function(d) { return d.M_in_mg_L; }));
+                x.domain(d3.extent(data, function(d) { return d.values.Datum_Start; }));
+                y.domain(d3.extent(data, function(d) { return d.values.M_in_mg_L; }));
 
                 g.append("g")
                     .attr("transform", "translate(0," + height + ")")
@@ -210,8 +212,8 @@
                     .enter()
                     .append("circle")
                     .attr("r", 1.5)
-                    .attr("cx", function(d) { return x(d.Datum_Start); })
-                    .attr("cy", function(d) { return y(d.M_in_mg_L); })
+                    .attr("cx", function(d) { return x(d.values.Datum_Start); })
+                    .attr("cy", function(d) { return y(d.values.M_in_mg_L); })
                     .on("mouseover", handleMouseEnter)
                     .on("mouseout", handleMouseLeave);
 
