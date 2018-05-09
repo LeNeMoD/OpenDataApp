@@ -45,7 +45,7 @@
         
         <script>
 
-            d3.json("2013-Cut-Pestizide-JSON.json", function(error, data) {
+            d3.json("2013-Cut-Pestizide-Atrazin-JSON.json", function(error, data) {
                 if (error) throw error;
 
                 //--------START---------Parse Date--------------//
@@ -154,19 +154,20 @@
                             .y(function(d) { return yScale(d.M_in_mg_L); });
                     
                     // draw the path based on the line created above
-                    path.datum(data)
-                        .attr("fill", "none")
-                        .attr("stroke", "steelblue")
-                        .attr("stroke-linejoin", "round")
-                        .attr("stroke-linecap", "round")
-                        .attr("stroke-width", 1.5)
-                        .attr("d", line);
+                    //path.datum(data)
+                      //  .attr("fill", "none")
+                    //    .attr("stroke", "steelblue")
+                    //    .attr("stroke-linejoin", "round")
+                    //    .attr("stroke-linecap", "round")
+                    //    .attr("stroke-width", 1.5)
+                    //    .attr("d", line);
                    
                     artboard.selectAll("circle")
                     .data(data)
                     .enter()
                         .append("circle")
-                        .attr("r", 1.5)
+                        .attr("r", 2.5)
+                        .style("fill","blue")
                         .attr("cx", function(d) { return xScale(d.Datum_Start); })
                         .attr("cy", function(d) { return yScale(d.M_in_mg_L); })
                         .on("mouseover", handleMouseEnter)
@@ -249,7 +250,8 @@
                 function handleMouseEnter(d, i) {
                     d3.select(this)
                         .attr("opacity", 1.0)
-                        .attr("r", 5)
+                        .attr("r", 10)
+                        .attr("stroke", "black")
                         .style("fill","yellow");
                     //d3.select(this).style("fill","green");
                     }
@@ -257,8 +259,8 @@
                 function handleMouseLeave(d, i) {
                     d3.select(this)
                         .attr("opacity" , 1.0)
-                        .attr("r", 1.5)
-                        .style("fill","black");
+                        .attr("r", 2.5)
+                        .style("fill","blue");
                 }
                 
                 window.addEventListener('resize', drawChart);
