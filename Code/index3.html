@@ -44,7 +44,7 @@
         <!--<svg width="960" height="500">-->
         
         <script>
-
+            var nestedDataParamTypes = [];
             d3.json("2013-Cut-Pestizide-JSON.json", function(error, data) {
                 if (error) throw error;
 
@@ -72,13 +72,38 @@
                 //console.log("nestParams is logged: ");
                 //console.log(nestParams(data));
 
-                var nestedDataParamTypes = nestParams(data);
+                nestedDataParamTypes = nestParams(data);
                 //console.log("nestedDataParams Variable is logged: ");
                 //console.log(nestedDataParamTypes);
-                //--------END---------Nest Data--------------//
+                //--------END---------Nest Data--------------//    
+                
+                listExistingPamaters(nestedDataParamTypes);
+            }); 
+            
+            //--------Start-------Select Subarray-------------//
+                
+                //getSubDataArray(nestedDataParamTypes, "DEET");
+                
+                var subdataArray = [];
+                function getSubDataArray(data, key){
+                    //console.log(data);
+                    //console.log(key);
 
-                //--------Start---------Visual HTML Elements--------------//
-                var svg = d3.select("svg");
+                    for(i=0 ; i<data.length; i++){
+                        if(data[i].key === key){
+                            //console.log(data[i]);
+
+                            subdataArray = data[i];
+                        }
+                    }
+                    //console.log(subdataArray);
+                }
+                
+                //--------Start-------Select Subarray-------------//
+    
+            //--------Start---------Visual HTML Elements--------------//
+
+            var svg = d3.select("svg");
                 var margin = {top: 20, right: 20, bottom: 30, left: 400};
                 var width = +svg.attr("width") - margin.left - margin.right;
                 var height = +svg.attr("height") - margin.top - margin.bottom;
@@ -87,8 +112,78 @@
                     .attr("id", "svgGofGraph");
 
 
-                //--------Start---------Graph things--------------//
+            var ul = d3.select('#sidebar')
+                .selectAll("li")
+                    .data(existingParameters)
+                    .enter()
+                        .append("li")
+                        .append("button")
+                        .attr("type", "button")
+                        .attr("class", "btn btn-outline-primary btn-block")
+                        .on("click", handleMouseClickSidebar)
+
+                //.attr("href", String)  --- only if linked to some site .. ! internal ? 
+                        .html(String)
+                        .style("color", "white");
+            
+            var existingParameters = [];
+            function listExistingPamaters(data){
+                console.log("first data then datakeys in list params");
+                console.log(data);
+                for(var key in data){
+                   existingParameters.push(key);
+
+                }
+                //for(i=0; i<data.length; i++){
+                //    existingParameters.indexOf(data[i].Parameter) === -1 ? existingParameters.push(data[i].Parameter) : null ;
+                //    existingParameters.sort();
+                //    }  
+            }
+                //console.log(existingParameters);
+
+                /*var ul = d3.select('#sidebar')
+                    .selectAll('option')
+                    .data(existingParameters)
+                    .enter()
+                    .append('option')
+                    .html(String);*/
+            
+            //--------START-------Event Handlers------------//
                 
+                function handleMouseEnter(d, i) {
+                    d3.select(this)
+                        .attr("opacity", 1.0)
+                        .attr("r", 5)
+                        .style("fill","yellow");
+                    //d3.select(this).style("fill","green");
+                    }
+                
+                function handleMouseLeave(d, i) {
+                    d3.select(this)
+                        .attr("opacity" , 1.0)
+                        .attr("r", 1.5)
+                        .style("fill","black");
+                }
+                
+                var selectedButtonSidebar = "placeholder";
+                
+                function handleMouseClickSidebar(d, i) {
+                    var selectedParamater = d3.select(this)
+                        .text();
+                
+                    //console.log(selectedParamater)
+                    selectedButtonSidebar = selectedParamater;
+                    //console.log(selectedButtonSidebar);
+                }
+
+                
+                window.addEventListener('resize', function() {
+                        console.log("The window was resized!");
+                        });                
+            //--------END---------Event Handlers------------//
+            
+            //--------Start---------Graph things--------------//
+                function dravChart(data){
                 var x = d3.scaleTime().rangeRound([0, width]);
                 var y = d3.scaleLinear().rangeRound([height, 0]);
                 var z = d3.scaleOrdinal(d3.schemeCategory10);
@@ -137,60 +232,8 @@
                         .on("mouseout", handleMouseLeave);
                 
                 //--------END---------Graph things--------------//
-                //--------START-------Other Elements------------
-                //var circleGroup = svg.select("g").append("g")
-                //    .attr('id', 'circleGroup');
-                
-                var existingParameters = [];
-                for(i=0; i<data.length; i++){
-                    existingParameters.indexOf(data[i].Parameter) === -1 ? existingParameters.push(data[i].Parameter) : null ;
-                    existingParameters.sort();
-                }  
-                //console.log(existingParameters);
-
-                /*var ul = d3.select('#sidebar')
-                    .selectAll('option')
-                    .data(existingParameters)
-                    .enter()
-                    .append('option')
-                    .html(String);*/
-
-                var ul = d3.select('#sidebar')
-                .selectAll("li")
-                .data(existingParameters)
-                .enter()
-                .append("li")
-                .append("button")
-                .attr("type", "button")
-                .attr("class", "btn btn-outline-primary btn-block")
-
-                //.attr("href", String)  --- only if linked to some site .. ! internal ? 
-                .html(String)
-                .style("color", "white");
-                
-                //--------START-------Event Handlers------------//
-                
-                function handleMouseEnter(d, i) {
-                    d3.select(this)
-                        .attr("opacity", 1.0)
-                        .attr("r", 5)
-                        .style("fill","yellow");
-                    //d3.select(this).style("fill","green");
-                    }
-                
-                function handleMouseLeave(d, i) {
-                    d3.select(this)
-                        .attr("opacity" , 1.0)
-                        .attr("r", 1.5)
-                        .style("fill","black");
                 }
-                
-                window.addEventListener('resize', function() {
-                        console.log("The window was resized!");
-                        });                
-                //--------END---------Event Handlers------------//
-            }); 
-
+            
         </script>
 
     </body>
