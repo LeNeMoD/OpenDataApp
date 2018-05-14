@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+      <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+      <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+      <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+      body {
+          position: relative; 
+      }
+        .affix {
+          top:0;
+          width: 100%;
+          z-index: 9999 !important;
+      }
+      .navbar {
+          margin-bottom: 0px;
+      }
+
+      .affix ~ .container-fluid {
+         position: relative;
+         top: 50px;
+      }
+        
+        #App {
+            margin-top: -60px;
+            padding-top: 60px;
+        }
+        #Story {
+            margin-top: -60px;
+            padding-top: 60px;
+        }
+        #ueberuns {
+            margin-top: -60px;
+            padding-top: 60px;
+        }       
+        #Programmierung {
+            margin-top: -60px;
+            padding-top: 60px;
+        }
+        #AlteVerordnung {
+            margin-top: -60px;
+            padding-top: 60px;
+        }
+        #NeueVerordnung {
+            margin-top: -60px;
+            padding-top: 60px;
+        }
+        #Initiative {
+            margin-top: -60px;
+            padding-top: 60px;
+        }
+        #AuswahlPestizid {
+            margin-top: 40px;
+        }
+
+        #Info {
+            margin-top: 20px;
+        }
+      </style>
+  </head>
+    <body data-spy="scroll" data-target=".navbar" data-offset="50">
+        
+    <!-- Jumbotron -->    
+        
+       <div id="Home" class="jumbotron text-center">
+          <h1>Pestizide im Rhein</h1> 
+          <p>Eine Opendata-Visualisierung von Domenico und Silvan</p> 
+        </div>
+        
+        <!-- Navbar -->
+        
+        <nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="50">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>           
+              </button>
+              <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home"></span></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#Home">Home</a></li>
+                <li><a href="#Story">Story</a></li>
+                <li><a href="#App">App</a></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Weitere Informationen<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#NeueVerordnung">Neue Verordnung</a></li>
+                    <li><a href="#AlteVerordnung">Alte Verordnung</a></li>
+                    <li><a href="#Initiative">Initiative</a></li>
+                  </ul>
+                </li>
+                <li><a href="#Programmierung">Programmierung</a></li>
+                <li><a href="#ueberuns">Über uns</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Kontakt</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        
+    
+        <!-- Story -->
+        
+        <div class="container-fluid">
+            <div class="panel-group text-center">
+                <div class="row">
+                    <div id="Story" class="panel-primary col-md-12">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Story</h1>
+                        </div>
+                        <div class="panel-body">
+                            <p>Die Schweiz gilt als ein Land mit sehr sauberem und qualitativ hochwertigem Wasser. Dass man Wasser einfach vom Wasserhahn trinken kann, ist ein Privileg, um welches Schweizerinnen und Schweizer froh sind. Naheliegend ist folglich auch, dass man zu diesem Privileg Sorge tragen sollte. In Schweizer Gewässern werden deshalb regelmässig Proben entnommen. Die Messungen der RÜS werden in der App visualisiert, um einen Überblick zu verschaffen.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- App -->
+                    
+                    <div id="App" class="panel-primary col-md-12">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Die App</h1>
+                        </div>
+                        <div class="panel-body">
+                            <p>In der App können nun die Messungen der Pestizidkonzentrationen von 2013 bis 2017 mit den Höchstwerten nach bisherigem und neuem Reglement verglichen werden. Dazu wird auf der linken Seite das Pestizid, welches genauer angeschaut werden soll, angewählt. In der Grafik sieht man nun, wie die Messungen ausgefallen sind und dazu die Höchstwerte.</p>
+                                <div>
+                                    <a href="#Bedienungsanleitung" class="btn btn-primary" data-toggle="collapse">Bedienungsanleitung einblenden    <span class="glyphicon glyphicon-eye-open"></span></a>
+                                </div>
+                                <div id="Bedienungsanleitung" class="collapse col-sm-6 col-sm-offset-3 thumb">
+                                    <ol class="text-left" style="background-color: darkgreen">
+                                        <li>Wählen Sie ein Pestizid, dessen Messungen Sie genauer betrachten möchten</li>
+                                        <li>Vergleichen Sie x mit y</li>
+                                        <li>Wechseln Sie zu einem anderen Pestizid</li>
+                                    </ol>
+                                </div>
+                                   
+                            <!-- Select Bar -->
+        
+                                <div class="container-fluid">
+                                    <div class="form-group">
+                                      <label for="Auswahl" id="AuswahlPestizid">Wählen Sie hier das Pestizid, dessen Werte Sie genauer anschauen möchten:</label>
+                                      <select class="form-control" id="Auswahl">
+                                        <option>P1</option>
+                                        <option>P2</option>
+                                        <option>P3</option>
+                                        <option>P4</option>
+                                      </select>
+                                    </div>
+                                </div>
+                            
+                            <!-- App hier einbetten -->
+                            <div class="col-md-9">
+                                <img class="img-responsive" src="appscreenshot.jpg" style="height: 500px; width: auto; align: center">
+                            </div>
+                            <div class="col-md-3">
+                                <h1>Chlortoluron</h1>
+                                <img class="img-responsive" src="Chlortoluron.png">
+                                <p id="Info">Der Richtwert von Chlortoluron wird in der neuen Verordnung nicht angepasst</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- NeueVerordnung -->
+        
+         <div class="container-fluid">
+            <div class="panel-group text-center">
+                <div class="row">
+                    <div id="NeueVerordnung" class="panel-primary col-md-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Die neue Verordnung</h1>
+                        </div>
+                        <div class="panel-body">
+                            <p>Die Schweiz gilt als ein Land mit sehr sauberem und qualitativ hochwertigem Wasser. Dass man Wasser einfach vom Wasserhahn trinken kann, ist ein Privileg, um welches Schweizerinnen und Schweizer froh sind. Naheliegend ist folglich auch, dass man zu diesem Privileg Sorge tragen sollte. In Schweizer Gewässern werden deshalb regelmässig Proben entnommen. Die Messungen der RÜS werden in der App visualisiert, um einen Überblick zu verschaffen.</p>
+                        </div>
+                    </div>
+                    <div id="AlteVerordnung" class="panel-primary col-md-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Die alte Verordnung</h1>
+                        </div>
+                        <div class="panel-body">
+                            <p>In der App können nun die Messungen der Pestizidkonzentrationen von 2013 bis 2017 mit den Höchstwerten nach bisherigem und neuem Reglement verglichen werden. Dazu wird auf der linken Seite das Pestizid, welches genauer angeschaut werden soll, angewählt. In der Grafik sieht man nun, wie die Messungen ausgefallen sind und dazu die Höchstwerte.</p>
+                        </div>
+                    </div>
+                    <div id="Initiative" class="panel-primary col-md-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Die Initiative</h1>
+                        </div>
+                        <div class="panel-body">
+                            <p>In der App können nun die Messungen der Pestizidkonzentrationen von 2013 bis 2017 mit den Höchstwerten nach bisherigem und neuem Reglement verglichen werden. Dazu wird auf der linken Seite das Pestizid, welches genauer angeschaut werden soll, angewählt. In der Grafik sieht man nun, wie die Messungen ausgefallen sind und dazu die Höchstwerte.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Programmierung -->
+        
+        <!--
+
+        <div id="Programmierung" class="container-fluid">
+            <div class="panel-group text-center">
+                <div class="row">
+                    <div class="panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Programmierung</h1>
+                        </div>
+                        <div class="panel-body">
+                            <p>Der Grundstein für unsere Applikation legen HTML und CSS</p>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-2">
+                            <img class="img-responsive" src="html-logo.png">
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-4">
+                            <p>Text zu HTML</p>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-2">
+                            <img class="img-responsive" src="css-logo.png">
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-4">
+                            <p>Text zu CSS</p>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-2">
+                            <img class="img-responsive" src="javascript-logo.png">
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-4">
+                            <p>Text zu JS</p>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-2">
+                            <img class="img-responsive" src="bootstrap-logo.png">
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-4">
+                            <p>Text zu Bootstrap</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        -->
+        
+        <div id="Programmierung" class="container-fluid">
+            <div class="panel-group">
+                <div class="row">
+                    <div class="panel-primary col-md-12 text-center">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Programmierung</h1>
+                        </div>
+                        <div class="panel-body">
+                            <p>Text</p>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <img class="img-responsive" src="html-logo.png" alt="HTML5" style="max-height: 150px; align-content: center">
+                        </div>
+                        <div class="col-xs-9 col-sm-4 small well well-sm">
+                            <h1>HTML 5</h1>
+                            <p>jfdjoejf
+                                sdfjpj
+                            </p>
+                            <p>fergewg
+                            </p>
+                            <p>dsf
+                            </p>
+                        </div>
+                        
+                        <!-- CSS -->
+                        
+                        <div class="col-xs-3 col-sm-2">
+                            <img class="img-responsive" src="css-logo.png" alt="CSS3" style="max-height: 150px; align-content: center">
+                        </div>
+                        <div class="col-xs-9 col-sm-4 small well well-sm">
+                            <h1>CSS</h1>
+                            <p>dfje
+                            </p>
+                            <p>ödsljfp
+                            </p>
+                            <p>rgwg
+                            </p>
+                        </div>
+                        
+                        <!-- JS -->
+                        
+                         <div class="col-xs-3 col-sm-2 col-md-2">
+                            <img class="img-responsive" src="javascript-logo.png" alt="JS" style="max-height: 150px; align-content: center">
+                        </div>
+
+                        <div class="col-xs-9 col-sm-4 col-md-4 small well well-sm">
+                            <h1>Java Script</h1>
+                            <p>jfdjoejf
+                                sdfjpj
+                            </p>
+                            <p>fergewg
+                            </p>
+                            <p>kjge</p>
+                        </div>
+                                
+                        <!-- Bootstrap -->
+                        
+                        <div class="col-xs-3 col-sm-2">
+                            <img class="img-responsive" src="bootstrap-logo.png" alt="Bootstrap" style="max-height: 150px; align-content: center">
+                        </div>
+                        <div class="col-xs-9 col-sm-4 small well well-sm">
+                            <h1>Bootstrap</h1>
+                            <p>dfje
+                            </p>
+                            <p>ödsljfp
+                            </p>
+                            <p>dsgerw
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ueberuns -->
+        
+        <div id="ueberuns" class="container-fluid">
+            <div class="panel-group">
+                <div class="row">
+                    <div class="panel-primary col-md-12 text-center">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Über uns</h1>
+                        </div>
+                        <div class="panel-body">
+                            <p>Text</p>
+                        </div>
+                        <div class="col-xs-3 col-xs-push-9 col-sm-2 col-sm-push-0">
+                            <img class="img-responsive img-circle" src="person.jpg" alt="Domenico Iapello">
+                        </div>
+                        <div class="col-xs-9 col-xs-pull-3 col-sm-4 col-sm-pull-0 small well well-sm">
+                            <h1>Domenico Iapello</h1>
+                            <ul class="list-group">
+                                <li class="list-group-item"><span class="glyphicon glyphicon-education"></span> Bachelorstudent</li>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-search"></span> Informatik</li>
+                               <li class="list-group-item"><span class="glyphicon glyphicon-envelope"></span> domenico.iapello@students.unibe.ch</li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <img class="img-responsive img-circle" src="Silvanhegi.jpg" alt="Silvan Hegi">
+                        </div>
+                        <div class="col-xs-9 col-sm-4 small well well-sm">
+                            <h1>Silvan Hegi</h1>
+                            <ul class="list-group">
+                                <li class="list-group-item"><span class="glyphicon glyphicon-education"></span> Masterstudent</li>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-search"></span> Betriebswirtschaft</li>
+                               <li class="list-group-item"><span class="glyphicon glyphicon-envelope"></span> silvan.hegi@students.unibe.ch</li>
+                            </ul>
+                        </div>
+                        <div class="panel-footer">
+                            <span class="glyphicon glyphicon-copyright-mark"> XY-Lizenz</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
