@@ -154,13 +154,13 @@
                             .y(function(d) { return yScale(d.M_in_mg_L); });
                     
                     // draw the path based on the line created above
-                    //path.datum(data)
-                      //  .attr("fill", "none")
-                    //    .attr("stroke", "steelblue")
-                    //    .attr("stroke-linejoin", "round")
-                    //    .attr("stroke-linecap", "round")
-                    //    .attr("stroke-width", 1.5)
-                    //    .attr("d", line);
+                    path.datum(data)
+                        .attr("fill", "none")
+                        .attr("stroke", "steelblue")
+                        .attr("stroke-linejoin", "round")
+                        .attr("stroke-linecap", "round")
+                        .attr("stroke-width", 1.5)
+                        .attr("d", line);
                    
                     artboard.selectAll("circle")
                     .data(data)
@@ -168,7 +168,10 @@
                         .append("circle")
                         .attr("r", 2.5)
                         .style("fill","blue")
-                        .attr("cx", function(d) { return xScale(d.Datum_Start); })
+                        .attr("cx", function(d) {
+                        console.log(d.Datum_Start);
+                        console.log(xScale(d.Datum_Start));
+                        return xScale(d.Datum_Start); })
                         .attr("cy", function(d) { return yScale(d.M_in_mg_L); })
                         .on("mouseover", handleMouseEnter)
                         .on("mouseout", handleMouseLeave);

@@ -33,7 +33,7 @@
                                 </div>
                                 <!-- Keep all page content within the page-content inset div! -->
                                 <div class="page-content inset">
-                                    <svg width="2000" height="500"></svg>
+                                    <svg width="1500" height="500"></svg>
                                 </div>
                             </div>
                         </div>
@@ -52,6 +52,8 @@
             //var g = svg.append("g")
             //.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             //.attr("id", "svgGofGraph");
+
+            var nestedDataToParamTypes = [];
 
             d3.json("2013-Cut-Pestizide-JSON.json", function(error, data) {
                 if (error) throw error;
@@ -79,15 +81,15 @@
                 //console.log("nestParams is logged: ");
                 //console.log(nestParams(data));
 
-                nestedDataParamTypes = nestParams(data);
-                //console.log("nestedDataParams Variable is logged: ");
-                //console.log(nestedDataParamTypes);
+                nestedDataToParamTypes = nestParams(data);
+                console.log("nestedDataToParamTypes Variable is logged: ");
+                console.log(nestedDataToParamTypes);
                 //--------END---------Nest Data--------------//    
 
-                existingParametersArray = listExistingPamaters(nestedDataParamTypes);
+                existingParametersArray = listExistingPamaters(nestedDataToParamTypes);
                 //console.log(existingParametersArray);
 
-                //--------Start---------Sidebar------------//
+            //--------Start---------Sidebar------------//
 
                 var ul = d3.select('#sidebar')
                 .selectAll("li")
@@ -103,9 +105,9 @@
                 .html(String)
                 .style("color", "white");
 
-                //--------END---------Sidebar------------//        
             }); 
-
+            
+            
             function getSubDataArray(data, key){
                 //console.log(data);
                 //console.log(key);
@@ -121,7 +123,7 @@
 
             function listExistingPamaters(data){
                 var existingParametersArray = [];
-                //console.log("first list params");
+                console.log("log Data befor listing parameters (is nested)");
                 console.log(data);
                 for(i=0 ; i<data.length; i++){
                     //console.log(data[i].key);
@@ -131,6 +133,10 @@
                 existingParametersArray.sort();
                 return existingParametersArray;
             }
+            
+            //--------END---------Sidebar------------//        
+
+
             //--------START-------Event Handlers------------//
 
             function handleMouseEnter(d, i) {
@@ -152,8 +158,10 @@
 
             function handleMouseClickSidebar(d, i) {
                 selectedParamaterOnSidebar = d3.select(this)
-                .text();
-                changeChartData(getSubDataArray(nestedDataParamTypes, selectedParamaterOnSidebar));
+                    .text();
+                var subData = getSubDataArray(nestedDataToParamTypes, selectedParamaterOnSidebar);
+                changeChartData(subData);
+                drawChart(subData);
 
             }
 
@@ -165,48 +173,66 @@
 
 
             //--------Start---------Graph things--------------//
-            function changeChartData(data){
-                var xScale = d3.scaleTime();
-                var yScale = d3.scaleLinear().rangeRound([height, 0]);
-                var zScale = d3.scaleOrdinal(d3.schemeCategory10);
 
+            var xScale ;//= d3.scaleTime();
+            var yScale ;//= d3.scaleLinear().rangeRound([height, 0]);
+            var zScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+            var xAxis ;//= d3.axisBottom().scale(xScale);
+            var yAxis ;//= d3.axisLeft().scale(yScale);
+
+            var artboard = svg.append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            /*var yAxisEl = artboard.append("g")
+            .call(yAxis);
+
+            var xAxisEl = artboard.append("g")
+            .attr("transform", "translate(0," + height + ")");
+            */
+            
+            var line = d3.line();
+
+            function changeChartData(data){
+                console.log("change chart Data is logged:")
+                console.log(data);
+
+                xScale = d3.scaleTime();
+                yScale = d3.scaleLinear().rangeRound([height, 0]);
+                
                 var xAxis = d3.axisBottom().scale(xScale);
                 var yAxis = d3.axisLeft().scale(yScale);
-                
-                var line = d3.line();
-                
-                console.log("data for the GRAPH:");
-                console.log(data);
-                console.log(data.values[1].Datum_Start);
+                //var parseTime = d3.timeParse("%d.%m.%Y");
 
-                var line = d3.line()
+                //data.values.forEach(function(d) {
+                //    d.Datum_Start = parseTime(d.Datum_Start);
+                //console.log(d.Datum_Start);
+                //    d.M_in_mg_L = +d.M_in_mg_L;
+                //console.log(d.M_in_mg_L);
+                //});
+                //var line = d3.line();
+                //console.log(data.values.Datum_Start);
                 //.curve(d3.curveBasis)
                 //.xScale(function(d) { return //xScale(d.values.Datum_Start); })
                 //.yScale(function(d) { return //yScale(d.values.M_in_mg_L); });
 
-                xScale.domain(d3.extent(data, function(d) { return d.values.Datum_Start; }));
-                yScale.domain(d3.extent(data, function(d) { return d.values.M_in_mg_L; }));
+                xScale.domain(d3.extent(data, function(d) { return d.Datum_Start; }));
+                yScale.domain(d3.extent(data, function(d) { return d.M_in_mg_L; }));
 
-                var artboard = svg.append("g")
-                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-                
-                var yAxisEl = artboard.append("g")
-                        .call(yAxis);
-                
-                var xAxisEl = artboard.append("g")
-                        .attr("transform", "translate(0," + height + ")");
-                
+                //var artboard = svg.append("g")
+                //.attr("transform", "translate(" + margin.left + "," + //margin.top + ")");
+
                 // draw the line created above
                 var path = artboard.append("path").data([data])
-                    .style('fill', 'none')
-                    .style('stroke', 'steelblue')
-                    .style('stroke-width', '2px');
-                
-                g.append("g")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(xScale))
-                    .select(".domain")
-                    .remove();
+                .style('fill', 'none')
+                .style('stroke', 'steelblue')
+                .style('stroke-width', '2px');
+
+                //g.append("g")
+                //    .attr("transform", "translate(0," + height + ")")
+                //    .call(d3.axisBottom(xScale))
+                //    .select(".domain")
+                //    .remove();
 
                 artboard.append("g")
                     .call(yAxis)
@@ -218,47 +244,63 @@
                     .attr("text-anchor", "middle")
                     .text("MG/L");
 
-                function drawChart(inputdata) {
-                    // reset the width
-                        width = parseInt(d3.select('body').style('width'), 10) - margin.left - margin.right;
-    
-                    // set the svg dimensions
-                        svg.attr("width", width + margin.left + margin.right);
-    
-                    // Set new range for xScale
-                        xScale.range([0, width]);
-    
-                    // give the x axis the resized scale
-                        xAxis.scale(xScale);
-    
-                    // draw the new xAxis
-                        xAxisEl.call(xAxis);
-    
-                    // specify new properties for the line
-                        line.x(function(d) { return xScale(d.Datum_Start); })
-                            .y(function(d) { return yScale(d.M_in_mg_L); });
-                    
-                path.datum(inputdata)
+
+            }
+
+            function drawChart(inputdata) {
+                console.log("drawChart");
+                // reset the width
+                width = parseInt(d3.select('body').style('width'), 10) - margin.left - margin.right;
+
+                // set the svg dimensions
+                svg.attr("width", width + margin.left + margin.right);
+
+                // Set new range for xScale
+                xScale.range([0, width]);
+
+                // give the x axis the resized scale
+                xAxis.scale(xScale);
+
+                // draw the new xAxis
+                xAxisEl.call(xAxis);
+
+                // specify new properties for the line
+                line.x(function(d) { return xScale(d.Datum_Start); })
+                    .y(function(d) { return yScale(d.M_in_mg_L); });
+
+                /*path.datum(inputdata)
                     .attr("fill", "none")
                     .attr("stroke", "steelblue")
                     .attr("stroke-linejoin", "round")
                     .attr("stroke-linecap", "round")
                     .attr("stroke-width", 1.5)
                     .attr("d", line);
+                    */
 
                 artboard.selectAll("circle")
-                    .data(inputdata)
+                    .data(inputdata.values)
                     .enter()
-                        .append("circle")
-                        .attr("r", 1.5)
-                        .attr("cx", function(d) { return xScale(d.Datum_Start); })
-                        .attr("cy", function(d) { return yScale(d.M_in_mg_L); })
-                        .on("mouseover", handleMouseEnter)
-                        .on("mouseout", handleMouseLeave);
-                }
-                drawChart();
-                //--------END---------Graph things--------------//
+                    .append("circle")
+                    .attr("r", 1.5)
+                    .attr("cx", function(d) {
+                    
+                    console.log(d);
+                    console.log(d.Datum_Start);
+                    //console.log(d.M_in_mg_L);
+                    console.log(xScale(d.Datum_Start));
+                    
+                    return xScale(d.Datum_Start); })
+                    .attr("cy", function(d) { 
+                    
+                    console.log(d.M_in_mg_L);
+                    
+                    return yScale(d.M_in_mg_L); })
+                    .on("mouseover", handleMouseEnter)
+                    .on("mouseout", handleMouseLeave);
             }
+            //drawChart();
+            //--------END---------Graph things--------------//
+
 
 
         </script>
