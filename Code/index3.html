@@ -15,34 +15,34 @@
     </head>
     <body>
         <div class="container-fluid">
-        <div class="row">
-        <div id="wrapper">
-            <div class="col-sm-12 col-lg-3">
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="container">
-                    <div id="sidebar-wrapper" class="sidebar-toggle">
-                        <ul class="sidebar-nav" id="sidebar">
-                        </ul>
+            <div class="row">
+                <div id="wrapper">
+                    <div class="col-sm-12 col-lg-3">
+                        <nav class="navbar navbar-default" role="navigation">
+                            <div class="container">
+                                <div id="sidebar-wrapper" class="sidebar-toggle">
+                                    <ul class="sidebar-nav" id="sidebar">
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-9">
+                        <div id="page-content-wrapper">
+                            <div class="content-header">
+                            </div>
+                            <!-- Keep all page content within the page-content inset div! -->
+                            <div class="page-content inset">
+                                <svg  height="500"></svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </nav>
-            </div>
-
-            <div class="col-sm-12 col-lg-9">
-            <div id="page-content-wrapper">
-                <div class="content-header">
-                </div>
-                <!-- Keep all page content within the page-content inset div! -->
-                <div class="page-content inset">
-                        <svg  height="500"></svg>
-                </div>
-            </div>
-        </div>
-            </div>
             </div>                                          
         </div>
         <!--<svg width="960" height="500">-->
-        
+
         <script>
 
             d3.json("2013-Cut-Pestizide-Atrazin-JSON.json", function(error, data) {
@@ -83,42 +83,42 @@
                 //var width = +svg.attr("width") - margin.left - margin.right;
                 var height = +svg.attr("height") - margin.top - margin.bottom;
                 //var g = svg.append("g")
-                   // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
                 //--------Start---------Graph things--------------//
-                
+
                 var xScale = d3.scaleTime();//.rangeRound([0, width]);
                 var yScale = d3.scaleLinear().rangeRound([height, 0]);
                 var zScale = d3.scaleOrdinal(d3.schemeCategory10);
-                
+
                 var xAxis = d3.axisBottom().scale(xScale);
                 var yAxis = d3.axisLeft().scale(yScale);
-                
+
                 var line = d3.line();
-                    //.curve(d3.curveBasis);
-                    //.x(function(d) { return x(d.Datum_Start); })
-                    //.y(function(d) { return y(d.M_in_mg_L); });
-                
+                //.curve(d3.curveBasis);
+                //.x(function(d) { return x(d.Datum_Start); })
+                //.y(function(d) { return y(d.M_in_mg_L); });
+
                 xScale.domain(d3.extent(data, function(d) { return d.Datum_Start; }));
                 yScale.domain(d3.extent(data, function(d) { return d.M_in_mg_L; }));
-                
-                
+
+
                 var artboard = svg.append("g")
-                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-                
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
                 var yAxisEl = artboard.append("g")
-                        .call(yAxis);
-                
+                .call(yAxis);
+
                 var xAxisEl = artboard.append("g")
-                        .attr("transform", "translate(0," + height + ")");
-                
+                .attr("transform", "translate(0," + height + ")");
+
                 // draw the line created above
                 var path = artboard.append("path").data([data])
-                    .style('fill', 'none')
-                    .style('stroke', 'steelblue')
-                    .style('stroke-width', '2px');
-                
-                    
+                .style('fill', 'none')
+                .style('stroke', 'steelblue')
+                .style('stroke-width', '2px');
+
+
                 artboard.append("g")
                     .call(yAxis)
                     .append("text")
@@ -128,31 +128,31 @@
                     .attr("dy", "0.71em")
                     .attr("text-anchor", "middle")
                     .text("MG/L");
-                
-                
-                
-                
-                
+
+
+
+
+
                 function drawChart() {
                     // reset the width
-                        width = parseInt(d3.select('body').style('width'), 10) - margin.left - margin.right;
-    
+                    width = parseInt(d3.select('body').style('width'), 10) - margin.left - margin.right;
+
                     // set the svg dimensions
-                        svg.attr("width", width + margin.left + margin.right);
-    
+                    svg.attr("width", width + margin.left + margin.right);
+
                     // Set new range for xScale
-                        xScale.range([0, width]);
-    
+                    xScale.range([0, width]);
+
                     // give the x axis the resized scale
-                        xAxis.scale(xScale);
-    
+                    xAxis.scale(xScale);
+
                     // draw the new xAxis
-                        xAxisEl.call(xAxis);
-    
+                    xAxisEl.call(xAxis);
+
                     // specify new properties for the line
-                        line.x(function(d) { return xScale(d.Datum_Start); })
-                            .y(function(d) { return yScale(d.M_in_mg_L); });
-                    
+                    line.x(function(d) { return xScale(d.Datum_Start); })
+                        .y(function(d) { return yScale(d.M_in_mg_L); });
+
                     // draw the path based on the line created above
                     path.datum(data)
                         .attr("fill", "none")
@@ -161,32 +161,35 @@
                         .attr("stroke-linecap", "round")
                         .attr("stroke-width", 1.5)
                         .attr("d", line);
-                   
-                    artboard.selectAll("circle")
-                    .data(data)
-                    .enter()
+                    
+                    var circles = artboard.selectAll("circle")
+                        .data(data);
+                    
+                    circles.enter()
                         .append("circle")
                         .attr("r", 2.5)
                         .style("fill","blue")
                         .attr("cx", function(d) {
-                        console.log(d.Datum_Start);
-                        console.log(xScale(d.Datum_Start));
+                        //console.log(d.Datum_Start);
+                        //console.log(xScale(d.Datum_Start));
                         return xScale(d.Datum_Start); })
                         .attr("cy", function(d) { return yScale(d.M_in_mg_L); })
                         .on("mouseover", handleMouseEnter)
                         .on("mouseout", handleMouseLeave);
+                    
+                    circles.exit().remove();
 
                 }
-                
+
                 drawChart();
-                
-                
+
+
                 /*g.append("g")
                     .attr("transform", "translate(0," + height + ")")
                     .call(d3.axisBottom(x))
                     .select(".domain")
                     .remove();
-                    
+
                 g.append("g")
                     .call(d3.axisLeft(y))
                     .append("text")
@@ -205,7 +208,7 @@
                     .attr("stroke-linecap", "round")
                     .attr("stroke-width", 1.5)
                     .attr("d", line);
-                
+
                 g.selectAll("circle")
                     .data(data)
                     .enter()
@@ -220,7 +223,7 @@
                 //--------START-------Other Elements------------
                 //var circleGroup = svg.select("g").append("g")
                 //    .attr('id', 'circleGroup');
-                
+
                 var existingParameters = [];
                 for(i=0; i<data.length; i++){
                     existingParameters.indexOf(data[i].Parameter) === -1 ? existingParameters.push(data[i].Parameter) : null ;
@@ -247,9 +250,9 @@
                 //.attr("href", String)  --- only if linked to some site .. ! internal ? 
                 .html(String)
                 .style("color", "white");
-                
+
                 //--------START-------Event Handlers------------//
-                
+
                 function handleMouseEnter(d, i) {
                     d3.select(this)
                         .attr("opacity", 1.0)
@@ -257,19 +260,19 @@
                         .attr("stroke", "black")
                         .style("fill","yellow");
                     //d3.select(this).style("fill","green");
-                    }
-                
+                }
+
                 function handleMouseLeave(d, i) {
                     d3.select(this)
                         .attr("opacity" , 1.0)
                         .attr("r", 2.5)
                         .style("fill","blue");
                 }
-                
+
                 window.addEventListener('resize', drawChart);
                 window.addEventListener('resize',  function() {
-                        console.log("The window was resized!");
-                        });                
+                    console.log("The window was resized!");
+                });                
                 //--------END---------Event Handlers------------//
             }); 
 

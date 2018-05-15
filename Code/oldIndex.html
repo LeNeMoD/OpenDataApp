@@ -89,7 +89,7 @@
                 existingParametersArray = listExistingPamaters(nestedDataToParamTypes);
                 //console.log(existingParametersArray);
 
-            //--------Start---------Sidebar------------//
+                //--------Start---------Sidebar------------//
 
                 var ul = d3.select('#sidebar')
                 .selectAll("li")
@@ -106,8 +106,8 @@
                 .style("color", "white");
 
             }); 
-            
-            
+
+
             function getSubDataArray(data, key){
                 //console.log(data);
                 //console.log(key);
@@ -133,7 +133,7 @@
                 existingParametersArray.sort();
                 return existingParametersArray;
             }
-            
+
             //--------END---------Sidebar------------//        
 
 
@@ -184,13 +184,11 @@
             var artboard = svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-            /*var yAxisEl = artboard.append("g")
-            .call(yAxis);
+            var yAxisEl;// = artboard.append("g").call(yAxis);
 
-            var xAxisEl = artboard.append("g")
-            .attr("transform", "translate(0," + height + ")");
-            */
-            
+            var xAxisEl;// = artboard.append("g").attr("transform", "translate(0," + height + ")");
+
+
             var line = d3.line();
 
             function changeChartData(data){
@@ -199,9 +197,16 @@
 
                 xScale = d3.scaleTime();
                 yScale = d3.scaleLinear().rangeRound([height, 0]);
-                
-                var xAxis = d3.axisBottom().scale(xScale);
-                var yAxis = d3.axisLeft().scale(yScale);
+
+                xAxis = d3.axisBottom().scale(xScale);
+                yAxis = d3.axisLeft().scale(yScale);
+
+                yAxisEl = artboard.append("g")
+                    .call(yAxis);
+
+                xAxisEl = artboard.append("g")
+                    .attr("transform", "translate(0," + height + ")");
+
                 //var parseTime = d3.timeParse("%d.%m.%Y");
 
                 //data.values.forEach(function(d) {
@@ -216,8 +221,8 @@
                 //.xScale(function(d) { return //xScale(d.values.Datum_Start); })
                 //.yScale(function(d) { return //yScale(d.values.M_in_mg_L); });
 
-                xScale.domain(d3.extent(data, function(d) { return d.Datum_Start; }));
-                yScale.domain(d3.extent(data, function(d) { return d.M_in_mg_L; }));
+                xScale.domain(d3.extent(data.values, function(d) { return d.Datum_Start; }));
+                yScale.domain(d3.extent(data.values, function(d) { return d.M_in_mg_L; }));
 
                 //var artboard = svg.append("g")
                 //.attr("transform", "translate(" + margin.left + "," + //margin.top + ")");
@@ -283,17 +288,17 @@
                     .append("circle")
                     .attr("r", 1.5)
                     .attr("cx", function(d) {
-                    
+
                     console.log(d);
                     console.log(d.Datum_Start);
                     //console.log(d.M_in_mg_L);
                     console.log(xScale(d.Datum_Start));
-                    
+
                     return xScale(d.Datum_Start); })
                     .attr("cy", function(d) { 
-                    
+
                     console.log(d.M_in_mg_L);
-                    
+
                     return yScale(d.M_in_mg_L); })
                     .on("mouseover", handleMouseEnter)
                     .on("mouseout", handleMouseLeave);
