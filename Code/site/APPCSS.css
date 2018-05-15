@@ -1,0 +1,52 @@
+body {
+          position: relative; 
+      }
+        .affix {
+          top:0;
+          width: 100%;
+          z-index: 9999 !important;
+      }
+      .navbar {
+          margin-bottom: 0px;
+      }
+
+      .affix ~ .container-fluid {
+         position: relative;
+         top: 50px;
+      }
+        
+        #App {
+            margin-top: -60px;
+            padding-top: 60px;
+        }
+        #Story {
+            margin-top: -60px;
+            padding-top: 60px;
+        }
+        #ueberuns {
+            margin-top: -60px;
+            padding-top: 60px;
+        }       
+        #Programmierung {
+            margin-top: -60px;
+            padding-top: 60px;
+        }
+        #AlteVerordnung {
+            margin-top: -60px;
+            padding-top: 60px;
+        }
+        #NeueVerordnung {
+            margin-top: -60px;
+            padding-top: 60px;
+        }
+        #Initiative {
+            margin-top: -60px;
+            padding-top: 60px;
+        }
+        #AuswahlPestizid {
+            margin-top: 40px;
+        }
+
+        #Info {
+            margin-top: 20px;
+        }
