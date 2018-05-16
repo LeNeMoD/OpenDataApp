@@ -1,52 +1,72 @@
 body {
-          position: relative; 
-      }
-        .affix {
-          top:0;
-          width: 100%;
-          z-index: 9999 !important;
-      }
-      .navbar {
-          margin-bottom: 0px;
-      }
+    position: relative; 
+}
+.affix {
+    top:0;
+    width: 100%;
+    z-index: 9999 !important;
+}
+.navbar {
+    margin-bottom: 0px;
+}
 
-      .affix ~ .container-fluid {
-         position: relative;
-         top: 50px;
-      }
-        
-        #App {
-            margin-top: -60px;
-            padding-top: 60px;
-        }
-        #Story {
-            margin-top: -60px;
-            padding-top: 60px;
-        }
-        #ueberuns {
-            margin-top: -60px;
-            padding-top: 60px;
-        }       
-        #Programmierung {
-            margin-top: -60px;
-            padding-top: 60px;
-        }
-        #AlteVerordnung {
-            margin-top: -60px;
-            padding-top: 60px;
-        }
-        #NeueVerordnung {
-            margin-top: -60px;
-            padding-top: 60px;
-        }
-        #Initiative {
-            margin-top: -60px;
-            padding-top: 60px;
-        }
-        #AuswahlPestizid {
-            margin-top: 40px;
-        }
+.affix ~ .container-fluid {
+    position: relative;
+    top: 50px;
+}
 
-        #Info {
-            margin-top: 20px;
-        }
+#App {
+    margin-top: -60px;
+    padding-top: 60px;
+}
+#Story {
+    margin-top: -60px;
+    padding-top: 60px;
+}
+#ueberuns {
+    margin-top: -60px;
+    padding-top: 60px;
+}       
+#Programmierung {
+    margin-top: -60px;
+    padding-top: 60px;
+}
+#AlteVerordnung {
+    margin-top: -60px;
+    padding-top: 60px;
+}
+#NeueVerordnung {
+    margin-top: -60px;
+    padding-top: 60px;
+}
+#Initiative {
+    margin-top: -60px;
+    padding-top: 60px;
+}
+#AuswahlPestizid {
+    margin-top: 40px;
+}
+
+#Info {
+    margin-top: 20px;
+}
+
+#test{
+    height:200px;
+    width:200px;
+    background-color: yellow;
+    border-width: 4px;
+    border-color: black;
+}
+
+#graphSVG{
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-bottom: 20px;
+    border-top: 20px;
+}
+#divGraphSVG{
+    display: block;
+    height: 500px;
+}
