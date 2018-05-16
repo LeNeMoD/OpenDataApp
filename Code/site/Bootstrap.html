@@ -289,8 +289,8 @@
                         <div class="panel-body">
                             <p>Text</p>
                         </div>
-                        <div class="col-xs-3 col-xs-push-9 col-sm-2 col-sm-push-0">
-                            <img class="img-responsive img-circle" src="person.jpg" alt="Domenico Iapello">
+                        <div class="col-xs-3 col-sm-2">
+                            <img class="img-responsive img-circle" src="DomenicoIapelloCropped.jpg" alt="Domenico Iapello">
                         </div>
                         <div class="col-xs-9 col-xs-pull-3 col-sm-4 col-sm-pull-0 small well well-sm">
                             <h1>Domenico Iapello</h1>
@@ -406,6 +406,8 @@
                 //console.log("subarray change");
                 //console.log(selectedSubDataArray);
                 drawChart(selectedSubDataArray);
+                d3.selectAll("graphSVG").remove();
+
 
             });
             //---------- END getSelectSelectedValue----------//
@@ -434,7 +436,7 @@
                 //console.log(myDiv.clientWidth);
                 graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
                 graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
-                d3.selectAll("divGraphSVG").remove();
+                d3.selectAll("graphSVG").remove();
                 drawChart(selectedSubDataArray);
             });                
 
@@ -459,6 +461,12 @@
             //------------graph
 
             function drawChart(data){
+
+                var t = d3.transition()
+                .duration(10);
+                var t2 = d3.transition()
+                .duration(1000);
+
                 console.log("drawChartCalled");
                 //console.log(data);
                 //console.log("chartdraw graphDiv height "+ graphDivHeight);
@@ -508,7 +516,7 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", line);
                     */
-                
+
                 chartBoard.append("g")
                     .call(yAxis)
                     .append("text")
@@ -518,10 +526,16 @@
                     .attr("dy", "0.71em")
                     .attr("text-anchor", "middle")
                     .text("MG/L");
+
+                var kreise = chartBoard.selectAll("circle")
+                .data(data.values);
                 
-                chartBoard.selectAll("circle")
-                    .data(data.values)
-                    .enter()
+                kreise.exit()
+                    .transition(t)
+                    .style("fill-opacity", 1e-6)
+                    .remove();
+                
+                kreise.enter()
                     .append("circle")
                     .attr("r", 7)
                     .attr("cx", function(d) {
@@ -537,6 +551,7 @@
                     .style("fill", "Blue")
                     .on("mouseover", handleMouseEnter)
                     .on("mouseout", handleMouseLeave);
+
             }
 
             //----------end graph
