@@ -327,7 +327,7 @@
             var graphDivHeight;
             var graphDivWidth;
             //var svgGraphPanel = d3.select("#graphSVG");
-            var margin = {top: 25, right: 25, bottom: 25, left: 25};
+            var margin = {top: 25, right: 40, bottom: 20, left: 25};
             //---------- END Global Variables----------//
 
 
@@ -363,8 +363,8 @@
 
                 //console.log(listExistingPamaters(nestParams(data)));
                 existingParametersArray = listExistingPamaters(nestParams(data));
-                //getSubDataArray(nestedData,"Atrazin");
-                //drawChart(selectedSubDataArray);
+                getSubDataArray(nestedData,"Chlortoluron");
+                drawChart(selectedSubDataArray);
 
 
                 //console.log(existingParametersArray);
@@ -436,7 +436,6 @@
                 //console.log(myDiv.clientWidth);
                 graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
                 graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
-                d3.selectAll("graphSVG").remove();
                 drawChart(selectedSubDataArray);
             });                
 
@@ -506,7 +505,7 @@
                     .y(function(d) { return yScale(d.M_in_mg_L); });
 
 
-                var path = chartBoard.append("path");
+                //var path = chartBoard.append("path");
 
                 /*path.data([data])
                     .attr("fill", "none")
@@ -525,14 +524,12 @@
                     .attr("y", 6)
                     .attr("dy", "0.71em")
                     .attr("text-anchor", "middle")
-                    .text("MG/L");
+                    .text("ng / L");
 
                 var kreise = chartBoard.selectAll("circle")
                 .data(data.values);
                 
                 kreise.exit()
-                    .transition(t)
-                    .style("fill-opacity", 1e-6)
                     .remove();
                 
                 kreise.enter()
