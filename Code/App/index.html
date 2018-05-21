@@ -375,8 +375,6 @@
                 console.log("from init");
                 console.log(selectedSubDataArray);
                 //drawChart(selectedSubDataArray);
-
-
                 //console.log(existingParametersArray);
 
                 chartShizzl();
@@ -387,19 +385,14 @@
 
                 var graphSVG = d3.select("#graphSVG");
 
-                //var height = +parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom;
-                //console.log("height is: " +height);
-
-                var xScale = d3.scaleTime();//.range([0, width]);
-                var yScale = d3.scaleLinear();//.rangeRound([height, 0]);
-                //var yRScale = d3.scaleLinear();
+                var xScale = d3.scaleTime();
+                var yScale = d3.scaleLinear();
 
                 var xAxis = d3.axisBottom().scale(xScale);
                 var yAxis = d3.axisLeft().scale(yScale);
-                //var yRAxis = d3.axisRight().scale(yRAxis);                                
 
                 //not used line
-                //var line = d3.line();
+                var lineMax = d3.line();
 
                 xScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
                     //console.log(d.Datum_Start);
@@ -558,6 +551,7 @@
                 console.log(selectedSubDataArray);
                 //chartShizzl();
                 drawChart();
+                addNewKreise();
                 updateKreise();
                 removeKreise();
             });
@@ -597,19 +591,7 @@
                 selectedSubDataArray = subdataArray;
                 //console.log(subdataArray);
                 //return subdataArray;
-            }
-            //---------- END getSelectedSubDataArray----------//
-            //---------- Start Handlers-----------//
-            /* window.addEventListener('resize', function() {
-                    console.log("The window was resized!");
-                    //var myDiv = document.getElementById('divGraphSVG');
-                    var myDiv = document.getElementById('graphSVG');
-                    //console.log(myDiv.clientHeight);
-                    //console.log(myDiv.clientWidth);
-                    graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
-                    graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
-
-                });    */            
+            }           
 
             function handleMouseEnter(d, i) {
                 d3.select(this)
