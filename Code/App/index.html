@@ -345,8 +345,8 @@
             d3.json("2013-Cut-Pestizide-JSON.json", function(error, data) {
                 if (error) throw error;
 
-                //console.log(newMaxLine[0].x);
-                //console.log(newMaxLine[0].y);
+                console.log(newMaxLine[0].x);
+                console.log(newMaxLine[0].y);
                 
                 //set initial Height and width
                 graphDivHeight = document.getElementById('graphSVG').clientHeight;
@@ -572,7 +572,7 @@
                     //console.log(selectedParameter);
                     getSubDataArray(nestedData,selectedParameter)
                     //console.log("subarray change");
-                    //console.log(selectedSubDataArray);
+                    console.log(selectedSubDataArray);
                     //chartShizzl();
                     updateChartAxis();
                     addNewKreise();
