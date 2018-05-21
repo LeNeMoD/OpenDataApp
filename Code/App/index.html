@@ -427,24 +427,15 @@
                 .attr("transform", "translate(0," +(parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom) +")")
                 .call(xAxis);
 
-                //not used line
-                /*var path = chartBoard.append("path")
-                .data(selectedSubDataArray.values)
-                .attr("id","path")
-                .style('fill', 'none')
-                .style('stroke', 'steelblue')
-                .style('stroke-width', '2px');*/
-
-                /*chartBoard.append("g")
+                chartBoard.append("g")
                     .attr("id","yAxis")
-                    .call(yAxis)
                     .append("text")
                     .attr("fill", "#000")
                     .attr("transform", "rotate(-90)")
                     .attr("y", 6)
                     .attr("dy", "0.71em")
                     .attr("text-anchor", "middle")
-                    .text("ng / L");*/
+                    .text("ng / L");
 
 
 
@@ -475,17 +466,6 @@
                     yScale.range([height,0]);
                     yAxis.scale(yScale);
                     yAxisEl.call(yAxis);
-
-                    chartBoard.append("g")
-                        .attr("id","yAxis")
-                        .call(yAxis)
-                        .append("text")
-                        .attr("fill", "#000")
-                        .attr("transform", "rotate(-90)")
-                        .attr("y", 6)
-                        .attr("dy", "0.71em")
-                        .attr("text-anchor", "middle")
-                        .text("ng / L");
 
                     //not used line
                     /*
@@ -530,7 +510,7 @@
                     chartBoard.selectAll("circle")
                     .data(selectedSubDataArray.values)
                     .transition()
-                    .duration(1000)
+                    .duration(10)
                     .style("fill","green")
                     .attr("cx", function(d){
                         return xScale(d.Datum_Start);
@@ -545,7 +525,7 @@
                     .data(selectedSubDataArray.values)
                     .exit()
                     .transition()
-                    .duration(1000)
+                    .duration(10)
                     .style("fill", "black")
                     .attr("r", 0)
                     .remove();
