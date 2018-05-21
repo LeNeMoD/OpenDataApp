@@ -326,6 +326,15 @@
             var selectedSubDataArray;
             var graphDivHeight;
             var graphDivWidth;
+            var firstDatum = "01.01.2013";
+            var lastDatum = "31.12.2013";
+            var y1MaxNew = 10;
+            var y2MaxNew = 10;
+            var newMaxDatumArray = ["01.01.2013","31.12.2013"];
+            var newMaxYValueArray = [10,10];
+            var newMaxLineData = [[{"x":"01.01.2013", "y":10}, {"x":"31.12.2013", "y":10}]];
+            var newMaxLine = [[{"x":"01.01.2013", "y":10}, {"x":"31.12.2013", "y":10}]];
+
             //var svgGraphPanel = d3.select("#graphSVG");
             var margin = {top: 50, right: 50, bottom: 50, left: 50};
             //---------- END Global Variables----------//
@@ -432,7 +441,7 @@
 
 
 
-                function drawChart(){
+                function updateChartAxis(){
 
                     console.log("drawChartCalled");
                     //console.log(data);
@@ -477,7 +486,23 @@
                         .attr("d", line);
                     */
                 }
-                
+                drawMaxLine();
+                function drawMaxLine(){
+                    lineMax
+                        .x(function(d) { return xScale(d.x); })
+                        .y(function(d) { return yScale(d.y); });
+
+
+                    path.datum(newMaxLine)
+                        .attr("fill", "none")
+                        .attr("stroke", "gray")
+                        .attr("stroke-linejoin", "round")
+                        .attr("stroke-linecap", "round")
+                        .attr("stroke-width", 0.5)
+                        .attr("d", lineMax);
+                    
+                }
+
                 function addNewKreise(){
                     var kreise = chartBoard.selectAll("circle")
                     .data(selectedSubDataArray.values)
@@ -497,34 +522,34 @@
                     .style("fill", "Blue")
                     .on("mouseover", handleMouseEnter)
                     .on("mouseout", handleMouseLeave)
-                }
-                
+                    }
+
                 function updateKreise(){
                     chartBoard.selectAll("circle")
-                    .data(selectedSubDataArray.values)
-                    .transition()
-                    .duration(10)
-                    .style("fill","green")
-                    .attr("cx", function(d){
+                        .data(selectedSubDataArray.values)
+                        .transition()
+                        .duration(10)
+                        .style("fill","green")
+                        .attr("cx", function(d){
                         return xScale(d.Datum_Start);
                     })
-                    .attr("cy", function(d){
+                        .attr("cy", function(d){
                         return yScale(d.M_in_mg_L);
                     });
                 }
-                
+
                 function removeKreise(){
                     chartBoard.selectAll("circle")
-                    .data(selectedSubDataArray.values)
-                    .exit()
-                    .transition()
-                    .duration(10)
-                    .style("fill", "black")
-                    .attr("r", 0)
-                    .remove();
+                        .data(selectedSubDataArray.values)
+                        .exit()
+                        .transition()
+                        .duration(10)
+                        .style("fill", "black")
+                        .attr("r", 0)
+                        .remove();
                 }
 
-                drawChart();
+                updateChartAxis();
                 addNewKreise();
 
                 window.addEventListener('resize', function() {
@@ -535,27 +560,27 @@
                     //console.log(myDiv.clientWidth);
                     graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
                     graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
-                    drawChart();
+                    updateChartAxis();
                     addNewKreise();
                     updateKreise();
                     removeKreise();
-                    
+
                 });
-            
-            $('#Auswahl').change(function () {
-                var selecteditem = $(this).find("option:selected").val(); 
-                selectedParameter = selecteditem;
-                //console.log(selectedParameter);
-                getSubDataArray(nestedData,selectedParameter)
-                //console.log("subarray change");
-                console.log(selectedSubDataArray);
-                //chartShizzl();
-                drawChart();
-                addNewKreise();
-                updateKreise();
-                removeKreise();
-            });
-                
+
+                $('#Auswahl').change(function () {
+                    var selecteditem = $(this).find("option:selected").val(); 
+                    selectedParameter = selecteditem;
+                    //console.log(selectedParameter);
+                    getSubDataArray(nestedData,selectedParameter)
+                    //console.log("subarray change");
+                    console.log(selectedSubDataArray);
+                    //chartShizzl();
+                    updateChartAxis();
+                    addNewKreise();
+                    updateKreise();
+                    removeKreise();
+                });
+
             }
 
             function listExistingPamaters(data){
@@ -569,13 +594,13 @@
                 //console.log(existingParametersArray);
                 existingParametersArray.sort();
                 return existingParametersArray;
-                
-                
+
+
             }
             //---------- END Extract ParameterList----------//
 
             //---------- Start getSelectBoxSelectedValue ----------//
-            
+
             //---------- END getSelectSelectedValue----------//
 
             //---------- START getSelectedSubDataArray----------//
