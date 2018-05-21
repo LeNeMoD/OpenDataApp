@@ -338,8 +338,8 @@
                 //set initial Height and width
                 graphDivHeight = document.getElementById('graphSVG').clientHeight;
                 graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
-                console.log("Init graphDiv Height :" + graphDivHeight);
-                console.log("Init graphDiv Width :" + graphDivWidth);
+                //console.log("Init graphDiv Height :" + graphDivHeight);
+                //console.log("Init graphDiv Width :" + graphDivWidth);
 
                 //Helper Function Parse Date
                 var parseTime = d3.timeParse("%d.%m.%Y");
@@ -359,18 +359,8 @@
                     nestedData = nested;
                     return nested;
                 }
-
-
                 //console.log(listExistingPamaters(nestParams(data)));
                 existingParametersArray = listExistingPamaters(nestParams(data));
-                //selectedSubDataArray = 
-                getSubDataArray(nestedData,"Atrazin");
-                console.log("from init");
-                console.log(selectedSubDataArray);
-                //drawChart(selectedSubDataArray);
-
-
-                //console.log(existingParametersArray);
 
                 //Populate "Auswahl"
                 d3.select('#Auswahl')
@@ -380,19 +370,36 @@
                     .append("option")
                     .text(String);
 
+                //selectedSubDataArray = 
+                getSubDataArray(nestedData,"Atrazin");
+                console.log("from init");
+                console.log(selectedSubDataArray);
+                //drawChart(selectedSubDataArray);
+
+
+                //console.log(existingParametersArray);
+
+                chartShizzl();
+
+            }); 
+
+            function chartShizzl(){
+
                 var graphSVG = d3.select("#graphSVG");
 
-                var height = +parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom;
+                //var height = +parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom;
+                //console.log("height is: " +height);
 
-                console.log("height is: " +height);
+                var xScale = d3.scaleTime();//.range([0, width]);
+                var yScale = d3.scaleLinear();//.rangeRound([height, 0]);
+                //var yRScale = d3.scaleLinear();
 
-                var xScale = d3.scaleTime()//.range([0, width]);
-                var yScale = d3.scaleLinear().rangeRound([height, 0]);
-                
                 var xAxis = d3.axisBottom().scale(xScale);
                 var yAxis = d3.axisLeft().scale(yScale);
+                //var yRAxis = d3.axisRight().scale(yRAxis);                                
 
-                var line = d3.line();
+                //not used line
+                //var line = d3.line();
 
                 xScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
                     //console.log(d.Datum_Start);
@@ -401,8 +408,13 @@
                     //console.log(d.M_in_mg_L);
                     return d.M_in_mg_L; }));
 
+                //nach was scale .. durchfluss bleibt über das jahr oder nach was ? 
+                //yRScale.domain(d3.extent(selectedSubDataArray.values, function(d,i) {
+                //console.log(d.M_in_mg_L);
+                //return d[i] }));
+
                 var chartBoard = graphSVG.append("g")
-                .attr("id", "blubber")
+                .attr("id", "groupGraphSVG")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
                 ;
 
@@ -412,16 +424,18 @@
                 .call(yAxis);
 
                 var xAxisEl = chartBoard.append("g")
-                .attr("transform", "translate(0," + height + ")");
+                .attr("transform", "translate(0," +(parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom) +")")
+                .call(xAxis);
 
-                var path = chartBoard.append("path")
+                //not used line
+                /*var path = chartBoard.append("path")
                 .data(selectedSubDataArray.values)
                 .attr("id","path")
                 .style('fill', 'none')
                 .style('stroke', 'steelblue')
-                .style('stroke-width', '2px');
+                .style('stroke-width', '2px');*/
 
-                chartBoard.append("g")
+                /*chartBoard.append("g")
                     .attr("id","yAxis")
                     .call(yAxis)
                     .append("text")
@@ -430,72 +444,115 @@
                     .attr("y", 6)
                     .attr("dy", "0.71em")
                     .attr("text-anchor", "middle")
-                    .text("ng / L");
+                    .text("ng / L");*/
 
 
 
                 function drawChart(){
 
-                    var t = d3.transition()
-                    .duration(10);
-                    var t2 = d3.transition()
-                    .duration(1000);
-
                     console.log("drawChartCalled");
                     //console.log(data);
                     //console.log("chartdraw graphDiv height "+ graphDivHeight);
 
+                    xScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
+                        //console.log(d.Datum_Start);
+                        return d.Datum_Start; }));
+                    yScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
+                        //console.log(d.M_in_mg_L);
+                        return d.M_in_mg_L; }));
 
                     //console.log("chartdraw height "+ height);
 
                     width = parseInt(d3.select('#divGraphSVG').style('width'), 10) - margin.left - margin.right;
                     //console.log("chartdraw width "+ width);
-                   
                     console.log("width is: " +width);
                     xScale.range([0, width]);
-
                     xAxis.scale(xScale);
-
                     xAxisEl.call(xAxis);
 
-                    line.x(function(d) { console.log(d.Datum_Start);return xScale(d.Datum_Start); })
+                    height = +parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom;
+                    console.log("width is: " +height);
+                    yScale.range([height,0]);
+                    yAxis.scale(yScale);
+                    yAxisEl.call(yAxis);
+
+                    chartBoard.append("g")
+                        .attr("id","yAxis")
+                        .call(yAxis)
+                        .append("text")
+                        .attr("fill", "#000")
+                        .attr("transform", "rotate(-90)")
+                        .attr("y", 6)
+                        .attr("dy", "0.71em")
+                        .attr("text-anchor", "middle")
+                        .text("ng / L");
+
+                    //not used line
+                    /*
+                    line.x(function(d) { 
+                        //console.log(d.Datum_Start);
+                        return xScale(d.Datum_Start); })
                         .y(function(d) { return yScale(d.M_in_mg_L); });
 
 
                     path.datum(selectedSubDataArray.values)
                         .attr("fill", "none")
-                        .attr("stroke", "steelblue")
+                        .attr("stroke", "gray")
                         .attr("stroke-linejoin", "round")
                         .attr("stroke-linecap", "round")
-                        .attr("stroke-width", 1.5)
+                        .attr("stroke-width", 0.5)
                         .attr("d", line);
-
-                    /*var kreise = chartBoard.selectAll("circle")
-                    .data(selectedSubDataArray.values);
-
-                    kreise.exit()
-                        .remove();
-
-                    kreise.enter()
-                        .append("circle")
-                        .attr("r", 7)
-                        .attr("cx", function(d) {
+                    */
+                }
+                
+                function addNewKreise(){
+                    var kreise = chartBoard.selectAll("circle")
+                    .data(selectedSubDataArray.values)
+                    .enter()
+                    .append("circle")
+                    .attr("r", 7)
+                    .attr("cx", function(d) {
                         //console.log(d);
                         //console.log(d.Datum_Start);
                         //console.log(d.M_in_mg_L);
                         //console.log(xScale(d.Datum_Start));
                         return xScale(d.Datum_Start); })
-                        .attr("cy", function(d) { 
+                    .attr("cy", function(d) { 
                         //console.log(d.M_in_mg_L);
                         return yScale(d.M_in_mg_L); })
-                        .attr("stroke", "black")
-                        .style("fill", "Blue")
-                        .on("mouseover", handleMouseEnter)
-                        .on("mouseout", handleMouseLeave);
-                */
+                    .attr("stroke", "black")
+                    .style("fill", "Blue")
+                    .on("mouseover", handleMouseEnter)
+                    .on("mouseout", handleMouseLeave)
+                }
+                
+                function updateKreise(){
+                    chartBoard.selectAll("circle")
+                    .data(selectedSubDataArray.values)
+                    .transition()
+                    .duration(1000)
+                    .style("fill","green")
+                    .attr("cx", function(d){
+                        return xScale(d.Datum_Start);
+                    })
+                    .attr("cy", function(d){
+                        return yScale(d.M_in_mg_L);
+                    });
+                }
+                
+                function removeKreise(){
+                    chartBoard.selectAll("circle")
+                    .data(selectedSubDataArray.values)
+                    .exit()
+                    .transition()
+                    .duration(1000)
+                    .style("fill", "black")
+                    .attr("r", 0)
+                    .remove();
                 }
 
                 drawChart();
+                addNewKreise();
 
                 window.addEventListener('resize', function() {
                     console.log("The window was resized!");
@@ -506,52 +563,64 @@
                     graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
                     graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
                     drawChart();
-
-
-                }); 
-
-                function listExistingPamaters(data){
-                    var existingParametersArray = [];
-                    //console.log("log Data befor listing parameters (is nested)");
-                    //console.log(data);
-                    for(i=0 ; i<data.length; i++){
-                        //console.log(data[i].key);
-                        existingParametersArray[i] = data[i].key;
-                    }
-                    //console.log(existingParametersArray);
-                    existingParametersArray.sort();
-                    return existingParametersArray;
-                }
-                //---------- END Extract ParameterList----------//
-
-                //---------- Start getSelectBoxSelectedValue ----------//
-                $('#Auswahl').change(function () {
-                    var selecteditem = $(this).find("option:selected").val(); 
-                    selectedParameter = selecteditem;
-                    //console.log(selectedParameter);
-                    getSubDataArray(nestedData,selectedParameter)
-                    //console.log("subarray change");
-                    console.log(selectedSubDataArray);
+                    addNewKreise();
+                    updateKreise();
+                    removeKreise();
+                    
                 });
-                //---------- END getSelectSelectedValue----------//
+            
+            $('#Auswahl').change(function () {
+                var selecteditem = $(this).find("option:selected").val(); 
+                selectedParameter = selecteditem;
+                //console.log(selectedParameter);
+                getSubDataArray(nestedData,selectedParameter)
+                //console.log("subarray change");
+                console.log(selectedSubDataArray);
+                //chartShizzl();
+                drawChart();
+                updateKreise();
+                removeKreise();
+            });
+                
+            }
 
-                //---------- START getSelectedSubDataArray----------//
-                function getSubDataArray(data, key){
-                    //console.log(data);
-                    //console.log(key);
-                    subdataArray = [];
-                    for(i=0 ; i<data.length; i++){
-                        if(data[i].key === key){
-                            subdataArray = data[i];
-                        }
-                    }
-                    selectedSubDataArray = subdataArray;
-                    //console.log(subdataArray);
-                    //return subdataArray;
+            function listExistingPamaters(data){
+                var existingParametersArray = [];
+                //console.log("log Data befor listing parameters (is nested)");
+                //console.log(data);
+                for(i=0 ; i<data.length; i++){
+                    //console.log(data[i].key);
+                    existingParametersArray[i] = data[i].key;
                 }
-                //---------- END getSelectedSubDataArray----------//
-                //---------- Start Handlers-----------//
-                window.addEventListener('resize', function() {
+                //console.log(existingParametersArray);
+                existingParametersArray.sort();
+                return existingParametersArray;
+                
+                
+            }
+            //---------- END Extract ParameterList----------//
+
+            //---------- Start getSelectBoxSelectedValue ----------//
+            
+            //---------- END getSelectSelectedValue----------//
+
+            //---------- START getSelectedSubDataArray----------//
+            function getSubDataArray(data, key){
+                //console.log(data);
+                //console.log(key);
+                subdataArray = [];
+                for(i=0 ; i<data.length; i++){
+                    if(data[i].key === key){
+                        subdataArray = data[i];
+                    }
+                }
+                selectedSubDataArray = subdataArray;
+                //console.log(subdataArray);
+                //return subdataArray;
+            }
+            //---------- END getSelectedSubDataArray----------//
+            //---------- Start Handlers-----------//
+            /* window.addEventListener('resize', function() {
                     console.log("The window was resized!");
                     //var myDiv = document.getElementById('divGraphSVG');
                     var myDiv = document.getElementById('graphSVG');
@@ -560,23 +629,23 @@
                     graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
                     graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
 
-                });                
+                });    */            
 
-                function handleMouseEnter(d, i) {
-                    d3.select(this)
-                        .attr("opacity", 1.0)
-                        .attr("r", 10)
-                        .attr("stroke", "black")
-                        .style("fill","yellow");
-                    //d3.select(this).style("fill","green");
-                }
+            function handleMouseEnter(d, i) {
+                d3.select(this)
+                    .attr("opacity", 1.0)
+                    .attr("r", 10)
+                    .attr("stroke", "black")
+                    .style("fill","yellow");
+                //d3.select(this).style("fill","green");
+            }
 
-                function handleMouseLeave(d, i) {
-                    d3.select(this)
-                        .attr("r", 7)
-                        .style("fill","blue");
-                }
-            });
+            function handleMouseLeave(d, i) {
+                d3.select(this)
+                    .attr("r", 7)
+                    .style("fill","blue");
+            }
+
 
         </script>
     </body>
