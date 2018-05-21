@@ -332,9 +332,10 @@
             var y2MaxNew = 10;
             var newMaxDatumArray = ["01.01.2013","31.12.2013"];
             var newMaxYValueArray = [10,10];
-            var newMaxLineData = [[{"x":"01.01.2013", "y":10}, {"x":"31.12.2013", "y":10}]];
-            var newMaxLine = [[{"x":"01.01.2013", "y":10}, {"x":"31.12.2013", "y":10}]];
-
+            var newMaxLineData = [{"x":"01.01.2013", "y":10}, {"x":"31.12.2013", "y":10}];
+            var newMaxLine = [{"x":"01.01.2013", "y":10}, {"x":"31.12.2013", "y":10}];
+            //Helper Function Parse Date
+            var parseTime = d3.timeParse("%d.%m.%Y");
             //var svgGraphPanel = d3.select("#graphSVG");
             var margin = {top: 50, right: 50, bottom: 50, left: 50};
             //---------- END Global Variables----------//
@@ -344,14 +345,14 @@
             d3.json("2013-Cut-Pestizide-JSON.json", function(error, data) {
                 if (error) throw error;
 
+                console.log(newMaxLine[0].x);
+                console.log(newMaxLine[0].y);
+                
                 //set initial Height and width
                 graphDivHeight = document.getElementById('graphSVG').clientHeight;
                 graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
                 //console.log("Init graphDiv Height :" + graphDivHeight);
                 //console.log("Init graphDiv Width :" + graphDivWidth);
-
-                //Helper Function Parse Date
-                var parseTime = d3.timeParse("%d.%m.%Y");
 
                 data.forEach(function(d) {
                     d.Datum_Start = parseTime(d.Datum_Start);
@@ -389,6 +390,8 @@
                 chartShizzl();
 
             }); 
+            
+            
 
             function chartShizzl(){
 
@@ -420,8 +423,6 @@
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
                 ;
 
-                //var height = +graphDivHeight - margin.top -margin.bottom;
-
                 var yAxisEl = chartBoard.append("g")
                 .call(yAxis);
 
@@ -439,11 +440,17 @@
                     .attr("text-anchor", "middle")
                     .text("ng / L");
 
-
+                var path = chartBoard.append("path")
+                .data(newMaxLine)
+                .attr("id","path")
+                .style('fill', 'none')
+                .style('stroke', 'red')
+                .style('stroke-width', '2px');
+                drawMaxLine();
 
                 function updateChartAxis(){
 
-                    console.log("drawChartCalled");
+                    console.log("updateChartAxis");
                     //console.log(data);
                     //console.log("chartdraw graphDiv height "+ graphDivHeight);
 
@@ -458,39 +465,27 @@
 
                     width = parseInt(d3.select('#divGraphSVG').style('width'), 10) - margin.left - margin.right;
                     //console.log("chartdraw width "+ width);
-                    console.log("width is: " +width);
+                    //console.log("width is: " +width);
                     xScale.range([0, width]);
                     xAxis.scale(xScale);
                     xAxisEl.call(xAxis);
 
                     height = +parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom;
-                    console.log("width is: " +height);
+                    //console.log("width is: " +height);
                     yScale.range([height,0]);
                     yAxis.scale(yScale);
                     yAxisEl.call(yAxis);
-
-                    //not used line
-                    /*
-                    line.x(function(d) { 
-                        //console.log(d.Datum_Start);
-                        return xScale(d.Datum_Start); })
-                        .y(function(d) { return yScale(d.M_in_mg_L); });
-
-
-                    path.datum(selectedSubDataArray.values)
-                        .attr("fill", "none")
-                        .attr("stroke", "gray")
-                        .attr("stroke-linejoin", "round")
-                        .attr("stroke-linecap", "round")
-                        .attr("stroke-width", 0.5)
-                        .attr("d", line);
-                    */
                 }
-                drawMaxLine();
+
                 function drawMaxLine(){
+                    console.log("drawMaxLine called");
                     lineMax
-                        .x(function(d) { return xScale(d.x); })
-                        .y(function(d) { return yScale(d.y); });
+                        .x(function(d) { 
+                        console.log(d.x);
+                        return xScale(parseTime(d.x)); })
+                        .y(function(d) { 
+                        console.log(d.y);                        
+                        return yScale(d.y); });
 
 
                     path.datum(newMaxLine)
@@ -500,8 +495,9 @@
                         .attr("stroke-linecap", "round")
                         .attr("stroke-width", 0.5)
                         .attr("d", lineMax);
-                    
+
                 }
+                drawMaxLine();
 
                 function addNewKreise(){
                     var kreise = chartBoard.selectAll("circle")
@@ -564,6 +560,7 @@
                     addNewKreise();
                     updateKreise();
                     removeKreise();
+                    drawMaxLine();
 
                 });
 
@@ -579,6 +576,7 @@
                     addNewKreise();
                     updateKreise();
                     removeKreise();
+                    drawMaxLine();
                 });
 
             }
