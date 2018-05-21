@@ -345,8 +345,8 @@
             d3.json("2013-Cut-Pestizide-JSON.json", function(error, data) {
                 if (error) throw error;
 
-                console.log(newMaxLine[0].x);
-                console.log(newMaxLine[0].y);
+                //console.log(newMaxLine[0].x);
+                //console.log(newMaxLine[0].y);
                 
                 //set initial Height and width
                 graphDivHeight = document.getElementById('graphSVG').clientHeight;
@@ -382,8 +382,8 @@
 
                 //selectedSubDataArray = 
                 getSubDataArray(nestedData,"Atrazin");
-                console.log("from init");
-                console.log(selectedSubDataArray);
+                //console.log("from init");
+                //console.log(selectedSubDataArray);
                 //drawChart(selectedSubDataArray);
                 //console.log(existingParametersArray);
 
@@ -446,7 +446,9 @@
                 .style('fill', 'none')
                 .style('stroke', 'red')
                 .style('stroke-width', '2px');
+                
                 drawMaxLine();
+                updateChartAxis();
 
                 function updateChartAxis(){
 
@@ -481,10 +483,10 @@
                     console.log("drawMaxLine called");
                     lineMax
                         .x(function(d) { 
-                        console.log(d.x);
+                        //console.log(d.x);
                         return xScale(parseTime(d.x)); })
                         .y(function(d) { 
-                        console.log(d.y);                        
+                        //console.log(d.y);                        
                         return yScale(d.y); });
 
 
@@ -504,7 +506,7 @@
                     .data(selectedSubDataArray.values)
                     .enter()
                     .append("circle")
-                    .attr("r", 7)
+                    .attr("r", 5)
                     .attr("cx", function(d) {
                         //console.log(d);
                         //console.log(d.Datum_Start);
@@ -515,7 +517,7 @@
                         //console.log(d.M_in_mg_L);
                         return yScale(d.M_in_mg_L); })
                     .attr("stroke", "black")
-                    .style("fill", "Blue")
+                    .style("fill", function(d){if(d.M_in_mg_L>10){return "red";}else{return "green";}})
                     .on("mouseover", handleMouseEnter)
                     .on("mouseout", handleMouseLeave)
                     }
@@ -524,8 +526,8 @@
                     chartBoard.selectAll("circle")
                         .data(selectedSubDataArray.values)
                         .transition()
-                        .duration(10)
-                        .style("fill","green")
+                        .duration(250)
+                        .style("fill",function(d){if(d.M_in_mg_L>10){return "red";}else{return "green";}} )
                         .attr("cx", function(d){
                         return xScale(d.Datum_Start);
                     })
@@ -539,8 +541,8 @@
                         .data(selectedSubDataArray.values)
                         .exit()
                         .transition()
-                        .duration(10)
-                        .style("fill", "black")
+                        .duration(250)
+                        .style("fill", function(d){if(d.M_in_mg_L>10){return "red";}else{return "green";}} )
                         .attr("r", 0)
                         .remove();
                 }
@@ -570,7 +572,7 @@
                     //console.log(selectedParameter);
                     getSubDataArray(nestedData,selectedParameter)
                     //console.log("subarray change");
-                    console.log(selectedSubDataArray);
+                    //console.log(selectedSubDataArray);
                     //chartShizzl();
                     updateChartAxis();
                     addNewKreise();
@@ -627,8 +629,8 @@
 
             function handleMouseLeave(d, i) {
                 d3.select(this)
-                    .attr("r", 7)
-                    .style("fill","blue");
+                    .attr("r", 5)
+                    .style("fill",function(d){if(d.M_in_mg_L>10){return "red";}else{return "green";}} );
             }
 
 
