@@ -108,6 +108,12 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-12" id="zuordnungenBtnsDiv">
+                                <svg id="zuordnungenBtnsSVG"  >
+                                </svg>
+                                <!--<img class="img-responsive" src="appscreenshot.jpg" style="height: 500px; width: auto; align: center">-->
+                            </div>
+
                             <!-- App hier einbetten -->
                             <div class="col-md-9" id="divGraphSVG">
                                 <svg id="graphSVG"  >
@@ -324,6 +330,7 @@
             var selectedParameter;
             var nestedData;
             var selectedSubDataArray;
+            var nestZuordnung;
             var graphDivHeight;
             var graphDivWidth;
             var firstDatum = "01.01.2013";
@@ -347,7 +354,7 @@
 
                 console.log(newMaxLine[0].x);
                 console.log(newMaxLine[0].y);
-                
+
                 //set initial Height and width
                 graphDivHeight = document.getElementById('graphSVG').clientHeight;
                 graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
@@ -369,6 +376,19 @@
                     nestedData = nested;
                     return nested;
                 }
+
+                listZuordnungen(data);
+                function listZuordnungen(data){
+                    var nested = d3.nest()
+                    .key(function(d) {return d["Zuordnung"];})
+                    .entries(data);
+                    nestZuordnung = nested;
+                    console.log("access list nesting");
+                    console.log(nestZuordnung);
+                    console.log(nestZuordnung[0].values.length);
+
+                }
+
                 //console.log(listExistingPamaters(nestParams(data)));
                 existingParametersArray = listExistingPamaters(nestParams(data));
 
@@ -382,16 +402,27 @@
 
                 //selectedSubDataArray = 
                 getSubDataArray(nestedData,"Atrazin");
-                //console.log("from init");
-                //console.log(selectedSubDataArray);
-                //drawChart(selectedSubDataArray);
+                console.log("from init");
+                console.log(selectedSubDataArray);
                 //console.log(existingParametersArray);
 
                 chartShizzl();
 
             }); 
-            
-            
+
+            /*function drawZuordnungen(){
+                var graphSVG = d3.select("#zuordnungenDVG");
+
+                var zuordKreise = graphSVG.selectAll("circle")
+                .data(nestZuordnung)
+                .enter()
+                .append("circle")
+                .attr("r", 5)
+                .attr("cx", function(d) {
+                    
+                });}*/
+
+
 
             function chartShizzl(){
 
@@ -407,7 +438,7 @@
 
                 //not used line
                 var lineMax = d3.line();
-                
+
                 var lineWasser = d3.line();
 
                 xScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
@@ -432,7 +463,7 @@
 
                 var yAxisEl = chartBoard.append("g")
                 .call(yAxis);
-                
+
                 var ySecAxisEl = chartBoard.append("g")
                 .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
                 .call(ySecAxis);
@@ -450,7 +481,7 @@
                     .attr("dy", "0.71em")
                     .attr("text-anchor", "middle")
                     .text("ng / L");
-                
+
                 chartBoard.append("g")
                     .attr("id","ySecAxis")
                     .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
@@ -468,14 +499,14 @@
                 .style('fill', 'none')
                 .style('stroke', 'red')
                 .style('stroke-width', '2px');
-                
+
                 var pathWasser = chartBoard.append("path")
                 .data(newMaxLine)
                 .attr("id","pathWasser")
                 .style('fill', 'none')
                 .style('stroke', 'Blue')
                 .style('stroke-width', '2px');
-                
+
                 drawMaxLine();
                 updateChartAxis();
 
@@ -509,12 +540,12 @@
                     yScale.range([height,0]);
                     yAxis.scale(yScale);
                     yAxisEl.call(yAxis);
-                    
+
                     ySecScale.range([height,0]);
                     ySecAxis.scale(ySecScale);
                     ySecAxisEl.call(ySecAxis);
                 }
-                
+
                 function drawMaxLine(){
                     console.log("drawMaxLine called");
                     lineMax
@@ -536,7 +567,7 @@
 
                 }
                 drawMaxLine();
-                
+
                 function drawWasserLine(){
                     console.log("drawMaxLine called");
                     lineWasser
