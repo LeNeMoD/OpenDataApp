@@ -70,3 +70,11 @@ body {
     display: block;
     height: 500px;
 }
+svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+#zuordnungenLabelText{
+    margin-top: 20px;
+}
