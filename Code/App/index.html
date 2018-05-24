@@ -548,11 +548,11 @@
 
                 var xScale = d3.scaleTime();
                 var yScale = d3.scaleLinear();
-                //var ySecScale = d3.scaleLinear();
+                var ySecScale = d3.scaleLinear();
 
                 var xAxis = d3.axisBottom().scale(xScale);
                 var yAxis = d3.axisLeft().scale(yScale);
-                //var ySecAxis = d3.axisRight().scale(ySecScale);
+                var ySecAxis = d3.axisRight().scale(ySecScale);
 
                 //not used line
                 var lineMax = d3.line();
@@ -565,9 +565,9 @@
                 yScale.domain(d3.extent(data.values, function(d) {
                     //console.log(d.WertText);
                     return d.WertText; }));
-                //ySecScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
-                //console.log(d.Q_m3_s);
-                //    return d.Q_m3_s; }));
+                ySecScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
+                console.log(d.Q_m3_s);
+                    return d.Q_m3_s; }));
 
                 //nach was scale .. durchfluss bleibt über das jahr oder nach was ? 
                 //yRScale.domain(d3.extent(selectedSubDataArray.values, function(d,i) {
@@ -581,9 +581,9 @@
                 var yAxisEl = chartBoard.append("g")
                 .call(yAxis);
 
-                //var ySecAxisEl = chartBoard.append("g")
-                //.attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
-                //.call(ySecAxis);
+                var ySecAxisEl = chartBoard.append("g")
+                .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                .call(ySecAxis);
 
                 var xAxisEl = chartBoard.append("g")
                 .attr("transform", "translate(0," +(parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom) +")")
@@ -599,7 +599,7 @@
                     .attr("text-anchor", "middle")
                     .text("ng / L");
 
-                /*chartBoard.append("g")
+                chartBoard.append("g")
                     .attr("id","ySecAxis")
                     .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
                     .append("text")
@@ -608,7 +608,7 @@
                     .attr("y", 6)
                     .attr("dy", "0.71em")
                     .attr("text-anchor", "middle")
-                    .text("Q_M3/S");*/
+                    .text("Q_M3/S");
 
                 var path = chartBoard.append("path")
                 .data(newMaxLine)
@@ -639,9 +639,9 @@
                     yScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
                         //console.log(d.WertText);
                         return d.WertText; }));
-                    //ySecScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
-                    //console.log(d.Q_m3_s);
-                    //  return d.Q_m3_s; }));
+                    ySecScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
+                    console.log(d.Q_m3_s);
+                      return d.Q_m3_s; }));
 
                     //console.log("chartdraw height "+ height);
 
@@ -658,9 +658,9 @@
                     yAxis.scale(yScale);
                     yAxisEl.call(yAxis);
 
-                    //ySecScale.range([height,0]);
-                    //ySecAxis.scale(ySecScale);
-                    //ySecAxisEl.call(ySecAxis);
+                    ySecScale.range([height,0]);
+                    ySecAxis.scale(ySecScale);
+                    ySecAxisEl.call(ySecAxis);
                 }
 
                 function drawMaxLine(){
@@ -769,7 +769,7 @@
                         addNewKreise();
                         updateKreise();
                         removeKreise();
-                        //drawMaxLine();
+                        drawMaxLine();
                     }
                 });
 
@@ -785,7 +785,7 @@
                     addNewKreise();
                     updateKreise();
                     removeKreise();
-                    //drawMaxLine();
+                    drawMaxLine();
                 });
             }
 
