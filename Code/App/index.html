@@ -118,8 +118,8 @@
                                 </svg>
                             </div>
                             <div id="chemieDiv"class="col-md-3">
-                                <h1>Chlortoluron</h1>
-                                <img class="img-responsive" src="Chlortoluron.png">
+                                <h1 id="chemieTitel"></h1>
+                                <img class="imgChemie" id="imgChemieID" src="Chlortoluron.png">
                                 <p id="Info">Der Richtwert von Chlortoluron wird in der neuen Verordnung nicht angepasst</p>
                             </div>
                         </div>
@@ -322,6 +322,23 @@
             </div>
         </div>
         <script>
+
+            //var clicked = false;
+            function updateChemieThings(parameterName) {
+                var image = document.getElementById("imgChemieID");
+                console.log("source was: "+ image.src)
+                console.log("picture name is : "+ parameterName)
+                console.log("link name is : " + parameterName+".png")
+                image.src = parameterName+".png";
+                var titel = d3.select("#chemieTitel")
+                titel.selectAll("h1")
+                .data(parameterName)
+                .enter()
+                .text(parameterName);
+                
+                titel.text(parameterName);
+                titel.exit().remove();
+            }
             //---------- Start Global Variables----------//
             var existingParametersArray; 
             var selectedParameter;
@@ -571,10 +588,11 @@
                         counter = 1;
                         var selecteditem = $(this).find("option:selected").val(); 
                         selectedParameter = selecteditem;
+                        updateChemieThings(selecteditem);
                         console.log(selectedParameter);
                         getSubDataArray(nestedDataAllParameter,selectedParameter)
-                        console.log("subarray change");
-                        console.log(selectedSubDataArray);
+                        //console.log("subarray change");
+                        //console.log(selectedSubDataArray);
                         startGraphThings(selectedSubDataArray);
                     }
                 });
@@ -684,9 +702,9 @@
                 .attr("id","pathWasser")
                 .style('fill', 'none')
                 .style('stroke', function (d){
-                    console.log("pathWasser Called ");
-                    console.log("pathWasser data is");
-                    console.log([selectedSubDataArray]);
+                    //console.log("pathWasser Called ");
+                    //console.log("pathWasser data is");
+                    //console.log([selectedSubDataArray]);
                     return "Blue";})
                 .style('stroke-width', '2px');
 
@@ -774,19 +792,19 @@
                 function drawWasserLine(){
                     console.log("drawWasserLine methode called");
                     lineWasser.x(function(d) { 
-                        console.log("d.Datum_Start is: ");
-                        console.log(d.PbNahmeDatum);
+                        //console.log("d.Datum_Start is: ");
+                        //console.log(d.PbNahmeDatum);
                         return xScale(d.PbNahmeDatum); })
                         .y(function(d) { 
-                        console.log("d.Q_m3_s is: ");
-                        console.log(d.Q_m3_s);
+                        //console.log("d.Q_m3_s is: ");
+                        //console.log(d.Q_m3_s);
                         return ySecScale(d.Q_m3_s); });
 
 
                     pathWasser.datum(selectedSubDataArray.values)
                         .attr("fill", "none")
                         .attr("stroke", function (d){
-                        console.log("drawWasserLine path methode");
+                        //console.log("drawWasserLine path methode");
                         return "Blue";})
                         .attr("stroke-linejoin", "round")
                         .attr("stroke-linecap", "round")
@@ -821,7 +839,7 @@
                     chartBoard.selectAll("circle")
                         .data(selectedSubDataArray.values)
                         .transition()
-                        .duration(250)
+                        .duration(300)
                         .style("fill",function(d){if(d.WertText>10){return "red";}else{return "green";}} )
                         .attr("cx", function(d){
                         return xScale(d.PbNahmeDatum);
@@ -836,7 +854,7 @@
                         .data(selectedSubDataArray.values)
                         .exit()
                         .transition()
-                        .duration(250)
+                        .duration(300)
                         .style("fill", function(d){if(d.WertText>10){return "red";}else{return "green";}} )
                         .attr("r", 0)
                         .remove();
@@ -850,6 +868,7 @@
                         console.log(" change in startDrawGraph counter is "+ counter);
                         var selecteditem = $(this).find("option:selected").val(); 
                         selectedParameter = selecteditem;
+                        updateChemieThings(selecteditem);
                         console.log(selectedParameter);
                         getSubDataArray(nestedDataAllParameter,selectedParameter)
                         console.log("subarray change");
