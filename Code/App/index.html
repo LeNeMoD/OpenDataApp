@@ -425,7 +425,7 @@
                     .append("circle")
                     .attr("r", 5)
                     .attr("cx", function(d,i) {
-                        return (widthZuordnungen/5)*(i+1);})
+                        return (widthZuordnungen/4)*(i+1);})
                     .attr("cy", function(d){
                         return (heightZuordnungen/2);})
                     .attr("r", function(d){
@@ -641,12 +641,7 @@
                 .style('stroke-width', '2px');
 
                 var pathWasser = chartBoard.append("path")
-                .data([selectedSubDataArray])
-                    //function(){
-                    //console.log("selected Subdata Array in pathWasser");
-                    //console.log(selectedSubDataArray);
-                    //return [selectedSubDataArray];
-                //})
+                .datum(selectedSubDataArray.values)
                 .attr("id","pathWasser")
                 .style('fill', 'none')
                 .style('stroke', function (d){
@@ -740,15 +735,15 @@
                     console.log("drawWasserLine methode called");
                     lineWasser.x(function(d) { 
                         console.log("d.Datum_Start is: ");
-                        console.log(d.values);
-                        return xScale(d.values); })
+                        console.log(d.PbNahmeDatum);
+                        return xScale(d.PbNahmeDatum); })
                         .y(function(d) { 
                         console.log("d.Q_m3_s is: ");
-                        console.log(d.values);
-                        return ySecScale(d.values); });
+                        console.log(d.Q_m3_s);
+                        return ySecScale(d.Q_m3_s); });
 
 
-                    pathWasser.datum([selectedSubDataArray])
+                    pathWasser.datum(selectedSubDataArray.values)
                         .attr("fill", "none")
                         .attr("stroke", function (d){
                         console.log("drawWasserLine path methode");
@@ -830,8 +825,12 @@
                     }
                 });
 
+                var resizeTimeout;
                 window.addEventListener('resize', function() {
-                    console.log("The window was resized!");
+                    if(resizeTimeout)
+                        clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(function() {
+                        console.log("The window was resized!");
                     //var myDiv = document.getElementById('divGraphSVG');
                     var myDiv = document.getElementById('graphSVG');
                     //console.log(myDiv.clientHeight);
@@ -845,6 +844,8 @@
                     drawNewMaxLine();
                     drawOldMaxLine();
                     drawWasserLine();
+                    }, 200);
+                    
                 });
             }
 
