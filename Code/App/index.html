@@ -353,20 +353,8 @@
             var graphDivWidth;
 
             var counter = 0;
-            /*
-            var firstDatum = "01/01/2013";
-            var lastDatum = "12/31/2013";
-            var y1MaxNew = 10;
-            var y2MaxNew = 10;
-
-            var newMaxDatumArray = ["01/01/2013","12/12/2013"];
-            var newMaxYValueArray = [10,10];
-            var oldMaxDatumArray = ["01/01/2013","12/12/2013"];
-            var oldMaxYValueArray = [10,10];
-*/
-            //var newMaxLineData = [{"x":"01/01/2013", "y":10}, {"x":"12/31/2013", "y":10}];
+           
             var newMaxLineDaten = [{"x":"01/01/2013", "y":20}, {"x":"12/31/2017", "y":20}];
-
             var oldMaxLineDaten = [{"x":"01/01/2013", "y":10}, {"x":"12/31/2017", "y":10}];
 
             //Helper Function Parse Date
@@ -925,18 +913,15 @@
                     }
                 }
                 selectedSubDataArray = subdataArray;
-                /*
+                
                 var minTime = d3.min(subdataArray.values, function(d) { return d.PbNahmeDatum; });
                 console.log("minTime is " + minTime);
 
-                var testMin = d3.min(newMaxYValueArray);
-                console.log("testMin is " + testMin);
-
                 var minValue = d3.min(subdataArray.values, function(d) { return d.WertText; });
                 console.log("minValue is " + minValue);
-                */
+                
 
-                /*console.log("before Maxline NEW");
+                console.log("before Maxline NEW");
                 console.log(newMaxLineDaten[0]);
                 console.log(newMaxLineDaten[1]);
                 newMaxLineDaten[0].x = subdataArray.values[0].Neuer_Maxwert;
@@ -958,7 +943,7 @@
                 console.log("after Maxline OLD");
                 console.log(oldMaxLineDaten[0]);
                 console.log(oldMaxLineDaten[1]);
-                */
+                
                 //hubi
                 //console.log(subdataArray);
                 //return subdataArray;
