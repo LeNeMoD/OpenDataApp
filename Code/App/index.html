@@ -334,18 +334,23 @@
 
             var graphDivHeight;
             var graphDivWidth;
-
+            
+            var counter = 0;
+/*
             var firstDatum = "01/01/2013";
             var lastDatum = "12/31/2013";
             var y1MaxNew = 10;
             var y2MaxNew = 10;
-            var counter = 0;
 
             var newMaxDatumArray = ["01/01/2013","12/12/2013"];
             var newMaxYValueArray = [10,10];
-
-            var newMaxLineData = [{"x":"01/01/2013", "y":10}, {"x":"12/31/2013", "y":10}];
-            var newMaxLine = [{"x":"01/01/2013", "y":10}, {"x":"12/31/2013", "y":10}];
+            var oldMaxDatumArray = ["01/01/2013","12/12/2013"];
+            var oldMaxYValueArray = [10,10];
+*/
+            //var newMaxLineData = [{"x":"01/01/2013", "y":10}, {"x":"12/31/2013", "y":10}];
+            var newMaxLineDaten = [{"x":"01/01/2013", "y":20}, {"x":"12/31/2017", "y":20}];
+            
+            var oldMaxLineDaten = [{"x":"01/01/2013", "y":10}, {"x":"12/31/2017", "y":10}];
 
             //Helper Function Parse Date
             var parseTime = d3.timeParse("%m/%d/%Y");
@@ -361,7 +366,7 @@
                 //return {
                 //PbNahmeDatum: new Date(parseTime(d.PbNahmeDatum)), // convert "Year" column to Date
 
-                var parseTime = d3.timeParse("%m/%d/%Y");
+                //var parseTime = d3.timeParse("%m/%d/%Y");
 
                 graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
                 graphDivWidth = document.getElementById('divGraphSVG').clientWidth;                
@@ -535,13 +540,13 @@
                         getSubDataArray(nestedDataAllParameter,selectedParameter)
                         console.log("subarray change");
                         console.log(selectedSubDataArray);
-                        startGraphDraws(selectedSubDataArray);   
+                        startGraphThings(selectedSubDataArray);
                     }
                 });
             }
 
 
-            function startGraphDraws(data){
+            function startGraphThings(data){
                 console.log("data from startGraphDraws");
                 //console.log(data);
                 var graphSVG = d3.select("#graphSVG");
@@ -555,18 +560,32 @@
                 var ySecAxis = d3.axisRight().scale(ySecScale);
 
                 //not used line
-                var lineMax = d3.line();
+                var lineMaxNew = d3.line();
+                var lineMaxOLD = d3.line();
 
-                //var lineWasser = d3.line();
+                var lineWasser = d3.line();
 
                 xScale.domain(d3.extent(data.values, function(d) {
                     //console.log(d.PbNahmeDatum);
                     return d.PbNahmeDatum; }));
                 yScale.domain(d3.extent(data.values, function(d) {
                     //console.log(d.WertText);
-                    return d.WertText; }));
+                    return d.WertText;
+                    /*var maxValue = d3.max(d.WertText, function(d) { return d.WertText; });
+                    if(maxValue<newMaxLineDaten[0].y && maxValue<oldMaxLineDaten[0].y) {
+                        return d.WertText;
+                    }else if(newMaxLineDaten[0].y==oldMaxLineDaten[0].y){
+                        return [0,d.Alter_Maxwert];
+                    
+                    }else if(newMaxLineDaten[0].y<oldMaxLineDaten[0].y){
+                        return [0,d.Alter_Maxwert];
+                    
+                    }else {
+                        return [0,d.Neuer_Maxwert];
+                    }*/
+                     }));
                 ySecScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
-                console.log(d.Q_m3_s);
+                    //console.log(d.Q_m3_s);
                     return d.Q_m3_s; }));
 
                 //nach was scale .. durchfluss bleibt über das jahr oder nach was ? 
@@ -610,24 +629,37 @@
                     .attr("text-anchor", "middle")
                     .text("Q_M3/S");
 
-                var path = chartBoard.append("path")
-                .data(newMaxLine)
-                .attr("id","path")
+                var pathMaxNEW = chartBoard.append("path")
+                .data(newMaxLineDaten)
+                .attr("id","pathMAXNEW")
                 .style('fill', 'none')
-                .style('stroke', 'red')
+                .style('stroke', function (d){
+                        console.log("pathMAxNEw Called");
+                    return "Red";})
+                .style('stroke-width', '2px');
+                
+                
+                var pathMaxOLD = chartBoard.append("path")
+                .data(oldMaxLineDaten)
+                .attr("id","pathMAXOLD")
+                .style('fill', 'none')
+                .style('stroke', function (d){
+                        console.log("pathMAxOld Called");
+                    return "Yellow";})
                 .style('stroke-width', '2px');
 
-                /*var pathWasser = chartBoard.append("path")
-                .data(newMaxLine)
+                var pathWasser = chartBoard.append("path")
+                .data([selectedSubDataArray])
                 .attr("id","pathWasser")
                 .style('fill', 'none')
-                .style('stroke', 'Blue')
-                .style('stroke-width', '2px');*/
+                .style('stroke', function (d){
+                        console.log("pathWasser Called");
+                    return "Blue";})
+                .style('stroke-width', '2px');
 
-                //drawMaxLine();
-                updateChartAxis();
+                updateChartElements();
 
-                function updateChartAxis(){
+                function updateChartElements(){
 
                     console.log("updateChartAxis");
                     //console.log(data);
@@ -640,8 +672,8 @@
                         //console.log(d.WertText);
                         return d.WertText; }));
                     ySecScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
-                    console.log(d.Q_m3_s);
-                      return d.Q_m3_s; }));
+                        //console.log(d.Q_m3_s);
+                        return d.Q_m3_s; }));
 
                     //console.log("chartdraw height "+ height);
 
@@ -663,9 +695,9 @@
                     ySecAxisEl.call(ySecAxis);
                 }
 
-                function drawMaxLine(){
-                    console.log("drawMaxLine called");
-                    lineMax
+                function drawNewMaxLine(){
+                    console.log("drawNewMaxLine called");
+                    lineMaxNew
                         .x(function(d) { 
                         //console.log(d.x);
                         return xScale(parseTime(d.x)); })
@@ -674,20 +706,20 @@
                         return yScale(d.y); });
 
 
-                    path.datum(newMaxLine)
+                    pathMaxNEW.datum(newMaxLineDaten)
                         .attr("fill", "none")
                         .attr("stroke", "gray")
                         .attr("stroke-linejoin", "round")
                         .attr("stroke-linecap", "round")
                         .attr("stroke-width", 0.5)
-                        .attr("d", lineMax);
+                        .attr("d", lineMaxNew);
 
                 }
-                drawMaxLine();
-
-                function drawWasserLine(){
-                    console.log("drawMaxLine called");
-                    lineWasser
+                drawNewMaxLine();
+                
+                function drawOldMaxLine(){
+                    console.log("drawOldMaxLine called");
+                    lineMaxOLD
                         .x(function(d) { 
                         //console.log(d.x);
                         return xScale(parseTime(d.x)); })
@@ -696,15 +728,40 @@
                         return yScale(d.y); });
 
 
-                    pathWasser.datum(selectedSubDataArray.values)
+                    pathMaxOLD.datum(oldMaxLineDaten)
                         .attr("fill", "none")
-                        .attr("stroke", "Blue")
+                        .attr("stroke", "gray")
+                        .attr("stroke-linejoin", "round")
+                        .attr("stroke-linecap", "round")
+                        .attr("stroke-width", 0.5)
+                        .attr("d", lineMaxOLD);
+
+                }
+                drawOldMaxLine();
+
+                function drawWasserLine(){
+                    console.log("drawWasserLine methode called");
+                    lineWasser
+                        .x(function(d) { 
+                        //console.log(d.x);
+                        return xScale(parseTime(d.WertText)); })
+                        .y(function(d) { 
+                        //console.log(d.PbNahmeDatum);                        
+                        return yScale(d.PbNahmeDatum); });
+
+
+                    pathWasser.data(selectedSubDataArray)
+                        .attr("fill", "none")
+                        .attr("stroke", function (d){
+                        console.log("drawWasserLine path methode");
+                    return "Blue";})
                         .attr("stroke-linejoin", "round")
                         .attr("stroke-linecap", "round")
                         .attr("stroke-width", 0.5)
                         .attr("d", lineWasser);
 
                 }
+                drawWasserLine();
 
                 function addNewKreise(){
                     var kreise = chartBoard.selectAll("circle")
@@ -765,11 +822,13 @@
                         console.log("subarray change");
                         console.log(selectedSubDataArray);
                         //startGraphDraws(selectedSubDataArray);
-                        updateChartAxis();
+                        updateChartElements();
                         addNewKreise();
                         updateKreise();
                         removeKreise();
-                        drawMaxLine();
+                        drawNewMaxLine();
+                        drawOldMaxLine();
+                        drawWasserLine();
                     }
                 });
 
@@ -781,11 +840,13 @@
                     //console.log(myDiv.clientWidth);
                     graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
                     graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
-                    updateChartAxis();
+                    updateChartElements();
                     addNewKreise();
                     updateKreise();
                     removeKreise();
-                    drawMaxLine();
+                    drawNewMaxLine();
+                    drawOldMaxLine();
+                    drawWasserLine();
                 });
             }
 
@@ -807,6 +868,41 @@
                     }
                 }
                 selectedSubDataArray = subdataArray;
+                /*
+                var minTime = d3.min(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                console.log("minTime is " + minTime);
+                
+                var testMin = d3.min(newMaxYValueArray);
+                console.log("testMin is " + testMin);
+                
+                var minValue = d3.min(subdataArray.values, function(d) { return d.WertText; });
+                console.log("minValue is " + minValue);
+                */
+                
+                /*console.log("before Maxline NEW");
+                console.log(newMaxLineDaten[0]);
+                console.log(newMaxLineDaten[1]);
+                newMaxLineDaten[0].x = subdataArray.values[0].Neuer_Maxwert;
+                newMaxLineDaten[1].x = subdataArray.values[0].Neuer_Maxwert;
+                newMaxLineDaten[0].y = d3.min(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                newMaxLineDaten[1].y = d3.max(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                console.log("after Maxline NEW");
+                console.log(newMaxLineDaten[0]);
+                console.log(newMaxLineDaten[1]);
+                
+                
+                console.log("before Maxline OLD");
+                console.log(oldMaxLineDaten[0]);
+                console.log(oldMaxLineDaten[1]);
+                oldMaxLineDaten[0].x = subdataArray.values[0].Alter_Maxwert;
+                oldMaxLineDaten[1].x = subdataArray.values[0].Alter_Maxwert;
+                oldMaxLineDaten[0].y = d3.min(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                oldMaxLineDaten[1].y = d3.max(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                console.log("after Maxline OLD");
+                console.log(oldMaxLineDaten[0]);
+                console.log(oldMaxLineDaten[1]);
+                */
+                //hubi
                 //console.log(subdataArray);
                 //return subdataArray;
             }           
