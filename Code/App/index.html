@@ -407,6 +407,10 @@
                 nestZuordnungen(data);
                 drawZuordnungenKreise(nestedDataAlleZuordnung);
 
+                var heightZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientHeight;
+                var widthZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientWidth;
+
+
                 function drawZuordnungenKreise(data2){
 
                     console.log("called draw Zuordnung")
@@ -415,45 +419,80 @@
                     .domain([0,150000])
                     .range([10,40])
 
-                    var heightZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientHeight;
-                    var widthZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientWidth;
+                    heightZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientHeight;
+                    widthZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientWidth;
 
                     var zuordnungSVG = d3.select("#zuordnungenBtnsSVG");
                     var zuordKreise = zuordnungSVG.selectAll("circle")
-                    .data(data2)
-                    .enter()
-                    .append("circle")
-                    .attr("r", 5)
-                    .attr("cx", function(d,i) {
+                    .data(data2);
+
+                    zuordKreise.enter()
+                        .append("circle")
+                        .attr("r", 5)
+                        .attr("cx", function(d,i) {
                         return (widthZuordnungen/4)*(i+1);})
-                    .attr("cy", function(d){
+                        .attr("cy", function(d){
                         return (heightZuordnungen/2);})
-                    .attr("r", function(d){
+                        .attr("r", function(d){
                         //console.log("d.length is: "+ d.values.length)
                         //console.log("d.length max "+ d3.max(data2.values.length));
                         return rscale(d.values.length);})
-                    .attr("id", function(d){
+                        .attr("id", function(d){
                         return d.key;})
-                    .style("fill", function (d){
+                        .style("fill", function (d){
                         return get_random_color();})
-                    .on("mouseover", handleMouseEnterZuordnunge)
-                    .on("mouseleave", handleMouseLeaveZuordnunge)
-                    .on("click", handleClickZuordnung);
+                        .on("mouseover", handleMouseEnterZuordnunge)
+                        .on("mouseleave", handleMouseLeaveZuordnunge)
+                        .on("click", handleClickZuordnung);
+
+                    zuordKreise.attr("cx", function(d,i) {
+                        return (widthZuordnungen/4)*(i+1);})
+                        .attr("cy", function(d){
+                        return (heightZuordnungen/2);})
+                        .attr("r", function(d){
+                        //console.log("d.length is: "+ d.values.length)
+                        //console.log("d.length max "+ d3.max(data2.values.length));
+                        return rscale(d.values.length);})
+
+                    zuordKreise.exit().remove();
+
 
                     var text = zuordnungSVG.selectAll("text")
-                    .data(data2)
-                    .enter()
-                    .append("text");
+                    .data(data2);
+
+                    text.enter()
+                        .merge(text)
+                        .append("text")
+                        .attr("x", function(d,i) {
+                        return (widthZuordnungen/4)*(i+1);})
+                        .attr("y", function(d) {return (heightZuordnungen/2)-40})
+                        .text( function (d) { return ""+d.key })
+                        .attr("text-anchor", "middle")
+                        .attr("font-family", "sans-serif")
+                        .attr("font-size", "13px")
+                        .attr("fill", "Black");
+                    text.exit().remove();
 
                     var textLabels = text
                     .attr("x", function(d,i) {
-                        return (widthZuordnungen/5)*(i+1);})
+                        return (widthZuordnungen/4)*(i+1);})
                     .attr("y", function(d) {return (heightZuordnungen/2)-40})
-                    .text( function (d) { return ""+d.key })
-                    .attr("text-anchor", "middle")
-                    .attr("font-family", "sans-serif")
-                    .attr("font-size", "13px")
-                    .attr("fill", "Black");
+                    .text( function (d) { return ""+d.key });
+
+                    text.exit().remove();
+
+                    var resizeTimeout;
+                    window.addEventListener('resize', function() {
+                        if(resizeTimeout)
+                            clearTimeout(resizeTimeout);
+                        resizeTimeout = setTimeout(function() {
+                            console.log("The window was resized! call Zuordnungen");
+                            heightZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientHeight;
+                            widthZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientWidth;
+                            drawZuordnungenKreise(data2);
+                        }, 200);
+
+                    });
                 }
             }
 
@@ -686,7 +725,8 @@
 
                     ySecScale.range([height,0]);
                     ySecAxis.scale(ySecScale);
-                    ySecAxisEl.call(ySecAxis);
+                    ySecAxisEl.attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")").call(ySecAxis);
+
                 }
 
                 function drawNewMaxLine(){
@@ -815,13 +855,7 @@
                         console.log("subarray change");
                         console.log(selectedSubDataArray);
                         //startGraphDraws(selectedSubDataArray);
-                        updateChartElements();
-                        addNewKreise();
-                        updateKreise();
-                        removeKreise();
-                        drawNewMaxLine();
-                        drawOldMaxLine();
-                        drawWasserLine();
+                        updateNecessary();
                     }
                 });
 
@@ -831,12 +865,17 @@
                         clearTimeout(resizeTimeout);
                     resizeTimeout = setTimeout(function() {
                         console.log("The window was resized!");
-                    //var myDiv = document.getElementById('divGraphSVG');
-                    var myDiv = document.getElementById('graphSVG');
-                    //console.log(myDiv.clientHeight);
-                    //console.log(myDiv.clientWidth);
-                    graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
-                    graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
+                        //var myDiv = document.getElementById('divGraphSVG');
+                        var myDiv = document.getElementById('graphSVG');
+                        //console.log(myDiv.clientHeight);
+                        //console.log(myDiv.clientWidth);
+                        graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
+                        graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
+                        updateNecessary();
+                    }, 200);
+
+                });
+                function updateNecessary(){
                     updateChartElements();
                     addNewKreise();
                     updateKreise();
@@ -844,9 +883,9 @@
                     drawNewMaxLine();
                     drawOldMaxLine();
                     drawWasserLine();
-                    }, 200);
-                    
-                });
+                }
+
+
             }
 
 
