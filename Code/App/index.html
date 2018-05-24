@@ -335,20 +335,20 @@
             var graphDivHeight;
             var graphDivWidth;
 
-            var firstDatum = "01.01.2013";
-            var lastDatum = "31.12.2013";
+            var firstDatum = "01/01/2013";
+            var lastDatum = "12/31/2013";
             var y1MaxNew = 10;
             var y2MaxNew = 10;
             var counter = 0;
 
-            var newMaxDatumArray = ["01.01.2013","31.12.2013"];
+            var newMaxDatumArray = ["01/01/2013","12/12/2013"];
             var newMaxYValueArray = [10,10];
 
-            var newMaxLineData = [{"x":"01.01.2013", "y":10}, {"x":"31.12.2013", "y":10}];
-            var newMaxLine = [{"x":"01.01.2013", "y":10}, {"x":"31.12.2013", "y":10}];
+            var newMaxLineData = [{"x":"01/01/2013", "y":10}, {"x":"12/31/2013", "y":10}];
+            var newMaxLine = [{"x":"01/01/2013", "y":10}, {"x":"12/31/2013", "y":10}];
 
             //Helper Function Parse Date
-            var parseTime = d3.timeParse("%d.%m.%Y");
+            var parseTime = d3.timeParse("%m/%d/%Y");
             //var svgGraphPanel = d3.select("#graphSVG");
             var margin = {top: 50, right: 100, bottom: 50, left: 50};
             //---------- END Global Variables----------//
@@ -368,7 +368,7 @@
 
                 console.log("Init graphDiv Height :" + graphDivHeight);
                 console.log("Init graphDiv Width :" + graphDivWidth);
-                
+
                 d.forEach(function(d) {
                     d.PbNahmeDatum = parseTime(d.PbNahmeDatum);
                     d.Parameter = d.Parameter;
@@ -379,8 +379,8 @@
                     d.Q_m3_s = +d.Q_m3_s;
                     d.Alter_Maxwert = +d.Alter_Maxwert;
                     d.Neuer_Maxwert = +d.Neuer_Maxwert;
-                    console.log("datum from parse");
-                    console.log(d.PbNahmeDatum);
+                    //console.log("datum from parse");
+                    //console.log(d.PbNahmeDatum);
                 });
                 //};
                 //}, 
@@ -388,221 +388,218 @@
                 //function(error, rows) {
                 //rows.forEach(function(d) {
 
-                    //})
-                    //allData = rows;
-                    //set initial Height and width
+                //})
+                //allData = rows;
+                //set initial Height and width
 
 
-                    //console.log(rows);
-                    buildZuordnungenSelection(d);
-                });
+                //console.log(rows);
+                buildZuordnungenSelection(d);
+            });
 
-                function buildZuordnungenSelection(data){
+            function buildZuordnungenSelection(data){
 
-                    nestZuordnungen(data);
-                    drawZuordnungenKreise(nestedDataAlleZuordnung);
+                nestZuordnungen(data);
+                drawZuordnungenKreise(nestedDataAlleZuordnung);
 
-                    function drawZuordnungenKreise(data2){
+                function drawZuordnungenKreise(data2){
 
-                        console.log("called draw Zuordnung")
+                    console.log("called draw Zuordnung")
 
-                        var rscale = d3.scaleLinear()
-                        .domain([0,150000])
-                        .range([10,40])
+                    var rscale = d3.scaleLinear()
+                    .domain([0,150000])
+                    .range([10,40])
 
-                        var heightZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientHeight;
-                        var widthZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientWidth;
+                    var heightZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientHeight;
+                    var widthZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientWidth;
 
-                        var zuordnungSVG = d3.select("#zuordnungenBtnsSVG");
-                        var zuordKreise = zuordnungSVG.selectAll("circle")
-                        .data(data2)
-                        .enter()
-                        .append("circle")
-                        .attr("r", 5)
-                        .attr("cx", function(d,i) {
-                            return (widthZuordnungen/5)*(i+1);})
-                        .attr("cy", function(d){
-                            return (heightZuordnungen/2);})
-                        .attr("r", function(d){
-                            //console.log("d.length is: "+ d.values.length)
-                            //console.log("d.length max "+ d3.max(data2.values.length));
-                            return rscale(d.values.length);})
-                        .attr("id", function(d){
-                            return d.key;})
-                        .style("fill", function (d){
-                            return get_random_color();})
-                        .on("mouseover", handleMouseEnterZuordnunge)
-                        .on("mouseleave", handleMouseLeaveZuordnunge)
-                        .on("click", handleClickZuordnung);
+                    var zuordnungSVG = d3.select("#zuordnungenBtnsSVG");
+                    var zuordKreise = zuordnungSVG.selectAll("circle")
+                    .data(data2)
+                    .enter()
+                    .append("circle")
+                    .attr("r", 5)
+                    .attr("cx", function(d,i) {
+                        return (widthZuordnungen/5)*(i+1);})
+                    .attr("cy", function(d){
+                        return (heightZuordnungen/2);})
+                    .attr("r", function(d){
+                        //console.log("d.length is: "+ d.values.length)
+                        //console.log("d.length max "+ d3.max(data2.values.length));
+                        return rscale(d.values.length);})
+                    .attr("id", function(d){
+                        return d.key;})
+                    .style("fill", function (d){
+                        return get_random_color();})
+                    .on("mouseover", handleMouseEnterZuordnunge)
+                    .on("mouseleave", handleMouseLeaveZuordnunge)
+                    .on("click", handleClickZuordnung);
 
-                        var text = zuordnungSVG.selectAll("text")
-                        .data(data2)
-                        .enter()
-                        .append("text");
+                    var text = zuordnungSVG.selectAll("text")
+                    .data(data2)
+                    .enter()
+                    .append("text");
 
-                        var textLabels = text
-                        .attr("x", function(d,i) {
-                            return (widthZuordnungen/5)*(i+1);})
-                        .attr("y", function(d) {return (heightZuordnungen/2)-40})
-                        .text( function (d) { return ""+d.key })
-                        .attr("text-anchor", "middle")
-                        .attr("font-family", "sans-serif")
-                        .attr("font-size", "13px")
-                        .attr("fill", "Black");
+                    var textLabels = text
+                    .attr("x", function(d,i) {
+                        return (widthZuordnungen/5)*(i+1);})
+                    .attr("y", function(d) {return (heightZuordnungen/2)-40})
+                    .text( function (d) { return ""+d.key })
+                    .attr("text-anchor", "middle")
+                    .attr("font-family", "sans-serif")
+                    .attr("font-size", "13px")
+                    .attr("fill", "Black");
+                }
+            }
+
+
+            // Helper Functions Data Nesting
+
+            function nestZuordnungen(data){
+                var nested = d3.nest()
+                .key(function(d) {return d["Zuordnung"];})
+                .entries(data);
+                nestedDataAlleZuordnung = nested;
+                //console.log("Zuordnungen from nesting");
+                //console.log(nestedDataAlleZuordnung);
+                //console.log(nestedDataAlleZuordnung[0].values.length);
+            }
+
+            function nestParams(data){
+                var nested = d3.nest()
+                .key(function(d) {return d["Parameter"];})
+                .entries(data);
+                nestedDataAllParameter = nested;
+                //console.log("parameters from nest ");
+                //console.log(nestedDataAllParameter);
+                return nested;
+            }
+            // end     Helper Function Data nesting
+
+
+            function listExistingPamaters(data){
+                var existingParametersArray = [];
+                //console.log("log Data befor listing parameters (is nested)");
+                //console.log(data);
+                for(i=0 ; i<data.length; i++){
+                    //console.log(data[i].key);
+                    existingParametersArray[i] = data[i].key;
+                }
+                existingParametersArray.sort();
+                //console.log("listed Paramaters")
+                //console.log(existingParametersArray);
+                return existingParametersArray;
+            }
+
+            function populateParamsDropDown(keyZuordnung){
+
+                //console.log(newMaxLine[0].x);
+                //console.log(newMaxLine[0].y);
+
+                for(i=0; i<nestedDataAlleZuordnung.length ; i++){
+                    if (nestedDataAlleZuordnung[i].key == keyZuordnung){
+                        selectedSubZuordnungArray = nestedDataAlleZuordnung[i].values;
+                        //console.log("subdataArrayZuordnung");
+                        //console.log(selectedSubZuordnungArray);
+                        nestParams(selectedSubZuordnungArray);
+                        renderDrDownList(listExistingPamaters(nestedDataAllParameter));
+                        //makeItHappen(listExistingPamaters(nestedDataAllParameter));
+                        //writeToDropDown(listExistingPamaters(nestedDataAllParameter));
+                        //updateDropDownEntr(listExistingPamaters(nestedDataAllParameter))
+                        //removeDropDownEntr(listExistingPamaters(nestedDataAllParameter))
+
                     }
                 }
 
+                function renderDrDownList(d){
+                    var entries = d3.select('#Auswahl')
+                    .selectAll("option")
+                    .data(d);
 
-                // Helper Functions Data Nesting
+                    //Enter
+                    entries.enter().append('option')
+                        .merge(entries) //from now on, enter + update
+                        .text(String);
 
-                function nestZuordnungen(data){
-                    var nested = d3.nest()
-                    .key(function(d) {return d["Zuordnung"];})
-                    .entries(data);
-                    nestedDataAlleZuordnung = nested;
-                    console.log("Zuordnungen from nesting");
-                    console.log(nestedDataAlleZuordnung);
-                    //console.log(nestedDataAlleZuordnung[0].values.length);
+                    //Exit
+                    entries.exit().remove();
+
                 }
-
-                function nestParams(data){
-                    var nested = d3.nest()
-                    .key(function(d) {return d["Parameter"];})
-                    .entries(data);
-                    nestedDataAllParameter = nested;
-                    console.log("parameters from nest ");
-                    console.log(nestedDataAllParameter);
-                    return nested;
-                }
-                // end     Helper Function Data nesting
-
-
-                function listExistingPamaters(data){
-                    var existingParametersArray = [];
-                    //console.log("log Data befor listing parameters (is nested)");
-                    //console.log(data);
-                    for(i=0 ; i<data.length; i++){
-                        //console.log(data[i].key);
-                        existingParametersArray[i] = data[i].key;
-                    }
-                    existingParametersArray.sort();
-                    console.log("listed Paramaters")
-                    console.log(existingParametersArray);
-                    return existingParametersArray;
-                }
-
-                function populateParamsDropDown(keyZuordnung){
-
-                    //console.log(newMaxLine[0].x);
-                    //console.log(newMaxLine[0].y);
-
-                    for(i=0; i<nestedDataAlleZuordnung.length ; i++){
-                        if (nestedDataAlleZuordnung[i].key == keyZuordnung){
-                            selectedSubZuordnungArray = nestedDataAlleZuordnung[i].values;
-                            console.log("subdataArrayZuordnung");
-                            console.log(selectedSubZuordnungArray);
-                            nestParams(selectedSubZuordnungArray);
-                            renderDrDownList(listExistingPamaters(nestedDataAllParameter));
-                            //makeItHappen(listExistingPamaters(nestedDataAllParameter));
-                            //writeToDropDown(listExistingPamaters(nestedDataAllParameter));
-                            //updateDropDownEntr(listExistingPamaters(nestedDataAllParameter))
-                            //removeDropDownEntr(listExistingPamaters(nestedDataAllParameter))
-
-                        }
-                    }
-
-                    function renderDrDownList(d){
-                        var entries = d3.select('#Auswahl')
-                        .selectAll("option")
-                        .data(d);
-
-                        //Enter
-                        entries.enter().append('option')
-                            .merge(entries) //from now on, enter + update
-                            .text(String);
-
-                        //Exit
-                        entries.exit().remove();
-
-                    }
-
-                    $('#Auswahl').change(function () {
+                $('#Auswahl').change(function () {
+                    if(counter == 0){
+                        console.log("if in render and counter is " + counter);
+                        counter = 1;
                         var selecteditem = $(this).find("option:selected").val(); 
                         selectedParameter = selecteditem;
                         console.log(selectedParameter);
                         getSubDataArray(nestedDataAllParameter,selectedParameter)
                         console.log("subarray change");
                         console.log(selectedSubDataArray);
-                        startGraphDraws(selectedSubDataArray);
-                        //updateChartAxis();
-                        //addNewKreise();
-                        //updateKreise();
-                        //removeKreise();
-                        //drawMaxLine();
-                    });
-                }
+                        startGraphDraws(selectedSubDataArray);   
+                    }
+                });
+            }
 
 
-                function startGraphDraws(data){
-                    console.log("data from startGraphDraws");
-                    console.log(data);
-                    var graphSVG = d3.select("#graphSVG");
+            function startGraphDraws(data){
+                console.log("data from startGraphDraws");
+                //console.log(data);
+                var graphSVG = d3.select("#graphSVG");
 
-                    var xScale = d3.scaleTime();
-                    var yScale = d3.scaleLinear();
-                    //var ySecScale = d3.scaleLinear();
+                var xScale = d3.scaleTime();
+                var yScale = d3.scaleLinear();
+                //var ySecScale = d3.scaleLinear();
 
-                    var xAxis = d3.axisBottom().scale(xScale);
-                    var yAxis = d3.axisLeft().scale(yScale);
-                    //var ySecAxis = d3.axisRight().scale(ySecScale);
+                var xAxis = d3.axisBottom().scale(xScale);
+                var yAxis = d3.axisLeft().scale(yScale);
+                //var ySecAxis = d3.axisRight().scale(ySecScale);
 
-                    //not used line
-                    //var lineMax = d3.line();
+                //not used line
+                var lineMax = d3.line();
 
-                    //var lineWasser = d3.line();
-                    console.log(data.PbNahmeDatum);
+                //var lineWasser = d3.line();
 
-                    xScale.domain(d3.extent(data.values, function(d) {
-                        console.log(d.PbNahmeDatum);
-                        return d.PbNahmeDatum; }));
-                    yScale.domain(d3.extent(data.values, function(d) {
-                        console.log(d.WertText);
-                        return d.WertText; }));
-                    //ySecScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
-                    //console.log(d.Q_m3_s);
-                    //    return d.Q_m3_s; }));
-
-                    //nach was scale .. durchfluss bleibt über das jahr oder nach was ? 
-                    //yRScale.domain(d3.extent(selectedSubDataArray.values, function(d,i) {
+                xScale.domain(d3.extent(data.values, function(d) {
+                    //console.log(d.PbNahmeDatum);
+                    return d.PbNahmeDatum; }));
+                yScale.domain(d3.extent(data.values, function(d) {
                     //console.log(d.WertText);
-                    //return d[i] }));
+                    return d.WertText; }));
+                //ySecScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
+                //console.log(d.Q_m3_s);
+                //    return d.Q_m3_s; }));
 
-                    var chartBoard = graphSVG.append("g")
-                    .attr("id", "groupGraphSVG")
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                //nach was scale .. durchfluss bleibt über das jahr oder nach was ? 
+                //yRScale.domain(d3.extent(selectedSubDataArray.values, function(d,i) {
+                //console.log(d.WertText);
+                //return d[i] }));
 
-                    var yAxisEl = chartBoard.append("g")
-                    .call(yAxis);
+                var chartBoard = graphSVG.append("g")
+                .attr("id", "groupGraphSVG")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-                    //var ySecAxisEl = chartBoard.append("g")
-                    //.attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
-                    //.call(ySecAxis);
+                var yAxisEl = chartBoard.append("g")
+                .call(yAxis);
 
-                    var xAxisEl = chartBoard.append("g")
-                    .attr("transform", "translate(0," +(parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom) +")")
-                    .call(xAxis);
+                //var ySecAxisEl = chartBoard.append("g")
+                //.attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                //.call(ySecAxis);
 
-                    chartBoard.append("g")
-                        .attr("id","yAxis")
-                        .append("text")
-                        .attr("fill", "#000")
-                        .attr("transform", "rotate(-90)")
-                        .attr("y", 6)
-                        .attr("dy", "0.71em")
-                        .attr("text-anchor", "middle")
-                        .text("ng / L");
+                var xAxisEl = chartBoard.append("g")
+                .attr("transform", "translate(0," +(parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom) +")")
+                .call(xAxis);
 
-                    /*chartBoard.append("g")
+                chartBoard.append("g")
+                    .attr("id","yAxis")
+                    .append("text")
+                    .attr("fill", "#000")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 6)
+                    .attr("dy", "0.71em")
+                    .attr("text-anchor", "middle")
+                    .text("ng / L");
+
+                /*chartBoard.append("g")
                     .attr("id","ySecAxis")
                     .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
                     .append("text")
@@ -611,7 +608,7 @@
                     .attr("y", 6)
                     .attr("dy", "0.71em")
                     .attr("text-anchor", "middle")
-                    .text("Q_M3/S");
+                    .text("Q_M3/S");*/
 
                 var path = chartBoard.append("path")
                 .data(newMaxLine)
@@ -620,217 +617,235 @@
                 .style('stroke', 'red')
                 .style('stroke-width', '2px');
 
-                var pathWasser = chartBoard.append("path")
+                /*var pathWasser = chartBoard.append("path")
                 .data(newMaxLine)
                 .attr("id","pathWasser")
                 .style('fill', 'none')
                 .style('stroke', 'Blue')
-                .style('stroke-width', '2px');
-*/
-                    //drawMaxLine();
-                    updateChartAxis();
+                .style('stroke-width', '2px');*/
 
-                    function updateChartAxis(){
+                //drawMaxLine();
+                updateChartAxis();
 
-                        console.log("updateChartAxis");
-                        console.log(data);
-                        //console.log("chartdraw graphDiv height "+ graphDivHeight);
+                function updateChartAxis(){
 
-                        xScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
-                            console.log(d.PbNahmeDatum);
-                            return d.PbNahmeDatum; }));
-                        yScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
-                            console.log(d.WertText);
-                            return d.WertText; }));
-                        //ySecScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
-                        //console.log(d.Q_m3_s);
-                        //  return d.Q_m3_s; }));
+                    console.log("updateChartAxis");
+                    //console.log(data);
+                    //console.log("chartdraw graphDiv height "+ graphDivHeight);
 
-                        //console.log("chartdraw height "+ height);
+                    xScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
+                        //console.log(d.PbNahmeDatum);
+                        return d.PbNahmeDatum; }));
+                    yScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
+                        //console.log(d.WertText);
+                        return d.WertText; }));
+                    //ySecScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
+                    //console.log(d.Q_m3_s);
+                    //  return d.Q_m3_s; }));
 
-                        width = parseInt(d3.select('#divGraphSVG').style('width'), 10) - margin.left - margin.right;
-                        //console.log("chartdraw width "+ width);
-                        //console.log("width is: " +width);
-                        xScale.range([0, width]);
-                        xAxis.scale(xScale);
-                        xAxisEl.call(xAxis);
+                    //console.log("chartdraw height "+ height);
 
-                        height = +parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom;
-                        //console.log("width is: " +height);
-                        yScale.range([height,0]);
-                        yAxis.scale(yScale);
-                        yAxisEl.call(yAxis);
+                    width = parseInt(d3.select('#divGraphSVG').style('width'), 10) - margin.left - margin.right;
+                    //console.log("chartdraw width "+ width);
+                    //console.log("width is: " +width);
+                    xScale.range([0, width]);
+                    xAxis.scale(xScale);
+                    xAxisEl.call(xAxis);
 
-                        //ySecScale.range([height,0]);
-                        //ySecAxis.scale(ySecScale);
-                        //ySecAxisEl.call(ySecAxis);
-                    }
+                    height = +parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom;
+                    //console.log("width is: " +height);
+                    yScale.range([height,0]);
+                    yAxis.scale(yScale);
+                    yAxisEl.call(yAxis);
 
-                    function drawMaxLine(){
-                        console.log("drawMaxLine called");
-                        lineMax
-                            .x(function(d) { 
-                            //console.log(d.x);
-                            return xScale(parseTime(d.x)); })
-                            .y(function(d) { 
-                            //console.log(d.y);                        
-                            return yScale(d.y); });
+                    //ySecScale.range([height,0]);
+                    //ySecAxis.scale(ySecScale);
+                    //ySecAxisEl.call(ySecAxis);
+                }
 
-
-                        path.datum(newMaxLine)
-                            .attr("fill", "none")
-                            .attr("stroke", "gray")
-                            .attr("stroke-linejoin", "round")
-                            .attr("stroke-linecap", "round")
-                            .attr("stroke-width", 0.5)
-                            .attr("d", lineMax);
-
-                    }
-                    //drawMaxLine();
-
-                    function drawWasserLine(){
-                        console.log("drawMaxLine called");
-                        lineWasser
-                            .x(function(d) { 
-                            //console.log(d.x);
-                            return xScale(parseTime(d.x)); })
-                            .y(function(d) { 
-                            //console.log(d.y);                        
-                            return yScale(d.y); });
+                function drawMaxLine(){
+                    console.log("drawMaxLine called");
+                    lineMax
+                        .x(function(d) { 
+                        //console.log(d.x);
+                        return xScale(parseTime(d.x)); })
+                        .y(function(d) { 
+                        //console.log(d.y);                        
+                        return yScale(d.y); });
 
 
-                        pathWasser.datum(selectedSubDataArray.values)
-                            .attr("fill", "none")
-                            .attr("stroke", "Blue")
-                            .attr("stroke-linejoin", "round")
-                            .attr("stroke-linecap", "round")
-                            .attr("stroke-width", 0.5)
-                            .attr("d", lineWasser);
+                    path.datum(newMaxLine)
+                        .attr("fill", "none")
+                        .attr("stroke", "gray")
+                        .attr("stroke-linejoin", "round")
+                        .attr("stroke-linecap", "round")
+                        .attr("stroke-width", 0.5)
+                        .attr("d", lineMax);
 
-                    }
+                }
+                drawMaxLine();
 
-                    function addNewKreise(){
-                        var kreise = chartBoard.selectAll("circle")
+                function drawWasserLine(){
+                    console.log("drawMaxLine called");
+                    lineWasser
+                        .x(function(d) { 
+                        //console.log(d.x);
+                        return xScale(parseTime(d.x)); })
+                        .y(function(d) { 
+                        //console.log(d.y);                        
+                        return yScale(d.y); });
+
+
+                    pathWasser.datum(selectedSubDataArray.values)
+                        .attr("fill", "none")
+                        .attr("stroke", "Blue")
+                        .attr("stroke-linejoin", "round")
+                        .attr("stroke-linecap", "round")
+                        .attr("stroke-width", 0.5)
+                        .attr("d", lineWasser);
+
+                }
+
+                function addNewKreise(){
+                    var kreise = chartBoard.selectAll("circle")
+                    .data(selectedSubDataArray.values)
+                    .enter()
+                    .append("circle")
+                    .attr("r", 5)
+                    .attr("cx", function(d) {
+                        //console.log(d);
+                        //console.log(d.PbNahmeDatum);
+                        //console.log(d.WertText);
+                        //console.log(xScale(d.PbNahmeDatum));
+                        return xScale(d.PbNahmeDatum); })
+                    .attr("cy", function(d) { 
+                        //console.log(d.WertText);
+                        return yScale(d.WertText); })
+                    .attr("stroke", "black")
+                    .style("fill", function(d){if(d.WertText>10){return "red";}else{return "green";}})
+                    .on("mouseover", handleMouseEnterData)
+                    .on("mouseout", handleMouseLeaveData);
+                }
+
+                function updateKreise(){
+                    chartBoard.selectAll("circle")
                         .data(selectedSubDataArray.values)
-                        .enter()
-                        .append("circle")
-                        .attr("r", 5)
-                        .attr("cx", function(d) {
-                            //console.log(d);
-                            //console.log(d.PbNahmeDatum);
-                            //console.log(d.WertText);
-                            //console.log(xScale(d.PbNahmeDatum));
-                            return xScale(d.PbNahmeDatum); })
-                        .attr("cy", function(d) { 
-                            //console.log(d.WertText);
-                            return yScale(d.WertText); })
-                        .attr("stroke", "black")
-                        .style("fill", function(d){if(d.WertText>10){return "red";}else{return "green";}})
-                        .on("mouseover", handleMouseEnterData)
-                        .on("mouseout", handleMouseLeaveData);
-                    }
+                        .transition()
+                        .duration(250)
+                        .style("fill",function(d){if(d.WertText>10){return "red";}else{return "green";}} )
+                        .attr("cx", function(d){
+                        return xScale(d.PbNahmeDatum);
+                    })
+                        .attr("cy", function(d){
+                        return yScale(d.WertText);
+                    });
+                }
 
-                    function updateKreise(){
-                        chartBoard.selectAll("circle")
-                            .data(selectedSubDataArray.values)
-                            .transition()
-                            .duration(250)
-                            .style("fill",function(d){if(d.WertText>10){return "red";}else{return "green";}} )
-                            .attr("cx", function(d){
-                            return xScale(d.PbNahmeDatum);
-                        })
-                            .attr("cy", function(d){
-                            return yScale(d.WertText);
-                        });
-                    }
+                function removeKreise(){
+                    chartBoard.selectAll("circle")
+                        .data(selectedSubDataArray.values)
+                        .exit()
+                        .transition()
+                        .duration(250)
+                        .style("fill", function(d){if(d.WertText>10){return "red";}else{return "green";}} )
+                        .attr("r", 0)
+                        .remove();
+                }
 
-                    function removeKreise(){
-                        chartBoard.selectAll("circle")
-                            .data(selectedSubDataArray.values)
-                            .exit()
-                            .transition()
-                            .duration(250)
-                            .style("fill", function(d){if(d.WertText>10){return "red";}else{return "green";}} )
-                            .attr("r", 0)
-                            .remove();
-                    }
+                //updateChartAxis();
+                addNewKreise();
 
-                    //updateChartAxis();
-                    addNewKreise();
-
-                    window.addEventListener('resize', function() {
-                        console.log("The window was resized!");
-                        //var myDiv = document.getElementById('divGraphSVG');
-                        var myDiv = document.getElementById('graphSVG');
-                        //console.log(myDiv.clientHeight);
-                        //console.log(myDiv.clientWidth);
-                        graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
-                        graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
+                $('#Auswahl').change(function () {
+                    if (counter == 1){
+                        console.log(" change in startDrawGraph counter is "+ counter);
+                        var selecteditem = $(this).find("option:selected").val(); 
+                        selectedParameter = selecteditem;
+                        console.log(selectedParameter);
+                        getSubDataArray(nestedDataAllParameter,selectedParameter)
+                        console.log("subarray change");
+                        console.log(selectedSubDataArray);
+                        //startGraphDraws(selectedSubDataArray);
                         updateChartAxis();
                         addNewKreise();
                         updateKreise();
                         removeKreise();
                         //drawMaxLine();
-                    });
-                }
-
-
-                //---------- END Extract ParameterList----------//
-
-                //---------- Start getSelectBoxSelectedValue ----------//
-
-                //---------- END getSelectSelectedValue----------//
-
-                //---------- START getSelectedSubDataArray----------//
-                function getSubDataArray(data, key){
-                    //console.log(data);
-                    //console.log(key);
-                    subdataArray = [];
-                    for(i=0 ; i<data.length; i++){
-                        if(data[i].key === key){
-                            subdataArray = data[i];
-                        }
                     }
-                    selectedSubDataArray = subdataArray;
-                    //console.log(subdataArray);
-                    //return subdataArray;
-                }           
+                });
 
-                function handleMouseEnterData(d, i) {
-                    d3.select(this)
-                        .attr("opacity", 1.0)
-                        .attr("r", 10)
-                        .attr("stroke", "black")
-                        .style("fill","yellow");
-                    //d3.select(this).style("fill","green");
-                }
+                window.addEventListener('resize', function() {
+                    console.log("The window was resized!");
+                    //var myDiv = document.getElementById('divGraphSVG');
+                    var myDiv = document.getElementById('graphSVG');
+                    //console.log(myDiv.clientHeight);
+                    //console.log(myDiv.clientWidth);
+                    graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
+                    graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
+                    updateChartAxis();
+                    addNewKreise();
+                    updateKreise();
+                    removeKreise();
+                    //drawMaxLine();
+                });
+            }
 
-                function handleMouseLeaveData(d, i) {
-                    d3.select(this)
-                        .attr("r", 5)
-                        .style("fill",function(d){if(d.WertText>10){return "red";}else{return "green";}} );
-                }
 
-                function handleMouseEnterZuordnunge(d, i) {
-                    d3.select(this)
-                        .attr("stroke", "black");
-                }
+            //---------- END Extract ParameterList----------//
 
-                function handleMouseLeaveZuordnunge(d, i) {
-                    d3.select(this)
-                        .attr("stroke", "white")
-                }
+            //---------- Start getSelectBoxSelectedValue ----------//
 
-                function handleClickZuordnung (d,i){
-                    d3.select(this)
-                    console.log(d.key);
-                    selectedZuordnung = d.key; 
-                    populateParamsDropDown(selectedZuordnung);
-                }
+            //---------- END getSelectSelectedValue----------//
 
-                function get_random_color() {
-                    return '#'+Math.floor(Math.random()*16777215).toString(16);
+            //---------- START getSelectedSubDataArray----------//
+            function getSubDataArray(data, key){
+                //console.log(data);
+                //console.log(key);
+                subdataArray = [];
+                for(i=0 ; i<data.length; i++){
+                    if(data[i].key === key){
+                        subdataArray = data[i];
+                    }
                 }
+                selectedSubDataArray = subdataArray;
+                //console.log(subdataArray);
+                //return subdataArray;
+            }           
+
+            function handleMouseEnterData(d, i) {
+                d3.select(this)
+                    .attr("opacity", 1.0)
+                    .attr("r", 10)
+                    .attr("stroke", "black")
+                    .style("fill","yellow");
+                //d3.select(this).style("fill","green");
+            }
+
+            function handleMouseLeaveData(d, i) {
+                d3.select(this)
+                    .attr("r", 5)
+                    .style("fill",function(d){if(d.WertText>10){return "red";}else{return "green";}} );
+            }
+
+            function handleMouseEnterZuordnunge(d, i) {
+                d3.select(this)
+                    .attr("stroke", "black");
+            }
+
+            function handleMouseLeaveZuordnunge(d, i) {
+                d3.select(this)
+                    .attr("stroke", "white")
+            }
+
+            function handleClickZuordnung (d,i){
+                d3.select(this)
+                console.log(d.key);
+                selectedZuordnung = d.key; 
+                populateParamsDropDown(selectedZuordnung);
+            }
+
+            function get_random_color() {
+                return '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
 
 
         </script>
