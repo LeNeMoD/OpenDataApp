@@ -112,15 +112,45 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- App hier einbetten -->
-                            <div class="col-md-9" id="divGraphSVG">
-                                <svg id="graphSVG"  >
-                                </svg>
+                            <!--button year-->
+                            <div class="row">
+                                <div class="container-fluid" "col-md-3" >
+                                    <div id="yearButtonsAlleJahre">
+                                        <label class="btn btn-default form-check-label">
+                                            Alle Jahre
+                                        </label>
+                                    </div>
+                                </div>
+                                <!--buttongroup years-->
+                                <div class="container-fluid" "col-md-9" >
+                                    <div id="yearButtons">
+                                    </div>
+                                </div>
                             </div>
-                            <div id="chemieDiv"class="col-md-3">
-                                <h1 id="chemieTitel"></h1>
-                                <img class="imgChemie" id="imgChemieID" src="Chlortoluron.png">
-                                <p id="Info">Der Richtwert von Chlortoluron wird in der neuen Verordnung nicht angepasst</p>
+                            <!--Radio group--> 
+                            <!-- App hier einbetten -->
+                            <div class="row">
+                                <div class="col-md-9" id="divGraphSVG">
+                                    <svg id="graphSVG"  >
+                                    </svg>
+                                </div>
+                                <div id="chemieDiv"class="col-md-3">
+                                    <h1 id="chemieTitel"></h1>
+                                    <img class="imgChemie" id="imgChemieID" >
+                                    <p id="Info">Der Richtwert von Chlortoluron wird in der neuen Verordnung nicht angepasst</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-9" id="divGraphSVG2">
+                                    <svg id="graphSVG2"  >
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div id="emptySideDiv"class="col-md-3">
+                                <h1></h1>
+                                <p></p>
                             </div>
                         </div>
                     </div>
@@ -160,51 +190,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Programmierung -->
-
-        <!--
-
-<div id="Programmierung" class="container-fluid">
-<div class="panel-group text-center">
-<div class="row">
-<div class="panel-primary">
-<div class="panel-heading">
-<h1 class="panel-title">Programmierung</h1>
-</div>
-<div class="panel-body">
-<p>Der Grundstein für unsere Applikation legen HTML und CSS</p>
-</div>
-<div class="col-xs-3 col-sm-3 col-md-2">
-<img class="img-responsive" src="html-logo.png">
-</div>
-<div class="col-xs-9 col-sm-9 col-md-4">
-<p>Text zu HTML</p>
-</div>
-<div class="col-xs-3 col-sm-3 col-md-2">
-<img class="img-responsive" src="css-logo.png">
-</div>
-<div class="col-xs-9 col-sm-9 col-md-4">
-<p>Text zu CSS</p>
-</div>
-<div class="col-xs-3 col-sm-3 col-md-2">
-<img class="img-responsive" src="javascript-logo.png">
-</div>
-<div class="col-xs-9 col-sm-9 col-md-4">
-<p>Text zu JS</p>
-</div>
-<div class="col-xs-3 col-sm-3 col-md-2">
-<img class="img-responsive" src="bootstrap-logo.png">
-</div>
-<div class="col-xs-9 col-sm-9 col-md-4">
-<p>Text zu Bootstrap</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-
--->
 
         <div id="Programmierung" class="container-fluid">
             <div class="panel-group">
@@ -323,28 +308,19 @@
         </div>
         <script>
 
-            //var clicked = false;
-            function updateChemieThings(parameterName) {
-                var image = document.getElementById("imgChemieID");
-                console.log("source was: "+ image.src)
-                console.log("picture name is : "+ parameterName)
-                console.log("link name is : " + parameterName+".png")
-                image.src = parameterName+".png";
-                var titel = d3.select("#chemieTitel")
-                titel.selectAll("h1")
-                .data(parameterName)
-                .enter()
-                .text(parameterName);
-                
-                titel.text(parameterName);
-                titel.exit().remove();
-            }
+
             //---------- Start Global Variables----------//
             var existingParametersArray; 
             var selectedParameter;
             var selectedZuordnung;
             var nestedDataAllParameter;
-            var nestedDataAlleZuordnung;
+            var nestedDataAlleZuordnung;$
+            var nestedDataAlleJahr;
+            var nestedData2013;
+            var nestedData2014;
+            var nestedData2015;
+            var nestedData2016;
+            var nestedData2017;
             var selectedSubZuordnungArray;
             var selectedSubDataArray;
             var allData;
@@ -353,7 +329,7 @@
             var graphDivWidth;
 
             var counter = 0;
-           
+
             var newMaxLineDaten = [{"x":"01/01/2013", "y":20}, {"x":"12/31/2017", "y":20}];
             var oldMaxLineDaten = [{"x":"01/01/2013", "y":10}, {"x":"12/31/2017", "y":10}];
 
@@ -366,7 +342,7 @@
 
             //---------- Start Read Data ----------//
             //d3.csv("DatenCSV.csv", function(d) {
-            d3.csv("DatenCSV.csv", function(error, d) {
+            d3.csv("DatenCSV_Jahr.csv", function(error, d) {
                 if (error) throw error;
                 //return {
                 //PbNahmeDatum: new Date(parseTime(d.PbNahmeDatum)), // convert "Year" column to Date
@@ -389,23 +365,42 @@
                     d.Q_m3_s = +d.Q_m3_s;
                     d.Alter_Maxwert = +d.Alter_Maxwert;
                     d.Neuer_Maxwert = +d.Neuer_Maxwert;
-                    //console.log("datum from parse");
-                    //console.log(d.PbNahmeDatum);
                 });
-                //};
-                //}, 
 
-                //function(error, rows) {
-                //rows.forEach(function(d) {
-
-                //})
-                //allData = rows;
-                //set initial Height and width
-
-
-                //console.log(rows);
                 buildZuordnungenSelection(d);
             });
+
+            function nestJahreAndBuildButtons(data){
+                console.log("build buttons called ");
+
+                var buttonsDiv = d3.select("#yearButtons");
+
+                var btns = buttonsDiv.selectAll("label").data(nestJahr(data));
+
+                btns.enter()
+                    .append("label")
+                    .attr("class","btn btn-default form-check-label")
+                    .attr("id",function(d){return d.key;} )
+                    .attr("value",function(d){return d.key;})
+                    .text(function(d){return d.key;})
+                    .on("click", handleBtnYearClick);
+
+                btns.transition()
+                    .attr("id",function(d){return d.key;} )
+                    .attr("value",function(d){return d.key;})
+                    .text(function(d){return d.key;})
+
+                btns.exit().remove();
+            }
+
+            function handleBtnYearClick(){
+                console.log("btn Clickt")
+                console.log("btn id is: ");
+                console.log(this.id);
+                //console.log("btn value is: "); // is undefined !!
+                //console.log(this.value);
+
+            }
 
             function buildZuordnungenSelection(data){
 
@@ -428,10 +423,10 @@
                     widthZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientWidth;
 
                     var zuordnungSVG = d3.select("#zuordnungenBtnsSVG");
-                    var zuordKreise = zuordnungSVG.selectAll("circle")
+                    var zuordnungKreise = zuordnungSVG.selectAll("circle")
                     .data(data2);
 
-                    zuordKreise.enter()
+                    zuordnungKreise.enter()
                         .append("circle")
                         .attr("r", 5)
                         .attr("cx", function(d,i) {
@@ -450,7 +445,7 @@
                         .on("mouseleave", handleMouseLeaveZuordnunge)
                         .on("click", handleClickZuordnung);
 
-                    zuordKreise.attr("cx", function(d,i) {
+                    zuordnungKreise.attr("cx", function(d,i) {
                         return (widthZuordnungen/4)*(i+1);})
                         .attr("cy", function(d){
                         return (heightZuordnungen/2);})
@@ -459,30 +454,28 @@
                         //console.log("d.length max "+ d3.max(data2.values.length));
                         return rscale(d.values.length);})
 
-                    zuordKreise.exit().remove();
+                    zuordnungKreise.exit().remove();
 
 
                     var text = zuordnungSVG.selectAll("text")
                     .data(data2);
 
                     text.enter()
-                        .merge(text)
                         .append("text")
                         .attr("x", function(d,i) {
                         return (widthZuordnungen/4)*(i+1);})
                         .attr("y", function(d) {return (heightZuordnungen/2)-40})
-                        .text( function (d) { return ""+d.key })
+                        .text( function(d) { return ""+d.key })
                         .attr("text-anchor", "middle")
                         .attr("font-family", "sans-serif")
                         .attr("font-size", "13px")
                         .attr("fill", "Black");
                     text.exit().remove();
 
-                    var textLabels = text
-                    .attr("x", function(d,i) {
+                    text.attr("x", function(d,i) {
                         return (widthZuordnungen/4)*(i+1);})
-                    .attr("y", function(d) {return (heightZuordnungen/2)-40})
-                    .text( function (d) { return ""+d.key });
+                        .attr("y", function(d) {return (heightZuordnungen/2)-40})
+                        .text( function(d) { return ""+d.key });
 
                     text.exit().remove();
 
@@ -500,7 +493,6 @@
                     });
                 }
             }
-
 
             // Helper Functions Data Nesting
 
@@ -521,6 +513,16 @@
                 nestedDataAllParameter = nested;
                 //console.log("parameters from nest ");
                 //console.log(nestedDataAllParameter);
+                return nested;
+            }
+
+            function nestJahr(data){
+                var nested = d3.nest()
+                .key(function(d) {return d["Jahr"];})
+                .entries(data);
+                nestedDataAlleJahr = nested;
+                console.log("Jahre from nest ");
+                console.log(nestedDataAlleJahr);
                 return nested;
             }
             // end     Helper Function Data nesting
@@ -579,18 +581,35 @@
                         updateChemieThings(selecteditem);
                         console.log(selectedParameter);
                         getSubDataArray(nestedDataAllParameter,selectedParameter)
-                        //console.log("subarray change");
-                        //console.log(selectedSubDataArray);
+                        console.log("subarray change log selected subdataArray");
+                        console.log(selectedSubDataArray);
+                        nestJahreAndBuildButtons(selectedSubDataArray.values);
+                        //console.log("unnested", unNestThings(selectedSubDataArray, "values"))
                         startGraphThings(selectedSubDataArray);
+                        startGraphThings2(selectedSubDataArray)
+
                     }
                 });
             }
 
+            function updateChemieThings(parameterName) {
+                var image = document.getElementById("imgChemieID");
+                console.log("source was: "+ image.src)
+                console.log("picture name is : "+ parameterName)
+                console.log("link name is : " + parameterName+".png")
+                image.src = parameterName+".png";
+                var titel = d3.select("#chemieTitel")
+                titel.selectAll("h1")
+                    .data(parameterName)
+                    .enter()
+                    .text(parameterName);
 
-            function startGraphThings(data){
-                //console.log("data from startGraphDraws");
-                //console.log(data);
-                var graphSVG = d3.select("#graphSVG");
+                titel.text(parameterName);
+                titel.exit().remove();
+            }
+
+            function startGraphThings2(data){
+                var graphSVG = d3.select("#graphSVG2");
 
                 var xScale = d3.scaleTime();
                 var yScale = d3.scaleLinear();
@@ -609,27 +628,11 @@
                 xScale.domain(d3.extent(data.values, function(d) {
                     //console.log(d.PbNahmeDatum);
                     return d.PbNahmeDatum; }));
-                yScale.domain(d3.extent(data.values, function(d) {
-                    //console.log(d.WertText);
-                    return d.WertText;
-                    /*var maxValue = d3.max(d.WertText, function(d) { return d.WertText; });
-                    if(maxValue<newMaxLineDaten[0].y && maxValue<oldMaxLineDaten[0].y) {
-                        return d.WertText;
-                    }else if(newMaxLineDaten[0].y==oldMaxLineDaten[0].y){
-                        return [0,d.Alter_Maxwert];
-
-                    }else if(newMaxLineDaten[0].y<oldMaxLineDaten[0].y){
-                        return [0,d.Alter_Maxwert];
-
-                    }else {
-                        return [0,d.Neuer_Maxwert];
-                    }*/
-                }));
+                console.log("y domain max is : "+ newMaxLineDaten.y);
+                yScale.domain([0,newMaxLineDaten.y]);
                 ySecScale.domain(d3.extent(data.values, function(d) {
                     //console.log(d.Q_m3_s);
                     return d.Q_m3_s; }));
-
-
                 var chartBoard = graphSVG.append("g")
                 .attr("id", "groupGraphSVG")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -638,11 +641,11 @@
                 .call(yAxis);
 
                 var ySecAxisEl = chartBoard.append("g")
-                .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG2').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
                 .call(ySecAxis);
 
                 var xAxisEl = chartBoard.append("g")
-                .attr("transform", "translate(0," +(parseInt(d3.select('#graphSVG').style('height'), 10) - margin.top - margin.bottom) +")")
+                .attr("transform", "translate(0," +(parseInt(d3.select('#graphSVG2').style('height'), 10) - margin.top - margin.bottom) +")")
                 .call(xAxis);
 
                 chartBoard.append("g")
@@ -656,8 +659,8 @@
                     .text("ng / L");
 
                 chartBoard.append("g")
-                    .attr("id","ySecAxis")
-                    .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                    .attr("id","ySecAxisLabel")
+                    .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG2').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
                     .append("text")
                     .attr("fill", "#000")
                     .attr("transform", "rotate(90)")
@@ -731,7 +734,317 @@
 
                     ySecScale.range([height,0]);
                     ySecAxis.scale(ySecScale);
-                    ySecAxisEl.attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")").call(ySecAxis);
+                    ySecAxisEl.attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")").call(ySecAxis);
+
+                    chartBoard.append("g")
+                    .attr("id","ySecAxisLabel")
+                    .attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                    .append("text")
+                    .attr("fill", "#000")
+                    .attr("transform", "rotate(90)")
+                    .attr("y", 6)
+                    .attr("dy", "0.71em")
+                    .attr("text-anchor", "middle")
+                    .text("Q_M3/S");
+                }
+
+                function drawNewMaxLine(){
+                    console.log("drawNewMaxLine called");
+                    lineMaxNew.x(function(d) { 
+                        //console.log(d.x);
+                        return xScale(parseTime(d.x)); })
+                        .y(function(d) { 
+                        //console.log(d.y);                        
+                        return yScale(d.y); });
+
+
+                    pathMaxNEW.datum(newMaxLineDaten)
+                        .attr("fill", "none")
+                        .attr("stroke", "gray")
+                        .attr("stroke-linejoin", "round")
+                        .attr("stroke-linecap", "round")
+                        .attr("stroke-width", 0.5)
+                        .attr("d", lineMaxNew);
+
+                }
+                drawNewMaxLine();
+
+                function drawOldMaxLine(){
+                    console.log("drawOldMaxLine called");
+                    lineMaxOLD.x(function(d) { 
+                        //console.log(d.x);
+                        return xScale(parseTime(d.x)); })
+                        .y(function(d) { 
+                        //console.log(d.y);                        
+                        return yScale(d.y); });
+
+
+                    pathMaxOLD.datum(oldMaxLineDaten)
+                        .attr("fill", "none")
+                        .attr("stroke", "gray")
+                        .attr("stroke-linejoin", "round")
+                        .attr("stroke-linecap", "round")
+                        .attr("stroke-width", 0.5)
+                        .attr("d", lineMaxOLD);
+
+                }
+                drawOldMaxLine();
+
+                function drawWasserLine(){
+                    console.log("drawWasserLine methode called");
+                    lineWasser.x(function(d) { 
+                        //console.log("d.Datum_Start is: ");
+                        //console.log(d.PbNahmeDatum);
+                        return xScale(d.PbNahmeDatum); })
+                        .y(function(d) { 
+                        //console.log("d.Q_m3_s is: ");
+                        //console.log(d.Q_m3_s);
+                        return ySecScale(d.Q_m3_s); });
+
+
+                    pathWasser.datum(selectedSubDataArray.values)
+                        .transition(1000)
+                        .duration(1500)
+                        .attr("fill", "none")
+                        .attr("stroke", function (d){
+                        //console.log("drawWasserLine path methode");
+                        return "Blue";})
+                        .attr("stroke-linejoin", "round")
+                        .attr("stroke-linecap", "round")
+                        .attr("stroke-width", 0.5)
+                        .attr("d", lineWasser);
+
+                }
+                drawWasserLine();
+
+                function addNewKreise(){
+                    var kreise = chartBoard.selectAll("circle")
+                    .data(selectedSubDataArray.values)
+                    .enter()
+                    .append("circle")
+                    .attr("r", 5)
+                    .attr("cx", function(d) {
+                        //console.log(d);
+                        //console.log(d.PbNahmeDatum);
+                        //console.log(d.WertText);
+                        //console.log(xScale(d.PbNahmeDatum));
+                        return xScale(d.PbNahmeDatum); })
+                    .attr("cy", function(d) { 
+                        //console.log(d.WertText);
+                        return yScale(d.WertText); })
+                    .attr("stroke", "black")
+                    .style("fill", function(d){if(d.WertText>10){return "red";}else{return "green";}})
+                    .on("mouseover", handleMouseEnterData)
+                    .on("mouseout", handleMouseLeaveData);
+                }
+
+                function updateKreise(){
+                    chartBoard.selectAll("circle")
+                        .data(selectedSubDataArray.values)
+                        .transition(1000)
+                        .duration(1500)
+                        .style("fill",function(d){if(d.WertText>10){return "red";}else{return "green";}} )
+                        .attr("cx", function(d){
+                        return xScale(d.PbNahmeDatum);
+                    })
+                        .attr("cy", function(d){
+                        return yScale(d.WertText);
+                    });
+                }
+
+                function removeKreise(){
+                    chartBoard.selectAll("circle")
+                        .data(selectedSubDataArray.values)
+                        .exit()
+                        .transition(1000)
+                        .duration(1500)
+                        .style("fill", function(d){if(d.WertText>10){return "red";}else{return "green";}} )
+                        .attr("r", 0)
+                        .remove();
+                }
+
+                //updateChartAxis();
+                addNewKreise();
+
+                $('#Auswahl').change(function () {
+                    if (counter == 1){
+                        console.log(" change in startDrawGraph counter is "+ counter);
+                        var selecteditem = $(this).find("option:selected").val(); 
+                        selectedParameter = selecteditem;
+                        updateChemieThings(selecteditem);
+                        console.log(selectedParameter);
+                        getSubDataArray(nestedDataAllParameter,selectedParameter)
+                        console.log("subarray change 2nd Time");
+                        console.log(selectedSubDataArray);
+                        nestJahreAndBuildButtons(selectedSubDataArray.values);
+                        d3.select("#ySecAxisLabel").remove();
+                        //startGraphDraws(selectedSubDataArray);
+                        updateNecessary();
+                    }
+                });
+
+                var resizeTimeout;
+                window.addEventListener('resize', function() {
+                    if(resizeTimeout)
+                        clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(function() {
+                        console.log("The window was resized!");
+                        //var myDiv = document.getElementById('divGraphSVG');
+                        var myDiv = document.getElementById('graphSVG');
+                        //console.log(myDiv.clientHeight);
+                        //console.log(myDiv.clientWidth);
+                        graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
+                        graphDivWidth = document.getElementById('divGraphSVG').clientWidth;
+                        updateNecessary();
+                    }, 200);
+
+                });
+                function updateNecessary(){
+                    updateChartElements();
+                    addNewKreise();
+                    updateKreise();
+                    removeKreise();
+                    drawNewMaxLine();
+                    drawOldMaxLine();
+                    drawWasserLine();
+                }
+
+            }
+
+
+            function startGraphThings(data){
+                //console.log("data from startGraphDraws");
+                //console.log(data);
+                var graphSVG = d3.select("#graphSVG");
+
+                var xScale = d3.scaleTime();
+                var yScale = d3.scaleLinear();
+                var ySecScale = d3.scaleLinear();
+
+                var xAxis = d3.axisBottom().scale(xScale);
+                var yAxis = d3.axisLeft().scale(yScale);
+                var ySecAxis = d3.axisRight().scale(ySecScale);
+
+                //not used line
+                var lineMaxNew = d3.line();
+                var lineMaxOLD = d3.line();
+
+                var lineWasser = d3.line();
+
+                xScale.domain(d3.extent(data.values, function(d) {
+                    //console.log(d.PbNahmeDatum);
+                    return d.PbNahmeDatum; }));
+                yScale.domain(d3.extent(data.values, function(d) {
+                    //console.log(d.WertText);
+                    return d.WertText;
+                }));
+                ySecScale.domain(d3.extent(data.values, function(d) {
+                    //console.log(d.Q_m3_s);
+                    return d.Q_m3_s; }));
+
+
+                var chartBoard = graphSVG.append("g")
+                .attr("id", "groupGraphSVG")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                var yAxisEl = chartBoard.append("g")
+                .call(yAxis);
+
+                var ySecAxisEl = chartBoard.append("g")
+                .attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                .call(ySecAxis);
+
+                var xAxisEl = chartBoard.append("g")
+                .attr("transform", "translate(0," +(parseInt(d3.select('#divGraphSVG').style('height'), 10) - margin.top - margin.bottom) +")")
+                .call(xAxis);
+
+                chartBoard.append("g")
+                    .attr("id","yAxis")
+                    .append("text")
+                    .attr("fill", "#000")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 6)
+                    .attr("dy", "0.71em")
+                    .attr("text-anchor", "middle")
+                    .text("ng / L");
+
+                chartBoard.append("g")
+                    .attr("id","ySecAxis")
+                    .attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                    .append("text")
+                    .attr("fill", "#000")
+                    .attr("transform", "rotate(90)")
+                    .attr("y", 6)
+                    .attr("dy", "0.71em")
+                    .attr("text-anchor", "middle")
+                    .text("Q_M3/S");
+
+                var pathMaxNEW = chartBoard.append("path")
+                .data(newMaxLineDaten)
+                .attr("id","pathMAXNEW")
+                .style('fill', 'none')
+                .style('stroke', function (d){
+                    console.log("pathMAxNEw Called");
+                    return "Red";})
+                .style('stroke-width', '2px');
+
+
+                var pathMaxOLD = chartBoard.append("path")
+                .data(oldMaxLineDaten)
+                .attr("id","pathMAXOLD")
+                .style('fill', 'none')
+                .style('stroke', function (d){
+                    console.log("pathMAxOld Called");
+                    return "Yellow";})
+                .style('stroke-width', '2px');
+
+                var pathWasser = chartBoard.append("path")
+                .datum(selectedSubDataArray.values)
+                .attr("id","pathWasser")
+                .style('fill', 'none')
+                .style('stroke', function (d){
+                    //console.log("pathWasser Called ");
+                    //console.log("pathWasser data is");
+                    //console.log([selectedSubDataArray]);
+                    return "Blue";})
+                .style('stroke-width', '2px');
+
+                updateChartElements();
+
+                function updateChartElements(){
+
+                    console.log("updateChartAxis");
+                    //console.log(data);
+                    //console.log("chartdraw graphDiv height "+ graphDivHeight);
+
+                    xScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
+                        //console.log(d.PbNahmeDatum);
+                        return d.PbNahmeDatum; }));
+                    yScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
+                        //console.log(d.WertText);
+                        return d.WertText; }));
+                    ySecScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
+                        //console.log(d.Q_m3_s);
+                        return d.Q_m3_s; }));
+
+                    //console.log("chartdraw height "+ height);
+
+                    width = parseInt(d3.select('#divGraphSVG').style('width'), 10) - margin.left - margin.right;
+                    //console.log("chartdraw width "+ width);
+                    //console.log("width is: " +width);
+                    xScale.range([0, width]);
+                    xAxis.scale(xScale);
+                    xAxisEl.call(xAxis);
+
+                    height = +parseInt(d3.select('#divGraphSVG').style('height'), 10) - margin.top - margin.bottom;
+                    //console.log("width is: " +height);
+                    yScale.range([height,0]);
+                    yAxis.scale(yScale);
+                    yAxisEl.call(yAxis);
+
+                    ySecScale.range([height,0]);
+                    ySecAxis.scale(ySecScale);
+                    ySecAxisEl.attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")").call(ySecAxis);
 
                 }
 
@@ -790,6 +1103,8 @@
 
 
                     pathWasser.datum(selectedSubDataArray.values)
+                        .transition(1000)
+                        .duration(1500)
                         .attr("fill", "none")
                         .attr("stroke", function (d){
                         //console.log("drawWasserLine path methode");
@@ -826,8 +1141,8 @@
                 function updateKreise(){
                     chartBoard.selectAll("circle")
                         .data(selectedSubDataArray.values)
-                        .transition()
-                        .duration(300)
+                        .transition(1000)
+                        .duration(1500)
                         .style("fill",function(d){if(d.WertText>10){return "red";}else{return "green";}} )
                         .attr("cx", function(d){
                         return xScale(d.PbNahmeDatum);
@@ -841,8 +1156,8 @@
                     chartBoard.selectAll("circle")
                         .data(selectedSubDataArray.values)
                         .exit()
-                        .transition()
-                        .duration(300)
+                        .transition(1000)
+                        .duration(1500)
                         .style("fill", function(d){if(d.WertText>10){return "red";}else{return "green";}} )
                         .attr("r", 0)
                         .remove();
@@ -859,8 +1174,9 @@
                         updateChemieThings(selecteditem);
                         console.log(selectedParameter);
                         getSubDataArray(nestedDataAllParameter,selectedParameter)
-                        console.log("subarray change");
+                        console.log("subarray change 2nd Time");
                         console.log(selectedSubDataArray);
+                        nestJahreAndBuildButtons(selectedSubDataArray.values);
                         //startGraphDraws(selectedSubDataArray);
                         updateNecessary();
                     }
@@ -891,10 +1207,16 @@
                     drawOldMaxLine();
                     drawWasserLine();
                 }
-
-
             }
 
+            //lower Graph -------------------
+
+
+
+
+
+
+            //lower Graph -------------------
 
             //---------- END Extract ParameterList----------//
 
@@ -913,21 +1235,21 @@
                     }
                 }
                 selectedSubDataArray = subdataArray;
-                
+
                 var minTime = d3.min(subdataArray.values, function(d) { return d.PbNahmeDatum; });
                 console.log("minTime is " + minTime);
 
                 var minValue = d3.min(subdataArray.values, function(d) { return d.WertText; });
                 console.log("minValue is " + minValue);
-                
+
 
                 console.log("before Maxline NEW");
                 console.log(newMaxLineDaten[0]);
                 console.log(newMaxLineDaten[1]);
-                newMaxLineDaten[0].x = subdataArray.values[0].Neuer_Maxwert;
-                newMaxLineDaten[1].x = subdataArray.values[0].Neuer_Maxwert;
-                newMaxLineDaten[0].y = d3.min(subdataArray.values, function(d) { return d.PbNahmeDatum; });
-                newMaxLineDaten[1].y = d3.max(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                newMaxLineDaten[0].x = d3.min(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                newMaxLineDaten[1].x = d3.max(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                newMaxLineDaten[0].y = subdataArray.values[0].Neuer_Maxwert;
+                newMaxLineDaten[1].y = subdataArray.values[0].Neuer_Maxwert;
                 console.log("after Maxline NEW");
                 console.log(newMaxLineDaten[0]);
                 console.log(newMaxLineDaten[1]);
@@ -936,14 +1258,14 @@
                 console.log("before Maxline OLD");
                 console.log(oldMaxLineDaten[0]);
                 console.log(oldMaxLineDaten[1]);
-                oldMaxLineDaten[0].x = subdataArray.values[0].Alter_Maxwert;
-                oldMaxLineDaten[1].x = subdataArray.values[0].Alter_Maxwert;
-                oldMaxLineDaten[0].y = d3.min(subdataArray.values, function(d) { return d.PbNahmeDatum; });
-                oldMaxLineDaten[1].y = d3.max(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                oldMaxLineDaten[0].x = d3.min(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                oldMaxLineDaten[1].x = d3.max(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                oldMaxLineDaten[0].y = subdataArray.values[0].Alter_Maxwert;
+                oldMaxLineDaten[1].y = subdataArray.values[0].Alter_Maxwert;
                 console.log("after Maxline OLD");
                 console.log(oldMaxLineDaten[0]);
                 console.log(oldMaxLineDaten[1]);
-                
+
                 //hubi
                 //console.log(subdataArray);
                 //return subdataArray;
