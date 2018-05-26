@@ -313,16 +313,18 @@
             var existingParametersArray; 
             var selectedParameter;
             var selectedZuordnung;
+
             var nestedDataAllParameter;
-            var nestedDataAlleZuordnung;$
+            var nestedDataAlleZuordnung;
             var nestedDataAlleJahr;
-            var nestedData2013;
-            var nestedData2014;
-            var nestedData2015;
-            var nestedData2016;
-            var nestedData2017;
+
+            var subYearNestDataArray;
+
             var selectedSubZuordnungArray;
+
+            var selectedSubDataArrayMaster;
             var selectedSubDataArray;
+
             var allData;
 
             var graphDivHeight;
@@ -397,9 +399,40 @@
                 console.log("btn Clickt")
                 console.log("btn id is: ");
                 console.log(this.id);
+                console.log("masterData ")
+                console.log(selectedSubDataArrayMaster)
+                saveSubYearArrays(selectedSubDataArrayMaster);
+                selectTimeFrameData(this.id);
+                window.dispatchEvent(new Event('resize'));
+                
                 //console.log("btn value is: "); // is undefined !!
                 //console.log(this.value);
 
+            }
+
+            function selectTimeFrameData(idYear){
+                console.log("selectTimeFrameData called with id: " +idYear);
+                selectedSubDataArray = blubberino(idYear);
+
+                function blubberino (d){
+                    console.log("entered first function");
+                    for(i=0; i<subYearNestDataArray.length; i++){
+                        console.log("entered first for");
+                        console.log("d is " +d);
+                        console.log("i key is " + subYearNestDataArray[i].key);
+                        if(subYearNestDataArray[i].key == d){
+                            console.log("entered first if with key: "+subYearNestDataArray[i].key+" and d "+d);
+                            console.log("data to getSubDataArray is: ");
+                            console.log(subYearNestDataArray[i].values);
+                            var test = getSubDataArray(subYearNestDataArray[i].values,selectedParameter,1);
+                            console.log("test logged : ");
+                            console.log(test);
+                            return test;
+                        }
+                    }
+                }
+                console.log("selectedSubDataArray from select TimeFrame: ");
+                console.log(selectedSubDataArray);
             }
 
             function buildZuordnungenSelection(data){
@@ -525,6 +558,24 @@
                 //console.log(nestedDataAlleJahr);
                 return nested;
             }
+
+            function saveSubYearArrays(data){
+                console.log("enteres savaSubYearArrays with data: ");
+                console.log(data);
+                function nestSubDataYears(data){
+                    var nested = d3.nest()
+                    .key(function(d) {return d["Jahr"];})
+                    .entries(data);
+                    console.log("Data nested from nestSubDataYears: ");
+                    console.log(nested);
+                    return nested;}
+                subYearNestDataArray = nestSubDataYears(data.values);
+                for(i=0; i<subYearNestDataArray.length; i++){
+                    console.log("Data nested each nest from nestSubDataYears: ");
+                    console.log(subYearNestDataArray[i]);
+                }
+            }
+
             // end     Helper Function Data nesting
 
 
@@ -580,7 +631,8 @@
                         selectedParameter = selecteditem;
                         updateChemieThings(selecteditem);
                         //console.log(selectedParameter);
-                        getSubDataArray(nestedDataAllParameter,selectedParameter)
+                        selectedSubDataArrayMaster = getSubDataArray(nestedDataAllParameter,selectedParameter,0)
+                        selectedSubDataArray = selectedSubDataArrayMaster;
                         //console.log("subarray change log selected subdataArray");
                         //console.log(selectedSubDataArray);
                         nestJahreAndBuildButtons(selectedSubDataArray.values);
@@ -898,7 +950,7 @@
                         selectedParameter = selecteditem;
                         updateChemieThings(selecteditem);
                         //console.log(selectedParameter);
-                        getSubDataArray(nestedDataAllParameter,selectedParameter)
+                        selectedSubDataArray = getSubDataArray(nestedDataAllParameter,selectedParameter,0)
                         //console.log("subarray change 2nd Time");
                         //console.log(selectedSubDataArray);
                         nestJahreAndBuildButtons(selectedSubDataArray.values);
@@ -1240,7 +1292,7 @@
                         selectedParameter = selecteditem;
                         updateChemieThings(selecteditem);
                         //console.log(selectedParameter);
-                        getSubDataArray(nestedDataAllParameter,selectedParameter)
+                        selectedSubDataArrayMaster = getSubDataArray(nestedDataAllParameter,selectedParameter,0)
                         //console.log("subarray change 2nd Time");
                         //console.log(selectedSubDataArray);
                         nestJahreAndBuildButtons(selectedSubDataArray.values);
@@ -1299,16 +1351,33 @@
             //---------- END getSelectSelectedValue----------//
 
             //---------- START getSelectedSubDataArray----------//
-            function getSubDataArray(data, key){
+            function getSubDataArray(data, key, int){
                 //console.log(data);
                 //console.log(key);
+                console.log(int);
                 subdataArray = [];
-                for(i=0 ; i<data.length; i++){
-                    if(data[i].key === key){
-                        subdataArray = data[i];
+                if(int==0){
+                    console.log("entered if=0 in getSubdataArray");
+                    for(i=0 ; i<data.length; i++){
+                        if(data[i].key === key){
+                            subdataArray = data[i];
+                        }
                     }
                 }
-                selectedSubDataArray = subdataArray;
+
+                if(int==1){
+                    subdataArray = nestIntern(data);
+                        function nestIntern(data){
+                        var nested = d3.nest()
+                        .key(function(d) {return d["Parameter"];})
+                        .entries(data);
+                        //console.log("parameters from nest ");
+                        //console.log(nestedDataAllParameter);
+                        return nested[0];
+                    }
+                }
+                console.log("subdataArray in getSubdataArray is: ");
+                console.log(subdataArray);
 
                 var minTime = d3.min(subdataArray.values, function(d) { return d.PbNahmeDatum; });
                 //console.log("minTime is " + minTime);
@@ -1341,8 +1410,9 @@
                 //console.log(oldMaxLineDaten[1]);
 
                 //hubi
-                //console.log(subdataArray);
-                //return subdataArray;
+                console.log("subdataArray");
+                console.log(subdataArray);
+                return subdataArray;
             }           
 
             function handleMouseEnterData(d, i) {
