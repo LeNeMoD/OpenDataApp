@@ -135,7 +135,7 @@
                                 <div id="chemieDiv"class="col-md-3">
                                     <h1 id="chemieTitel"></h1>
                                     <img class="imgChemie" id="imgChemieID" >
-                                    <p id="Info">Der Richtwert von Chlortoluron wird in der neuen Verordnung nicht angepasst</p>
+                                    <p id="Info"></p>
                                 </div>
                             </div>
 
@@ -673,6 +673,25 @@
 
                 titel.text(parameterName);
                 titel.exit().remove();
+
+                /*var deltaMaxWerte = oldMaxLineDaten[0].y-newMaxLineDaten[0].y;
+                
+                var chemText = d3.select("#Info").append("div")	
+                chemText.selectAll("text")
+                    .data(parameterName)
+                    .enter()
+                    .text("Der Richtwert von "+ parameterName + " hat sich folgender massen verändert:" + "<br/>" +
+                             "Alter Richtwert: "+ oldMaxLineDaten[0].y+ " ng/L"+ "<br/>" + 
+                             "Neuer Richtwert: "+ newMaxLineDaten[0].y+ "ng/L"+"<br/>" + 
+                             "Dies entspricht "+ if(deltaMaxWerte == 0){return "keiner Veränderung."}else if(deltaMaxWerte<0){var prozentMehr = ((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y))*100; return "einer Steigerung um "+ prozentMehr + " %."} else {"blubber"});
+                chemText.text("Der Richtwert von "+ parameterName + " hat sich folgender massen verändert:" + "<br/>" +
+                             "Alter Richtwert: "+ oldMaxLineDaten[0].y+ " ng/L"+ "<br/>" + 
+                             "Neuer Richtwert: "+ newMaxLineDaten[0].y+ "ng/L"+"<br/>" + 
+                             "Dies entspricht "+ if(deltaMaxWerte == 0){return "keiner Veränderung."}else if(deltaMaxWerte<0){var prozentMehr = ((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y))*100; return "einer Steigerung um "+ prozentMehr + " %."} else {"blubber"})
+                chemText.exit().remove();
+                //<p id="Info">Der Richtwert von Chlortoluron wird in der neuen Verordnung nicht angepasst</p>
+                */
+
             }
 
             function startGraphThings(data){
@@ -1502,7 +1521,7 @@
             }           
 
             function handleMouseEnterData(d, i) {
-                var formatTime = d3.timeFormat("%e %B");
+                var formatTime = d3.timeFormat("%e %B %Y");
                 d3.select(this)
                     .attr("opacity", 1.0)
                     .attr("r", 10)
@@ -1510,7 +1529,7 @@
                     .style("fill","yellow");
                 divTooltip.transition()		
                     .duration(200)		
-                    .style("opacity", .9);		
+                    .style("opacity", .95);		
                 divTooltip.html("Probe Datum: "+ formatTime(d.PbNahmeDatum) + "<br/>"  + "Wert in ng/L: "+ d.WertText + "<br/>" + "Mess Grenze ng/L: " + d.Bestimmungsgrenze)	
                     .style("left", (d3.event.pageX + 5 ) + "px")		
                     .style("top", (d3.event.pageY - 28) + "px");	
@@ -1524,8 +1543,8 @@
                     return "black"})
                     .style("fill", function(d){if(d.WertText>oldMaxLineDaten.y){return "orange";}else if(d.WertText>newMaxLineDaten[0].y){return "red";}else if(d.WertText == 0){return "#76D7EA";}else{return "green";}})
                 divTooltip.transition()		
-                .duration(500)		
-                .style("opacity", 0);
+                    .duration(500)		
+                    .style("opacity", 0);
             }
 
             function handleMouseEnterZuordnunge(d, i) {
