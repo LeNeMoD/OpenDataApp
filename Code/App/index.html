@@ -332,6 +332,7 @@
 
             var newMaxLineDaten = [{"x":"01/01/2013", "y":20}, {"x":"12/31/2017", "y":20}];
             var oldMaxLineDaten = [{"x":"01/01/2013", "y":10}, {"x":"12/31/2017", "y":10}];
+            var datenLineMessGrenze = [{"x":"01/01/2013", "y":10}, {"x":"12/31/2017", "y":10}];
 
             //Helper Function Parse Date
             var parseTime = d3.timeParse("%m/%d/%Y");
@@ -684,6 +685,9 @@
                 var lineMaxNew = d3.line();
                 var lineMaxOLD = d3.line();
 
+                var lineMessGrenze = d3.line();
+
+
                 var lineWasser = d3.line();
 
                 xScale.domain(d3.extent(data.values, function(d) {
@@ -752,6 +756,15 @@
                 .style('stroke', function (d){
                     console.log("pathMAxOld Called");
                     return "Yellow";})
+                .style('stroke-width', '2px');
+
+                var pathMessGrenze = chartBoard.append("path")
+                .data(datenLineMessGrenze)
+                .attr("id","pathMessGrenze")
+                .style('fill', 'none')
+                .style('stroke', function (d){
+                    console.log("pathMessGrenze Called");
+                    return "#76D7EA";})
                 .style('stroke-width', '2px');
 
                 var pathWasser = chartBoard.append("path")
@@ -869,6 +882,26 @@
 
                 }
                 drawOldMaxLine();
+
+                function drawLineMessGrenze(){
+                    console.log("drawNewMaxLine called");
+                    lineMessGrenze.x(function(d) { 
+                        //console.log(d.x);
+                        return xScale((d.x)); })
+                        .y(function(d) { 
+                        //console.log(d.y);                        
+                        return yScale(d.y); });
+
+
+                    pathMessGrenze.datum(datenLineMessGrenze)
+                        .attr("fill", "none")
+                        .attr("stroke", "gray")
+                        .attr("stroke-linejoin", "round")
+                        .attr("stroke-linecap", "round")
+                        .attr("stroke-width", 0.5)
+                        .attr("d", lineMessGrenze);
+                }
+                drawLineMessGrenze()
 
                 function drawWasserLine(){
                     console.log("drawWasserLine methode called");
@@ -990,6 +1023,7 @@
                     drawNewMaxLine();
                     drawOldMaxLine();
                     drawWasserLine();
+                    drawLineMessGrenze();
                 }
             }
 
@@ -1016,6 +1050,8 @@
                 //not used line
                 var lineMaxNew2 = d3.line();
                 var lineMaxOLD2 = d3.line();
+
+                var lineMessGrenze2 = d3.line();
 
                 var lineWasser2 = d3.line();
 
@@ -1088,6 +1124,15 @@
                     console.log("pathMAxOld Called 1 and Data is: ");
                     console.log(oldMaxLineDaten);
                     return "Yellow";})
+                .style('stroke-width', '2px');
+
+                var pathMessGrenze2 = chartBoard.append("path")
+                .data(datenLineMessGrenze)
+                .attr("id","pathMessGrenze2")
+                .style('fill', 'none')
+                .style('stroke', function (d){
+                    console.log("pathMessGrenze2 Called");
+                    return "#76D7EA";})
                 .style('stroke-width', '2px');
 
                 var pathWasser2 = chartBoard.append("path")
@@ -1213,6 +1258,26 @@
                 }
                 drawOldMaxLine();
 
+                function drawLineMessGrenze(){
+                    console.log("drawNewMaxLine called");
+                    lineMessGrenze2.x(function(d) { 
+                        //console.log(d.x);
+                        return xScale((d.x)); })
+                        .y(function(d) { 
+                        //console.log(d.y);                        
+                        return yScale(d.y); });
+
+
+                    pathMessGrenze2.datum(datenLineMessGrenze)
+                        .attr("fill", "none")
+                        .attr("stroke", "gray")
+                        .attr("stroke-linejoin", "round")
+                        .attr("stroke-linecap", "round")
+                        .attr("stroke-width", 0.5)
+                        .attr("d", lineMessGrenze2);
+                }
+                drawLineMessGrenze()
+
                 function drawWasserLine(){
                     console.log("drawWasserLine methode called");
                     lineWasser2.x(function(d) { 
@@ -1331,6 +1396,7 @@
                     drawNewMaxLine();
                     drawOldMaxLine();
                     drawWasserLine();
+                    drawLineMessGrenze();
                 }
 
             }
@@ -1415,6 +1481,12 @@
                 //console.log("after Maxline OLD");
                 //console.log(oldMaxLineDaten[0]);
                 //console.log(oldMaxLineDaten[1]);
+
+
+                datenLineMessGrenze[0].x = d3.min(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                datenLineMessGrenze[1].x = d3.max(subdataArray.values, function(d) { return d.PbNahmeDatum; });
+                datenLineMessGrenze[0].y = subdataArray.values[0].Bestimmungsgrenze;
+                datenLineMessGrenze[1].y = subdataArray.values[0].Bestimmungsgrenze;
 
                 //hubi
                 console.log("subdataArray");
