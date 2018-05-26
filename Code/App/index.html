@@ -352,6 +352,11 @@
 
             }
 
+            // Define the div for the tooltip
+            var divTooltip = d3.select("body").append("div")	
+            .attr("id", "tooltipDiv")				
+            .style("opacity", 0);
+
             //---------- Start Read Data ----------//
             //d3.csv("DatenCSV.csv", function(d) {
             d3.csv("DatenCSV_Jahr.csv", function(error, d) {
@@ -1497,11 +1502,18 @@
             }           
 
             function handleMouseEnterData(d, i) {
+                var formatTime = d3.timeFormat("%e %B");
                 d3.select(this)
                     .attr("opacity", 1.0)
                     .attr("r", 10)
                     .attr("stroke", "black")
                     .style("fill","yellow");
+                divTooltip.transition()		
+                    .duration(200)		
+                    .style("opacity", .9);		
+                divTooltip.html("Probe Datum: "+ formatTime(d.PbNahmeDatum) + "<br/>"  + "Wert in ng/L: "+ d.WertText + "<br/>" + "Mess Grenze ng/L: " + d.Bestimmungsgrenze)	
+                    .style("left", (d3.event.pageX + 5 ) + "px")		
+                    .style("top", (d3.event.pageY - 28) + "px");	
                 //d3.select(this).style("fill","green");
             }
 
@@ -1511,6 +1523,9 @@
                     .attr("stroke",function(d){
                     return "black"})
                     .style("fill", function(d){if(d.WertText>oldMaxLineDaten.y){return "orange";}else if(d.WertText>newMaxLineDaten[0].y){return "red";}else if(d.WertText == 0){return "#76D7EA";}else{return "green";}})
+                divTooltip.transition()		
+                .duration(500)		
+                .style("opacity", 0);
             }
 
             function handleMouseEnterZuordnunge(d, i) {
