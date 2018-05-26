@@ -92,3 +92,7 @@ svg {
 #zuordnungenLabelText{
     margin-top: 20px;
 }
+
+#ySecAxisEl{
+    stroke: Blue;
+}
