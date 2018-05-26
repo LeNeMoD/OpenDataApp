@@ -648,7 +648,7 @@
 
                 var ySecAxisEl = chartBoard.append("g")
                 .attr("id","ySecAxisEl")
-                .attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                .attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left)) + "," +0+")")
                 .call(ySecAxis);
 
                 var xAxisEl = chartBoard.append("g")
@@ -667,7 +667,7 @@
 
                 chartBoard.append("g")
                     .attr("id","ySecAxisLabel")
-                    .attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                    .attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left)) + "," +0+")")
                     .append("text")
                     .attr("fill", "#000")
                     .attr("transform", "rotate(90)")
@@ -741,13 +741,13 @@
 
                     ySecScale.range([height,0]);
                     ySecAxis.scale(ySecScale);
-                    ySecAxisEl.attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")").call(ySecAxis);
+                    ySecAxisEl.attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left)) + "," +0+")").call(ySecAxis);
 
                     var dummyData = ["dummy"];
                     var secLabel = d3.selectAll("#ySecAxisLabel").data(dummyData);
 
                     secLabel.enter().attr("id","ySecAxisLabel")
-                        .attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                        .attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left)) + "," +0+")")
                         .append("text")
                         .attr("fill", "#000")
                         .attr("transform", "rotate(90)")
@@ -756,7 +756,7 @@
                         .attr("text-anchor", "middle")
                         .text("Q_M3/S");
 
-                    secLabel.attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                    secLabel.attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG').style('width'), 10))-(margin.right+margin.left)) + "," +0+")")
                         .append("text")
                         .attr("fill", "#000")
                         .attr("transform", "rotate(90)")
@@ -980,7 +980,7 @@
 
                 var ySecAxisEl = chartBoard.append("g")
                 .attr("id","ySecAxisEl")
-                .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG2').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG2').style('width'), 10))-(margin.right+margin.left)) + "," +0+")")
                 .call(ySecAxis);
 
                 var xAxisEl = chartBoard.append("g")
@@ -999,7 +999,7 @@
 
                 chartBoard.append("g")
                     .attr("id","ySecAxisLabel2")
-                    .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG2').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                    .attr("transform", "translate("+ ((parseInt(d3.select('#graphSVG2').style('width'), 10))-(margin.right+margin.left)) + "," +0+")")
                     .append("text")
                     .attr("fill", "#000")
                     .attr("transform", "rotate(90)")
@@ -1077,13 +1077,13 @@
 
                     ySecScale.range([height,0]);
                     ySecAxis.scale(ySecScale);
-                    ySecAxisEl.attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG2').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")").call(ySecAxis);
+                    ySecAxisEl.attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG2').style('width'), 10))-(margin.right+margin.left)) + "," +0+")").call(ySecAxis);
 
                     var dummyData = ["dummy"];
                     var secLabel = d3.selectAll("#ySecAxisLabel2").data(dummyData);
 
                     secLabel.enter().attr("id","ySecAxisLabel2")
-                        .attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG2').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                        .attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG2').style('width'), 10))-(margin.right+margin.left)) + "," +0+")")
                         .append("text")
                         .attr("fill", "#000")
                         .attr("transform", "rotate(90)")
@@ -1092,7 +1092,7 @@
                         .attr("text-anchor", "middle")
                         .text("Q_M3/S");
 
-                    secLabel.attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG2').style('width'), 10))-(margin.right+margin.left/2)) + "," +0+")")
+                    secLabel.attr("transform", "translate("+ ((parseInt(d3.select('#divGraphSVG2').style('width'), 10))-(margin.right+margin.left)) + "," +0+")")
                         .append("text")
                         .attr("fill", "#000")
                         .attr("transform", "rotate(90)")
