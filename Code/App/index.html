@@ -772,7 +772,7 @@
                     console.log("drawNewMaxLine called");
                     lineMaxNew.x(function(d) { 
                         //console.log(d.x);
-                        return xScale(parseTime(d.x)); })
+                        return xScale((d.x)); })
                         .y(function(d) { 
                         //console.log(d.y);                        
                         return yScale(d.y); });
@@ -793,7 +793,7 @@
                     console.log("drawOldMaxLine called");
                     lineMaxOLD.x(function(d) { 
                         //console.log(d.x);
-                        return xScale(parseTime(d.x)); })
+                        return xScale((d.x)); })
                         .y(function(d) { 
                         //console.log(d.y);                        
                         return yScale(d.y); });
@@ -949,16 +949,16 @@
                 var ySecAxis = d3.axisRight().scale(ySecScale);
 
                 //not used line
-                var lineMaxNew = d3.line();
-                var lineMaxOLD = d3.line();
+                var lineMaxNew2 = d3.line();
+                var lineMaxOLD2 = d3.line();
 
-                var lineWasser = d3.line();
+                var lineWasser2 = d3.line();
 
                 xScale.domain(d3.extent(data.values, function(d) {
                     //console.log(d.PbNahmeDatum);
                     return d.PbNahmeDatum; }));
                 console.log("y domain max is : "+ newMaxLineDaten[0].y);
-                yScale.domain([0,Math.max(newMaxLineDaten[0].y,oldMaxLineDaten[0].y,(d3.max(selectedSubDataArray.values,function(d){return d.WertText;})))])
+                yScale.domain([0,Math.max(newMaxLineDaten[0].y+20,oldMaxLineDaten[0].y+20,(d3.max(selectedSubDataArray.values,function(d){return d.WertText;})))])
                 console.log("domain1: " + [0,Math.max(newMaxLineDaten[0].y,oldMaxLineDaten[0].y,(d3.max(selectedSubDataArray.values,function(d){return d.WertText;})))]);
                 //yScale.domain([0,newMaxLineDaten.y]);
                 ySecScale.domain(d3.extent(data.values, function(d) {
@@ -1001,28 +1001,30 @@
                     .attr("text-anchor", "middle")
                     .text("Q_M3/S");
 
-                var pathMaxNEW = chartBoard.append("path")
+                var pathMaxNEW2 = chartBoard.append("path")
                 .data(newMaxLineDaten)
                 .attr("id","pathMAXNEW2")
                 .style('fill', 'none')
+                .style("stroke-dasharray", ("5, 5"))
                 .style('stroke', function (d){
-                    console.log("pathMAxNEw Called and data is: ");
+                    console.log("pathMAxNEw Called 1 and data is: ");
                     console.log(newMaxLineDaten);
                     return "Red";})
                 .style('stroke-width', '2px');
 
 
-                var pathMaxOLD = chartBoard.append("path")
+                var pathMaxOLD2 = chartBoard.append("path")
                 .data(oldMaxLineDaten)
                 .attr("id","pathMAXOLD2")
                 .style('fill', 'none')
+                .style("stroke-dasharray", ("5, 10"))
                 .style('stroke', function (d){
-                    console.log("pathMAxOld Called and Data is: ");
+                    console.log("pathMAxOld Called 1 and Data is: ");
                     console.log(oldMaxLineDaten);
                     return "Yellow";})
                 .style('stroke-width', '2px');
 
-                var pathWasser = chartBoard.append("path")
+                var pathWasser2 = chartBoard.append("path")
                 .datum(selectedSubDataArray.values)
                 .attr("id","pathWasser2")
                 .style('fill', 'none')
@@ -1045,7 +1047,7 @@
                         //console.log(d.PbNahmeDatum);
                         return d.PbNahmeDatum; }));
                     //yScale.domain([newMaxLineDaten.y,0]);
-                    yScale.domain([0,Math.max(newMaxLineDaten[0].y,oldMaxLineDaten[0].y,(d3.max(selectedSubDataArray.values,function(d){return d.WertText;})))]);
+                    yScale.domain([0,Math.max(newMaxLineDaten[0].y+20,oldMaxLineDaten[0].y+20,(d3.max(selectedSubDataArray.values,function(d){return d.WertText;})))]);
                     console.log("domain2: " + [0,Math.max(newMaxLineDaten[0].y,oldMaxLineDaten[0].y,(d3.max(selectedSubDataArray.values,function(d){return d.WertText;})))]);
                     ySecScale.domain(d3.extent(selectedSubDataArray.values, function(d) {
                         //console.log(d.Q_m3_s);
@@ -1097,57 +1099,57 @@
 
                 function drawNewMaxLine(){
                     console.log("drawNewMaxLine called");
-                    lineMaxNew.x(function(d) { 
-                        //console.log(d.x);
-                        return xScale(parseTime(d.x)); })
+                    lineMaxNew2.x(function(d) { 
+                        console.log("dx new is : " +d.x);
+                        return xScale((d.x)); })
                         .y(function(d) { 
-                        //console.log(d.y);                        
+                        console.log("dy new is : " +d.y);                        
                         return yScale(d.y); });
 
 
-                    pathMaxNEW.datum(newMaxLineDaten)
+                    pathMaxNEW2.datum(newMaxLineDaten)
                         .attr("fill", "none")
                         .attr("stroke", function (d){
                         console.log("Re-drawNewMaxPath with data: ");
                         console.log(newMaxLineDaten);
-                        return "gray";
+                        return "red";
                     })
                         .attr("stroke-linejoin", "round")
                         .attr("stroke-linecap", "round")
                         .attr("stroke-width", 0.5)
-                        .attr("d", lineMaxNew);
+                        .attr("d", lineMaxNew2);
 
                 }
                 drawNewMaxLine();
 
                 function drawOldMaxLine(){
                     console.log("drawOldMaxLine called");
-                    lineMaxOLD.x(function(d) { 
-                        //console.log(d.x);
-                        return xScale(parseTime(d.x)); })
+                    lineMaxOLD2.x(function(d) { 
+                        console.log("dx old is : " +d.x);
+                        return xScale((d.x)); })
                         .y(function(d) { 
-                        //console.log(d.y);                        
+                        console.log("dy old is: " +d.y);                        
                         return yScale(d.y); });
 
 
-                    pathMaxOLD.datum(oldMaxLineDaten)
-                        .attr("fill", "none")
+                    pathMaxOLD2.datum(oldMaxLineDaten)
+                        .attr("fill", "yellow")
                         .attr("stroke", function (d){
                         console.log("Re-drawpathMaxOLD with data: ");
                         console.log(oldMaxLineDaten);
-                        return "gray";
+                        return "yellow";
                     })
                         .attr("stroke-linejoin", "round")
                         .attr("stroke-linecap", "round")
                         .attr("stroke-width", 0.5)
-                        .attr("d", lineMaxOLD);
+                        .attr("d", lineMaxOLD2);
 
                 }
                 drawOldMaxLine();
 
                 function drawWasserLine(){
                     console.log("drawWasserLine methode called");
-                    lineWasser.x(function(d) { 
+                    lineWasser2.x(function(d) { 
                         //console.log("d.Datum_Start is: ");
                         //console.log(d.PbNahmeDatum);
                         return xScale(d.PbNahmeDatum); })
@@ -1157,17 +1159,17 @@
                         return ySecScale(d.Q_m3_s); });
 
 
-                    pathWasser.datum(selectedSubDataArray.values)
+                    pathWasser2.datum(selectedSubDataArray.values)
                         .transition(1000)
                         .duration(1500)
-                        .attr("fill", "none")
+                        .attr("fill", "red")
                         .attr("stroke", function (d){
                         //console.log("drawWasserLine path methode");
                         return "Blue";})
                         .attr("stroke-linejoin", "round")
                         .attr("stroke-linecap", "round")
                         .attr("stroke-width", 0.5)
-                        .attr("d", lineWasser);
+                        .attr("d", lineWasser2);
 
                 }
                 drawWasserLine();
@@ -1217,7 +1219,6 @@
                         .remove();
                 }
 
-                //updateChartAxis();
                 addNewKreise();
 
                 $('#Auswahl').change(function () {
@@ -1231,7 +1232,6 @@
                         //console.log("subarray change 2nd Time");
                         //console.log(selectedSubDataArray);
                         nestJahreAndBuildButtons(selectedSubDataArray.values);
-                        //startGraphDraws(selectedSubDataArray);
                         updateNecessary();
                     }
                 });
