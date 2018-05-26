@@ -115,10 +115,8 @@
                             <!--button year-->
                             <div class="row">
                                 <div class="container-fluid" "col-md-3" >
-                                    <div id="yearButtonsAlleJahre">
-                                        <label class="btn btn-default form-check-label">
-                                            Alle Jahre
-                                        </label>
+                                    <div id="yearButtonsAlleJahreDiv">
+                                        <button id="yearButtonsAlleJahre">Alle Jahre</button>   
                                     </div>
                                 </div>
                                 <!--buttongroup years-->
@@ -341,6 +339,15 @@
             var margin = {top: 50, right: 100, bottom: 50, left: 50};
             //---------- END Global Variables----------//
 
+            var button = document.getElementById('yearButtonsAlleJahre');
+            button.addEventListener('click', handlerClickAlleJahre);
+
+            function handlerClickAlleJahre(){
+                console.log("alle jahre was clicked");
+                selectedSubDataArray = selectedSubDataArrayMaster;
+                window.dispatchEvent(new Event('resize'));
+
+            }
 
             //---------- Start Read Data ----------//
             //d3.csv("DatenCSV.csv", function(d) {
@@ -404,7 +411,7 @@
                 saveSubYearArrays(selectedSubDataArrayMaster);
                 selectTimeFrameData(this.id);
                 window.dispatchEvent(new Event('resize'));
-                
+
                 //console.log("btn value is: "); // is undefined !!
                 //console.log(this.value);
 
@@ -1367,7 +1374,7 @@
 
                 if(int==1){
                     subdataArray = nestIntern(data);
-                        function nestIntern(data){
+                    function nestIntern(data){
                         var nested = d3.nest()
                         .key(function(d) {return d["Parameter"];})
                         .entries(data);
