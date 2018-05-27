@@ -19,7 +19,7 @@
         <link rel="stylesheet" type="text/css" href="APPCSS.css">
 
     </head>
-    <body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <body data-spy="scroll" data-target=".navbar" data-offset="0">
 
         <!-- Jumbotron -->    
 
@@ -29,9 +29,8 @@
         </div>
 
         <!-- Navbar -->
-
-        <nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="50">
-            <div class="container-fluid">
+        <div class="container-fluid">
+        <nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="0">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                         <span class="icon-bar"></span>
@@ -45,12 +44,14 @@
                         <li class="active"><a href="#Home">Home</a></li>
                         <li><a href="#Story">Story</a></li>
                         <li><a href="#App">App</a></li>
+                        <li><a href="#Interpretation">Interpretation</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Weitere Informationen<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#NeueVerordnung">Neue Verordnung</a></li>
-                                <li><a href="#AlteVerordnung">Alte Verordnung</a></li>
-                                <li><a href="#Initiative">Initiative</a></li>
+                                <li><a href="#NeueVerordnung">Revision GSchV</a></li>
+                                <!--<li><a href="#AlteVerordnung">Alte Verordnung</a></li> -->
+                                <li><a href="#Initiative1">Initiative für sauberes Trinkwasser</a></li>
+                                <li><a href="#Initiative2">Initiative gegen Pestizide</a></li>
                             </ul>
                         </li>
                         <li><a href="#Programmierung">Programmierung</a></li>
@@ -60,14 +61,13 @@
                         <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Kontakt</a></li>
                     </ul>
                 </div>
-            </div>
         </nav>
-
+        </div>
 
         <!-- Story -->
-
+        
         <div class="container-fluid">
-            <div class="panel-group text-center">
+            <div class="panel-group text-justify">
                 <div class="row">
                     <div id="Story" class="panel-primary col-md-12">
                         <div class="panel-heading">
@@ -75,6 +75,11 @@
                         </div>
                         <div class="panel-body">
                             <p>Die Schweiz gilt als ein Land mit sehr sauberem und qualitativ hochwertigem Wasser. Dass man Wasser einfach vom Wasserhahn trinken kann, ist ein Privileg, um welches Schweizerinnen und Schweizer froh sind. Naheliegend ist folglich auch, dass man zu diesem Privileg Sorge tragen sollte. In Schweizer Gewässern werden deshalb regelmässig Proben entnommen. Die Messungen der RÜS werden in der App visualisiert, um einen Überblick zu verschaffen.</p>
+                            <p>In der Schweiz sorgen gleich zwei Initiativen für gespaltene Meinungen, die sich unter Anderem mit den Pestiziden in Schweizer Gewässern beschäftigen.
+                            Für die bestehende App wäre eine Erweiterung insofern denkbar, als dass man weitere Messstationen oder auch andere Gewässer in die App einbinden kann und so einen Vergleich machen kann oder das Herkunftsgebiet einer Verschmutzung eingrenzen kann und so gezielt Massnahmen ergreifen kann.
+                            Wir denken, dass hier gerade mit der Forschung zu Linked Data viel gemacht werden könnte und unbedingt auch mehr Transparenz zur Verschmutzung der Schweizer Gewässer nötig ist, um die Bevölkerung sensibilisieren zu können. Zudem können Verschmutzer eher nach dem Verursacherprinzip abgestraft werden, wenn Überschreitungen der Werte auftreten.
+
+                            </p>
                         </div>
                     </div>
 
@@ -90,18 +95,22 @@
                                 <a href="#Bedienungsanleitung" class="btn btn-primary" data-toggle="collapse">Bedienungsanleitung einblenden    <span class="glyphicon glyphicon-eye-open"></span></a>
                             </div>
                             <div id="Bedienungsanleitung" class="collapse col-sm-6 col-sm-offset-3 thumb">
-                                <ol class="text-left" style="background-color: darkgreen">
-                                    <li>Wählen Sie ein Pestizid, dessen Messungen Sie genauer betrachten möchten</li>
-                                    <li>Vergleichen Sie x mit y</li>
-                                    <li>Wechseln Sie zu einem anderen Pestizid</li>
+                                <div>
+                                <ol class="text-left" style="background-color: lightgray">
+                                    <li>Wählen Sie eine Pestizidgruppe</li>
+                                    <li>Wählen Sie ein bestimmtes Pestizid</li>
+                                    <li>Wählen Sie das Jahr, das Sie betrachten möchten</li>
                                 </ol>
+                                </div>
                             </div>
 
                             <!-- Select Bar -->
-                            <div class="col-md-12" id="zuordnungenBtnsDiv">
-                                <label for="Auswahl" id="zuordnungenLabelText">Wählen Sie eines der Interessengebiete</label>
-                                <svg id="zuordnungenBtnsSVG"  >
-                                </svg>
+                            <div class="container-fluid text-center col-sm-12">
+                                <div id="zuordnungenBtnsDiv">
+                                    <label for="Auswahl" id="zuordnungenLabelText">Wählen Sie eine Pestizidgruppe</label>
+                                    <svg id="zuordnungenBtnsSVG"  >
+                                    </svg>
+                                </div>
                             </div>
 
                             <div class="container-fluid">
@@ -120,8 +129,18 @@
                             <div id="chemieDiv"class="col-md-3">
                                 <h1>Chlortoluron</h1>
                                 <img class="img-responsive" src="Chlortoluron.png">
-                                <p id="Info">Der Richtwert von Chlortoluron wird in der neuen Verordnung nicht angepasst</p>
+                                <p id="Info">Der Richtwert von Chlortoluron wird in der neuen nicht angepasst</p>
                             </div>
+                        </div>
+                    </div>
+                    <div id="Interpretation" class="panel-primary col-md-12">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Interpretation der Daten</h1>
+                        </div>
+                        <div class="panel-body">
+                            <p>Die Messstation RÜS hat uns Messungen von über 100 verschiedenen Pestiziden bereitgestellt. Einige davon sind auch von der Revision der Gewässerschutzverordnung betroffen. Die Daten zeigen, dass die meisten Stoffe in solch geringen Konzentrationen vorhanden waren, dass von den Messgeräten keine Daten erfasst werden konnten. Allerdings können bei einigen Stoffen Überschreitungen des Grenzwerts oder auch diverse Annäherungen festgestellt werden. Die Daten können gerade im Zusammenhang mit den zwei Initiativen dem Leser einen Einblick gewähren, wie die Lage im Rhein bezüglich der Pestizidkonzentrationen aussieht.</p>
+                            <p>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -131,30 +150,51 @@
         <!-- NeueVerordnung -->
 
         <div class="container-fluid">
-            <div class="panel-group text-center">
+            <div class="panel-group text-justify">
                 <div class="row">
-                    <div id="NeueVerordnung" class="panel-primary col-md-4">
+                    <div id="NeueVerordnung" class="panel-primary col-md-6">
                         <div class="panel-heading">
-                            <h1 class="panel-title">Die neue Verordnung</h1>
+                            <h1 class="panel-title">Die Schweizer Gewässerschutzverordnung (GSchV) und ihre Revision</h1>
                         </div>
                         <div class="panel-body">
-                            <p>Die Schweiz gilt als ein Land mit sehr sauberem und qualitativ hochwertigem Wasser. Dass man Wasser einfach vom Wasserhahn trinken kann, ist ein Privileg, um welches Schweizerinnen und Schweizer froh sind. Naheliegend ist folglich auch, dass man zu diesem Privileg Sorge tragen sollte. In Schweizer Gewässern werden deshalb regelmässig Proben entnommen. Die Messungen der RÜS werden in der App visualisiert, um einen Überblick zu verschaffen.</p>
+                            <p>Ein Teil der in der Schweiz eingesetzten Chemikalien wie Biozide und Pflanzenschutzmittel gelangen in die Gewässer und können da Lebewesen schädigen. Zurzeit (2018) gelten insbesondere für Schwermetalle und Pestizide Grenzwerte für Oberflächengewässer. Während aber der Grenzwert bei Schwermetallen abhängig von deren Giftigkeit ist, gilt bisher bei Pestiziden nur ein Einheitswert von 0.1 Mikrogramm/Liter. Der Entwurf sieht vor, die Grenzwerte für 55 Chemikalien an deren Schädlichkeit für Lebewesen anzupassen.</p>
+                            <p><a href="https://www.bafu.admin.ch/bafu/de/home/themen/thema-wasser/wasser--rechtliche-grundlagen/wasser--vernehmlassungen-und-anhoerungen/mikroverunreinigungen-grenzwerte-vernehmlassung.html">Mehr Infos zur Revision</a></p>
                         </div>
                     </div>
-                    <div id="AlteVerordnung" class="panel-primary col-md-4">
+                   <!-- <div id="AlteVerordnung" class="panel-primary col-md-6">
                         <div class="panel-heading">
                             <h1 class="panel-title">Die alte Verordnung</h1>
                         </div>
                         <div class="panel-body">
                             <p>In der App können nun die Messungen der Pestizidkonzentrationen von 2013 bis 2017 mit den Höchstwerten nach bisherigem und neuem Reglement verglichen werden. Dazu wird auf der linken Seite das Pestizid, welches genauer angeschaut werden soll, angewählt. In der Grafik sieht man nun, wie die Messungen ausgefallen sind und dazu die Höchstwerte.</p>
                         </div>
-                    </div>
-                    <div id="Initiative" class="panel-primary col-md-4">
+                    </div> -->
+                    <div id="Initiative1" class="panel-primary col-md-6">
                         <div class="panel-heading">
-                            <h1 class="panel-title">Die Initiative</h1>
+                            <h1 class="panel-title">Initiative für sauberes Trinkwasser</h1>
                         </div>
                         <div class="panel-body">
-                            <p>In der App können nun die Messungen der Pestizidkonzentrationen von 2013 bis 2017 mit den Höchstwerten nach bisherigem und neuem Reglement verglichen werden. Dazu wird auf der linken Seite das Pestizid, welches genauer angeschaut werden soll, angewählt. In der Grafik sieht man nun, wie die Messungen ausgefallen sind und dazu die Höchstwerte.</p>
+                            <p>Die Initiative will, dass Schweizer Bauern, die Pestizide einsetzen, keine Direktzahlungen und Subventionen mehr erhalten. Die Gefahr sehen die Initianten darin, dass Pestizide oder deren Rückstände ins Wasser gelangen und so dessen Qualität trüben. In der Schweiz werden laut den Initianten jährlich 2000 Tonnen Pestizide ausgetragen. Reduktionsziele vom Bund auf 1500 Tonnen wurden in den letzten Jahren regelmässig nicht erreicht.</p>
+                            <p>Unten Abgebildet sehen Sie eine Karte, auf der Messungen aus dem Jahr 2013 eingetragen sind. Zu beachten ist, dass es sich nicht ausschliesslich um Pestizide, sondern um Pflanzenschutzmittel handelt. 
+                            </p>
+                            <p>
+                            <img src="Verschmutzung.jpg" class="img-responsive">
+                            <a href="https://www.bafu.admin.ch/bafu/de/home/themen/wasser/fachinformationen/zustand-der-gewaesser/zustand-des-grundwassers/grundwasser-qualitaet/pflanzenschutzmittel-im-grundwasser.html">Mehr Infos zur Verschmutzung der Gewässer</a>
+                            </p>
+                            <p><a href="https://www.initiative-sauberes-trinkwasser.ch/pestizide/">Mehr Infos zur Initiative</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div id="Initiative2" class="panel-primary col-md-6">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Initiative Schweiz ohne Pestizide</h1>
+                        </div>
+                        <div class="panel-body">
+                            <p>Die <a href="http://www.future3.ch/de"><span class="font-color black">Initiative</span></a> will den Einsatz synthetischer Pestizide in der landwirtschaftlichen Produktion, in der Verarbeitung landwirtschaftlicher Erzeugnisse und in der Boden- und Landschaftspflege verbieten. Die Einfuhr zu gewerblichen Zwecken von Lebensmitteln, die synthetische Pestizide enthalten oder mithilfe solcher hergestellt worden sind, soll ebenfalls verboten werden.</p>
+                            <p>
+                            Mit diesem Konsequenten Ansatz geht die Initiative noch einen Schritt weiter als die Initiative für sauberes Trinkwasser.</p>
+                            <p><a href="http://www.future3.ch/de">Mehr Infos zur Initiative</a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -162,49 +202,6 @@
         </div>
 
         <!-- Programmierung -->
-
-        <!--
-
-<div id="Programmierung" class="container-fluid">
-<div class="panel-group text-center">
-<div class="row">
-<div class="panel-primary">
-<div class="panel-heading">
-<h1 class="panel-title">Programmierung</h1>
-</div>
-<div class="panel-body">
-<p>Der Grundstein für unsere Applikation legen HTML und CSS</p>
-</div>
-<div class="col-xs-3 col-sm-3 col-md-2">
-<img class="img-responsive" src="html-logo.png">
-</div>
-<div class="col-xs-9 col-sm-9 col-md-4">
-<p>Text zu HTML</p>
-</div>
-<div class="col-xs-3 col-sm-3 col-md-2">
-<img class="img-responsive" src="css-logo.png">
-</div>
-<div class="col-xs-9 col-sm-9 col-md-4">
-<p>Text zu CSS</p>
-</div>
-<div class="col-xs-3 col-sm-3 col-md-2">
-<img class="img-responsive" src="javascript-logo.png">
-</div>
-<div class="col-xs-9 col-sm-9 col-md-4">
-<p>Text zu JS</p>
-</div>
-<div class="col-xs-3 col-sm-3 col-md-2">
-<img class="img-responsive" src="bootstrap-logo.png">
-</div>
-<div class="col-xs-9 col-sm-9 col-md-4">
-<p>Text zu Bootstrap</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-
--->
 
         <div id="Programmierung" class="container-fluid">
             <div class="panel-group">

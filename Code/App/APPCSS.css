@@ -1,9 +1,9 @@
 body {
-    position: relative; 
+    position: relative;
 }
 .affix {
-    top:0;
-    width: 100%;
+    top: 0;
+    width: 98%;
     z-index: 9999 !important;
 }
 .navbar {
@@ -12,14 +12,17 @@ body {
 
 .affix ~ .container-fluid {
     position: relative;
-    top: 50px;
+    top: 100px;
 }
 
-#App {
+#Home {
+    background-color: goldenrod;
+}
+#Story {
     margin-top: -60px;
     padding-top: 60px;
 }
-#Story {
+#App {
     margin-top: -60px;
     padding-top: 60px;
 }
@@ -39,7 +42,11 @@ body {
     margin-top: -60px;
     padding-top: 60px;
 }
-#Initiative {
+#Initiative1 {
+    margin-top: -60px;
+    padding-top: 60px;
+}
+#Initiative2 {
     margin-top: -60px;
     padding-top: 60px;
 }
@@ -51,6 +58,9 @@ body {
     margin-top: 20px;
 }
 
+#Bedienungsanleitung {
+    align-content: center;
+}
 #test{
     height:200px;
     width:200px;
