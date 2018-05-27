@@ -6,9 +6,7 @@ body {
     width: 98%;
     z-index: 9999 !important;
 }
-.navbar {
-    margin-bottom: 0px;
-}
+
 
 .affix ~ .container-fluid {
     position: relative;
@@ -76,15 +74,48 @@ body {
     border-bottom: 20px;
     border-top: 20px;
 }
+
 #divGraphSVG{
     display: block;
     height: 500px;
 }
+
+#graphSVG2{
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-bottom: 20px;
+    border-top: 20px;
+}
+
+#divGraphSVG2{
+    display: block;
+    height: 500px;
+}
+
 svg {
   display: block;
   height: 100%;
   width: 100%;
 }
+
 #zuordnungenLabelText{
     margin-top: 20px;
+}
+
+#ySecAxisEl{
+    stroke: Blue;
+}
+
+#tooltipDiv{	
+    position: absolute;			
+    text-align: center;			
+    width: 190px;					
+    height: 50px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightblue;	
+    border: 4px;		
+    border-radius: 4px;			
+    pointer-events: none;			
 }
