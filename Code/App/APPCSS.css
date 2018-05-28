@@ -56,8 +56,10 @@ body {
     margin-top: 20px;
 }
 
-#Bedienungsanleitung {
-    align-content: center;
+#bedienAnlBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #test{
     height:200px;
@@ -94,9 +96,9 @@ body {
 }
 
 svg {
-  display: block;
-  height: 100%;
-  width: 100%;
+    display: block;
+    height: 100%;
+    width: 100%;
 }
 
 #zuordnungenLabelText{
@@ -119,3 +121,13 @@ svg {
     border-radius: 4px;			
     pointer-events: none;			
 }
+
+#yearButtonsAlleJahreDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#yearButtons{
+    display: flex;
+    align-items: center;
+    justify-content: center;}
