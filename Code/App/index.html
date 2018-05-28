@@ -717,8 +717,45 @@
 
                 var deltaOldsubNewMaxWerte = oldMaxLineDaten[0].y-newMaxLineDaten[0].y;
 
-                var chemText = d3.select("#Info").append("div")	
-                chemText.selectAll("text")
+                var chemText = d3.select("#Info").append("div")	;
+                
+                chemText.selectAll("p").data(parameterName)
+                    .enter()
+                    .append('p')
+                    .html(function() {
+                    var text = "Der Richtwert von "+ parameterName + " hat sich folgender massen verändert:" + "<br/>" +
+                             "Alter Richtwert: "+ oldMaxLineDaten[0].y+ " ng/L"+ "<br/>" + 
+                             "Neuer Richtwert: "+ newMaxLineDaten[0].y+ "ng/L"+"<br/>" + 
+                             "Dies entspricht ";
+                    if(deltaOldsubNewMaxWerte == 0){
+                        return "keiner Veränderung."
+                    }else if(deltaOldsubNewMaxWerte<0){
+                        var prozentMehr = ((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y))*100; 
+                        text = text + "einer Steigerung um "+ prozentMehr + " %."
+                    } else {
+                        text = text + "blubber"
+                    }
+                    return text; 
+                });
+                
+                chemText.html(function() {
+                    var text = "Der Richtwert von "+ parameterName + " hat sich folgender massen verändert:" + "<br/>" +
+                             "Alter Richtwert: "+ oldMaxLineDaten[0].y+ " ng/L"+ "<br/>" + 
+                             "Neuer Richtwert: "+ newMaxLineDaten[0].y+ "ng/L"+"<br/>" + 
+                             "Dies entspricht ";
+                    if(deltaOldsubNewMaxWerte == 0){
+                        return "keiner Veränderung."
+                    }else if(deltaOldsubNewMaxWerte<0){
+                        var prozentMehr = ((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y))*100; 
+                        text = text + "einer Steigerung um "+ prozentMehr + " %."
+                    } else {
+                        text = text + "blubber"
+                    }
+                    return text; 
+                });
+                
+                chemText.exit().remove();
+                /*chemText.selectAll("text")
                     .data(parameterName)
                     .enter()
                     .text(function(d){
@@ -759,7 +796,7 @@
                     return baseString+caseBaseString+caseInput }
                              )
                 chemText.exit().remove();
-                //<p id="Info">Der Richtwert von Chlortoluron wird in der neuen Verordnung nicht angepasst</p>
+                //<p id="Info">Der Richtwert von Chlortoluron wird in der neuen Verordnung nicht angepasst</p>*/
 
 
             }
@@ -877,8 +914,7 @@
                 .attr("id","pathWasser")
                 .style('fill', 'none')
                 .style('stroke', function (d){
-                    console.log("pathWasser Called line 880");
-                    console.log("pathWasser data is:");
+                    console.log("pathWasser Called line ca 920")
                     console.log([selectedSubDataArray]);
                     return "Blue";})
                 .style('stroke-width', '2px');
