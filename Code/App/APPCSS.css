@@ -16,7 +16,14 @@ body {
 #Home {
     background-color: goldenrod;
 }
+#story-content {
+    pointer-events: all;
+}
+#Karte {
+    max-width: 50%;
+}
 #Story {
+    pointer-events: none;
     margin-top: -60px;
     padding-top: 60px;
 }
@@ -28,9 +35,13 @@ body {
     margin-top: -60px;
     padding-top: 60px;
 }       
-#Programmierung {
+#Entwicklung {
+    pointer-events: none;
     margin-top: -60px;
     padding-top: 60px;
+}
+#entwicklung-content {
+    pointer-events: all;
 }
 #AlteVerordnung {
     margin-top: -60px;
@@ -41,8 +52,12 @@ body {
     padding-top: 60px;
 }
 #Initiative1 {
+    pointer-events: none;
     margin-top: -60px;
     padding-top: 60px;
+}
+#initiative1-content {
+    pointer-events: all;
 }
 #Initiative2 {
     margin-top: -60px;
@@ -50,6 +65,10 @@ body {
 }
 #AuswahlPestizid {
     margin-top: 40px;
+}
+#Interpretation {
+    margin-top: -60px;
+    padding-top: 60px;
 }
 
 #Info {

@@ -54,7 +54,7 @@
                                 <li><a href="#Initiative2">Initiative gegen Pestizide</a></li>
                             </ul>
                         </li>
-                        <li><a href="#Programmierung">Programmierung</a></li>
+                        <li><a href="#Entwicklung">Entwicklung</a></li>
                         <li><a href="#ueberuns">Über uns</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -69,11 +69,14 @@
         <div class="container-fluid">
             <div class="panel-group text-justify">
                 <div class="row">
+                        <div id="story-content">
                     <div id="Story" class="panel-primary col-md-12">
+
                         <div class="panel-heading">
                             <h1 class="panel-title">Story</h1>
                         </div>
                         <div class="panel-body">
+                            <p>Die Schweiz gilt als ein Land mit sehr sauberem und qualitativ hochwertigem Wasser. Dass man Wasser einfach vom Wasserhahn trinken kann, ist ein Privileg, um welches Schweizerinnen und Schweizer froh sind. Naheliegend ist folglich auch, dass man zu diesem Privileg Sorge tragen sollte. In Schweizer Gewässern werden deshalb regelmässig Proben entnommen. Die Messungen der RÜS werden in der App visualisiert, um einen Überblick zu verschaffen.</p>
                             <p>Die Schweiz gilt als ein Land mit sehr sauberem und qualitativ hochwertigem Wasser. Dass man Wasser einfach vom Wasserhahn trinken kann, ist ein Privileg, um welches Schweizerinnen und Schweizer froh sind. Naheliegend ist folglich auch, dass man zu diesem Privileg Sorge tragen sollte. In Schweizer Gewässern werden deshalb regelmässig Proben entnommen. Die Messungen der RÜS werden in der App visualisiert, um einen Überblick zu verschaffen.</p>
                             <p>In der Schweiz sorgen gleich zwei Initiativen für gespaltene Meinungen, die sich unter Anderem mit den Pestiziden in Schweizer Gewässern beschäftigen.
                             Für die bestehende App wäre eine Erweiterung insofern denkbar, als dass man weitere Messstationen oder auch andere Gewässer in die App einbinden kann und so einen Vergleich machen kann oder das Herkunftsgebiet einer Verschmutzung eingrenzen kann und so gezielt Massnahmen ergreifen kann.
@@ -81,6 +84,7 @@
 
                             </p>
                         </div>
+                    </div>
                     </div>
 
                     <!-- App -->
@@ -91,8 +95,8 @@
                         </div>
                         <div class="panel-body">
                             <p>In der App können nun die Messungen der Pestizidkonzentrationen von 2013 bis 2017 mit den Höchstwerten nach bisherigem und neuem Reglement verglichen werden. Dazu wird auf der linken Seite das Pestizid, welches genauer angeschaut werden soll, angewählt. In der Grafik sieht man nun, wie die Messungen ausgefallen sind und dazu die Höchstwerte.</p>
-                            <div>
-                                <a href="#Bedienungsanleitung" class="btn btn-primary" data-toggle="collapse">Bedienungsanleitung einblenden    <span class="glyphicon glyphicon-eye-open"></span></a>
+                            <div class="text-center">
+                                <a href="#Bedienungsanleitung" class="btn btn-primary align" data-toggle="collapse">Bedienungsanleitung einblenden    <span class="glyphicon glyphicon-eye-open"></span></a>
                             </div>
                             <div id="Bedienungsanleitung" class="collapse col-sm-6 col-sm-offset-3 thumb">
                                 <div>
@@ -152,11 +156,12 @@
                                     <svg id="graphSVG2"  >
                                     </svg>
                                 </div>
-                            </div>
+                            
 
                             <div id="emptySideDiv"class="col-md-3">
-                                <h1></h1>
-                                <p></p>
+                                <h1>Legende zur Grafik</h1>
+                                <img src="Legende.JPG" class="img-responsive">
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -174,7 +179,7 @@
             </div>
         </div>
 
-        <!-- NeueVerordnung -->
+    <!-- NeueVerordnung -->
 
         <div class="container-fluid">
             <div class="panel-group text-justify">
@@ -188,116 +193,127 @@
                             <p><a href="https://www.bafu.admin.ch/bafu/de/home/themen/thema-wasser/wasser--rechtliche-grundlagen/wasser--vernehmlassungen-und-anhoerungen/mikroverunreinigungen-grenzwerte-vernehmlassung.html">Mehr Infos zur Revision</a></p>
                         </div>
                     </div>
-                   <!-- <div id="AlteVerordnung" class="panel-primary col-md-6">
-                        <div class="panel-heading">
-                            <h1 class="panel-title">Die alte Verordnung</h1>
-                        </div>
-                        <div class="panel-body">
-                            <p>In der App können nun die Messungen der Pestizidkonzentrationen von 2013 bis 2017 mit den Höchstwerten nach bisherigem und neuem Reglement verglichen werden. Dazu wird auf der linken Seite das Pestizid, welches genauer angeschaut werden soll, angewählt. In der Grafik sieht man nun, wie die Messungen ausgefallen sind und dazu die Höchstwerte.</p>
-                        </div>
-                    </div> -->
-                    <div id="Initiative1" class="panel-primary col-md-6">
-                        <div class="panel-heading">
-                            <h1 class="panel-title">Initiative für sauberes Trinkwasser</h1>
-                        </div>
-                        <div class="panel-body">
-                            <p>Die Initiative will, dass Schweizer Bauern, die Pestizide einsetzen, keine Direktzahlungen und Subventionen mehr erhalten. Die Gefahr sehen die Initianten darin, dass Pestizide oder deren Rückstände ins Wasser gelangen und so dessen Qualität trüben. In der Schweiz werden laut den Initianten jährlich 2000 Tonnen Pestizide ausgetragen. Reduktionsziele vom Bund auf 1500 Tonnen wurden in den letzten Jahren regelmässig nicht erreicht.</p>
-                            <p>Unten Abgebildet sehen Sie eine Karte, auf der Messungen aus dem Jahr 2013 eingetragen sind. Zu beachten ist, dass es sich nicht ausschliesslich um Pestizide, sondern um Pflanzenschutzmittel handelt. 
-                            </p>
-                            <p>
-                            <img src="Verschmutzung.jpg" class="img-responsive">
-                            <a href="https://www.bafu.admin.ch/bafu/de/home/themen/wasser/fachinformationen/zustand-der-gewaesser/zustand-des-grundwassers/grundwasser-qualitaet/pflanzenschutzmittel-im-grundwasser.html">Mehr Infos zur Verschmutzung der Gewässer</a>
-                            </p>
-                            <p><a href="https://www.initiative-sauberes-trinkwasser.ch/pestizide/">Mehr Infos zur Initiative</a>
-                            </p>
-                        </div>
-                    </div>
+                    
+<!-- Initiative2 (Pestizide)> -->
+                    
                     <div id="Initiative2" class="panel-primary col-md-6">
                         <div class="panel-heading">
                             <h1 class="panel-title">Initiative Schweiz ohne Pestizide</h1>
                         </div>
                         <div class="panel-body">
-                            <p>Die <a href="http://www.future3.ch/de"><span class="font-color black">Initiative</span></a> will den Einsatz synthetischer Pestizide in der landwirtschaftlichen Produktion, in der Verarbeitung landwirtschaftlicher Erzeugnisse und in der Boden- und Landschaftspflege verbieten. Die Einfuhr zu gewerblichen Zwecken von Lebensmitteln, die synthetische Pestizide enthalten oder mithilfe solcher hergestellt worden sind, soll ebenfalls verboten werden.</p>
+                            <p>Die Initiative> will den Einsatz synthetischer Pestizide in der landwirtschaftlichen Produktion, in der Verarbeitung landwirtschaftlicher Erzeugnisse und in der Boden- und Landschaftspflege verbieten. Die Einfuhr zu gewerblichen Zwecken von Lebensmitteln, die synthetische Pestizide enthalten oder mithilfe solcher hergestellt worden sind, soll ebenfalls verboten werden.</p>
                             <p>
                             Mit diesem Konsequenten Ansatz geht die Initiative noch einen Schritt weiter als die Initiative für sauberes Trinkwasser.</p>
                             <p><a href="http://www.future3.ch/de">Mehr Infos zur Initiative</a>
                             </p>
                         </div>
                     </div>
+                    
+<!-- Initiative1 (Wasser)> -->
+                    <div id="initiative1-content">
+                        <div id="Initiative1" class="panel-primary col-md-12">
+                            <div class="panel-heading">
+                                <h1 class="panel-title">Initiative für sauberes Trinkwasser</h1>
+                            </div>
+                            <div class="panel-body">
+                                <p>Die Initiative will, dass Schweizer Bauern, die Pestizide einsetzen, keine Direktzahlungen und Subventionen mehr erhalten. Die Gefahr sehen die Initianten darin, dass Pestizide oder deren Rückstände ins Wasser gelangen und so dessen Qualität trüben. In der Schweiz werden laut den Initianten jährlich 2000 Tonnen Pestizide ausgetragen. Reduktionsziele vom Bund auf 1500 Tonnen wurden in den letzten Jahren regelmässig nicht erreicht.</p>
+                                <p>Unten Abgebildet sehen Sie eine Karte, auf der Messungen aus dem Jahr 2013 eingetragen sind. Zu beachten ist, dass es sich nicht ausschliesslich um Pestizide, sondern um Pflanzenschutzmittel handelt. 
+                                </p>
+                                <p>
+                                <img src="Verschmutzung.jpg" class="img-responsive" id="Karte">
+                                </p>
+                                <p>
+                                <a href="https://www.bafu.admin.ch/bafu/de/home/themen/wasser/fachinformationen/zustand-der-gewaesser/zustand-des-grundwassers/grundwasser-qualitaet/pflanzenschutzmittel-im-grundwasser.html">Mehr Infos zur Verschmutzung der Gewässer</a>
+                                </p>
+                                <p><a href="https://www.initiative-sauberes-trinkwasser.ch/pestizide/">Mehr Infos zur Initiative</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Programmierung -->
+        
+        <!-- Entwicklung -->
 
+        <div id="entwicklung-content">
+            <div id="Entwicklung" class="container-fluid">
+                <div class="panel-group">
+                    <div class="row">
+                        <div class="panel-primary col-md-12 text-center">
+                            <div class="panel-heading">
+                                <h1 class="panel-title">Entwicklung</h1>
+                            </div>
+                            <div class="panel-body">
+                                <h1>Von der Datenbank zur App</h1>
+                                <p>Zu Beginn fanden wir eine riesige Datenbank mit einer grossen Vielfalt an Messungen von verschiedenen Stoffen im Rhein vor. Sowohl im Wasser als auch als Schwebepartikel wurden verschiedenste Stoffe gemessen. Dazu gab es auch viele unterschiedliche Messmethoden.
+                                </p>
+                                <p>
+                                Wir haben uns dann überlegt, die Daten mit aktuellen Initiativen in Verbindung zu bringen und dem Leser einige Informationen über den Gehalt von Pestiziden in Wasser zur Verfügung stellen zu können.
 
-        <div id="Programmierung" class="container-fluid">
-            <div class="panel-group">
-                <div class="row">
-                    <div class="panel-primary col-md-12 text-center">
-                        <div class="panel-heading">
-                            <h1 class="panel-title">Programmierung</h1>
-                        </div>
-                        <div class="panel-body">
-                            <p>Text</p>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <img class="img-responsive" src="html-logo.png" alt="HTML5" style="max-height: 150px; align-content: center">
-                        </div>
-                        <div class="col-xs-9 col-sm-4 small well well-sm">
-                            <h1>HTML 5</h1>
-                            <p>jfdjoejf
-                                sdfjpj
-                            </p>
-                            <p>fergewg
-                            </p>
-                            <p>dsf
-                            </p>
-                        </div>
+                                </p>
+                            </div>
+                           
+                            
+                           <div class="col-xs-3 col-sm-2">
+                                <img class="img-responsive" src="html-logo.png" alt="HTML5" style="max-height: 150px; align-content: center">
+                            </div>
+                            <div class="col-xs-9 col-sm-4 small well well-sm">
+                                <h1>HTML 5</h1>
+                                <p>jfdjoejf
+                                    sdfjpj
+                                </p>
+                                <p>fergewg
+                                </p>
+                                <p>dsf
+                                </p>
+                            </div>
 
-                        <!-- CSS -->
+                            <!-- CSS -->
 
-                        <div class="col-xs-3 col-sm-2">
-                            <img class="img-responsive" src="css-logo.png" alt="CSS3" style="max-height: 150px; align-content: center">
-                        </div>
-                        <div class="col-xs-9 col-sm-4 small well well-sm">
-                            <h1>CSS</h1>
-                            <p>dfje
-                            </p>
-                            <p>ödsljfp
-                            </p>
-                            <p>rgwg
-                            </p>
-                        </div>
+                            <div class="col-xs-3 col-sm-2">
+                                <img class="img-responsive" src="css-logo.png" alt="CSS3" style="max-height: 150px; align-content: center">
+                            </div>
+                            <div class="col-xs-9 col-sm-4 small well well-sm">
+                                <h1>CSS</h1>
+                                <p>dfje
+                                </p>
+                                <p>ödsljfp
+                                </p>
+                                <p>rgwg
+                                </p>
+                            </div>
 
-                        <!-- JS -->
+                            <!-- JS -->
 
-                        <div class="col-xs-3 col-sm-2 col-md-2">
-                            <img class="img-responsive" src="javascript-logo.png" alt="JS" style="max-height: 150px; align-content: center">
-                        </div>
+                            <div class="col-xs-3 col-sm-2 col-md-2">
+                                <img class="img-responsive" src="javascript-logo.png" alt="JS" style="max-height: 150px; align-content: center">
+                            </div>
 
-                        <div class="col-xs-9 col-sm-4 col-md-4 small well well-sm">
-                            <h1>Java Script</h1>
-                            <p>jfdjoejf
-                                sdfjpj
-                            </p>
-                            <p>fergewg
-                            </p>
-                            <p>kjge</p>
-                        </div>
+                            <div class="col-xs-9 col-sm-4 col-md-4 small well well-sm">
+                                <h1>Java Script</h1>
+                                <p>jfdjoejf
+                                    sdfjpj
+                                </p>
+                                <p>fergewg
+                                </p>
+                                <p>kjge</p>
+                            </div>
 
-                        <!-- Bootstrap -->
+                            <!-- Bootstrap -->
 
-                        <div class="col-xs-3 col-sm-2">
-                            <img class="img-responsive" src="bootstrap-logo.png" alt="Bootstrap" style="max-height: 150px; align-content: center">
-                        </div>
-                        <div class="col-xs-9 col-sm-4 small well well-sm">
-                            <h1>Bootstrap</h1>
-                            <p>dfje
-                            </p>
-                            <p>ödsljfp
-                            </p>
-                            <p>dsgerw
-                            </p>
+                            <div class="col-xs-3 col-sm-2">
+                                <img class="img-responsive" src="bootstrap-logo.png" alt="Bootstrap" style="max-height: 150px; align-content: center">
+                            </div>
+                            <div class="col-xs-9 col-sm-4 small well well-sm">
+                                <h1>Bootstrap</h1>
+                                <p>dfje
+                                </p>
+                                <p>ödsljfp
+                                </p>
+                                <p>dsgerw
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -316,7 +332,7 @@
                         <div class="panel-body">
                             <p>Text</p>
                         </div>
-                        <div class="col-xs-3 col-sm-2">
+                        <div class="col-xs-3 col-xs-push-9 col-sm-2 col-sm-push-0">
                             <img class="img-responsive img-circle" src="DomenicoIapelloCropped.jpg" alt="Domenico Iapello">
                         </div>
                         <div class="col-xs-9 col-xs-pull-3 col-sm-4 col-sm-pull-0 small well well-sm">
@@ -400,7 +416,7 @@
 
             //---------- Start Read Data ----------//
             //d3.csv("DatenCSV.csv", function(d) {
-            d3.csv("DatenCSV_Jahr.csv", function(error, d) {
+            d3.csv("DatenCSV.csv", function(error, d) {
                 if (error) throw error;
                 //return {
                 //PbNahmeDatum: new Date(parseTime(d.PbNahmeDatum)), // convert "Year" column to Date
