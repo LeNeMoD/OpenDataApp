@@ -142,11 +142,11 @@
                             <!--Radio group--> 
                             <!-- App hier einbetten -->
                             <div class="row">
-                                <div class="col-md-9" id="divGraphSVG">
+                                <div class="text-center col-md-9" id="divGraphSVG">
                                     <svg id="graphSVG"  >
                                     </svg>
                                 </div>
-                                <div id="chemieDiv"class="col-md-3">
+                                <div id="chemieDiv" class="col-md-3">
                                     <h1 id="chemieTitel"></h1>
                                     <h2 id="chemieTitel2"></h2>
                                     <img class="imgChemie" id="imgChemieID" >
@@ -200,7 +200,6 @@
 
 <!-- Initiative2 (Pestizide)> -->
                     
-=======
                     <!-- <div id="AlteVerordnung" class="panel-primary col-md-6">
 <div class="panel-heading">
 <h1 class="panel-title">Die alte Verordnung</h1>
@@ -788,7 +787,7 @@
                     console.log("chemtext update called");
                     var text = "Der Richtwert von "+ parameterName + " hat sich wie folgt verändert:" + "<br/>" +
                         "Alter Richtwert: "+ oldMaxLineDaten[0].y+ " ng/L"+ "<br/>" + 
-                        "Neuer Richtwert: "+ newMaxLineDaten[0].y+ "ng/L"+"<br/>" + 
+                        "Neuer Richtwert: "+ newMaxLineDaten[0].y+ " ng/L"+"<br/>" + 
                         "Dies entspricht ";
                     if(deltaOldsubNewMaxWerte == 0){
                         text += "keiner Veränderung."
@@ -797,7 +796,7 @@
                         text = text + "einer Steigerung auf "+ prozentMehr + " %."
                     } else {
                         var prozentMehr = (1-((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y)))*100; 
-                        text = text + "einer Vermindetung um "+ prozentMehr + " %."
+                        text = text + "einer Verminderung um "+ prozentMehr + " %."
                     }
                     return text; 
                 });
