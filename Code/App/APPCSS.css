@@ -130,4 +130,18 @@ svg {
 #yearButtons{
     display: flex;
     align-items: center;
-    justify-content: center;}
+    justify-content: center;
+}
+
+#chemieTitel{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#imgChemieID{
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

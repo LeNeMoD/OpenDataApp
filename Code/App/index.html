@@ -144,7 +144,9 @@
                                 <div id="chemieDiv"class="col-md-3">
                                     <h1 id="chemieTitel"></h1>
                                     <img class="imgChemie" id="imgChemieID" >
-                                    <p id="Info"></p>
+                                    <div id="Info">
+                                        <div></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -717,88 +719,25 @@
 
                 var deltaOldsubNewMaxWerte = oldMaxLineDaten[0].y-newMaxLineDaten[0].y;
 
-                var chemText = d3.select("#Info").append("div")	;
-                
-                chemText.selectAll("p").data(parameterName)
-                    .enter()
-                    .append('p')
-                    .html(function() {
-                    var text = "Der Richtwert von "+ parameterName + " hat sich folgender massen verändert:" + "<br/>" +
-                             "Alter Richtwert: "+ oldMaxLineDaten[0].y+ " ng/L"+ "<br/>" + 
-                             "Neuer Richtwert: "+ newMaxLineDaten[0].y+ "ng/L"+"<br/>" + 
-                             "Dies entspricht ";
-                    if(deltaOldsubNewMaxWerte == 0){
-                        return "keiner Veränderung."
-                    }else if(deltaOldsubNewMaxWerte<0){
-                        var prozentMehr = ((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y))*100; 
-                        text = text + "einer Steigerung um "+ prozentMehr + " %."
-                    } else {
-                        text = text + "blubber"
-                    }
-                    return text; 
-                });
-                
+                var chemText = d3.select("#Info").select("div")	;
+
                 chemText.html(function() {
-                    var text = "Der Richtwert von "+ parameterName + " hat sich folgender massen verändert:" + "<br/>" +
-                             "Alter Richtwert: "+ oldMaxLineDaten[0].y+ " ng/L"+ "<br/>" + 
-                             "Neuer Richtwert: "+ newMaxLineDaten[0].y+ "ng/L"+"<br/>" + 
-                             "Dies entspricht ";
+                    console.log("chemtext update called");
+                    var text = "Der Richtwert von "+ parameterName + " hat sich wie folgt verändert:" + "<br/>" +
+                        "Alter Richtwert: "+ oldMaxLineDaten[0].y+ " ng/L"+ "<br/>" + 
+                        "Neuer Richtwert: "+ newMaxLineDaten[0].y+ "ng/L"+"<br/>" + 
+                        "Dies entspricht ";
                     if(deltaOldsubNewMaxWerte == 0){
-                        return "keiner Veränderung."
+                        text += "keiner Veränderung."
                     }else if(deltaOldsubNewMaxWerte<0){
                         var prozentMehr = ((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y))*100; 
-                        text = text + "einer Steigerung um "+ prozentMehr + " %."
+                        text = text + "einer Steigerung auf "+ prozentMehr + " %."
                     } else {
-                        text = text + "blubber"
+                        var prozentMehr = (1-((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y)))*100; 
+                        text = text + "einer Vermindetung um "+ prozentMehr + " %."
                     }
                     return text; 
                 });
-                
-                chemText.exit().remove();
-                /*chemText.selectAll("text")
-                    .data(parameterName)
-                    .enter()
-                    .text(function(d){
-                    console.log("building siede Chemie Text: ")
-                    var baseString = "Der Richtwert von "+ parameterName + " hat sich folgender massen verändert:" + "<br/>" +
-                        "Alter Richtwert: "+ oldMaxLineDaten[0].y+ " ng/L"+ "<br/>" + 
-                        "Neuer Richtwert: "+ newMaxLineDaten[0].y+ "ng/L"+"<br/>" ;
-
-                    var caseBaseString = "Dies entspricht ";
-                    var caseInput = text;
-                    var text = function(d){
-                        if(deltaOldsubNewMaxWerte == 0){return "keiner Veränderung."}
-                        else if(deltaOldsubNewMaxWerte<0){
-                            var prozentMehr = ((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y))*100;
-                            return "einer Steigerung des Richtwertes auf "+ prozentMehr + " %.";}
-                        else{
-                            var prozentLess = (100-(((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y))*100));
-                            return "einer Verminderung des Richtwertes um " +prozentLess + " %."}
-                    }
-                    return baseString+caseBaseString+caseInput }
-                         )
-                chemText.text(function(d){
-
-                    var baseString = "Der Richtwert von "+ parameterName + " hat sich folgender massen verändert:" + "<br/>" +
-                        "Alter Richtwert: "+ oldMaxLineDaten[0].y+ " ng/L"+ "<br/>" + 
-                        "Neuer Richtwert: "+ newMaxLineDaten[0].y+ "ng/L"+"<br/>" ;
-
-                    var caseBaseString = "Dies entspricht ";
-                    var caseInput = function(d){
-                        if(deltaOldsubNewMaxWerte == 0){return "keiner Veränderung."}
-                        else if(deltaOldsubNewMaxWerte<0){
-                            var prozentMehr = ((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y))*100;
-                            return "einer Steigerung des Richtwertes auf "+ prozentMehr + " %.";}
-                        else{
-                            var prozentLess = (100-(((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y))*100));
-                            return "einer Verminderung des Richtwertes um " +prozentLess + " %."}
-                    }
-                    return baseString+caseBaseString+caseInput }
-                             )
-                chemText.exit().remove();
-                //<p id="Info">Der Richtwert von Chlortoluron wird in der neuen Verordnung nicht angepasst</p>*/
-
-
             }
 
             function startGraphThings(data){
