@@ -143,6 +143,7 @@
                                 </div>
                                 <div id="chemieDiv"class="col-md-3">
                                     <h1 id="chemieTitel"></h1>
+                                    <h2 id="chemieTitel2"></h2>
                                     <img class="imgChemie" id="imgChemieID" >
                                     <div id="Info">
                                         <div></div>
@@ -157,8 +158,9 @@
                             </div>
 
                             <div id="emptySideDiv"class="col-md-3">
-                                <h1></h1>
-                                <p></p>
+                                <div id="Info2">
+                                    <div></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -710,6 +712,14 @@
                 image.src = parameterName+".png";
                 var titel = d3.select("#chemieTitel")
                 titel.selectAll("h1")
+                    .data(selectedZuordnung)
+                    .enter()
+                    .text(selectedZuordnung);
+
+                titel.text(selectedZuordnung);
+
+                titel.exit().remove();var titel = d3.select("#chemieTitel2")
+                titel.selectAll("h2")
                     .data(parameterName)
                     .enter()
                     .text(parameterName);
@@ -717,9 +727,43 @@
                 titel.text(parameterName);
                 titel.exit().remove();
 
+
                 var deltaOldsubNewMaxWerte = oldMaxLineDaten[0].y-newMaxLineDaten[0].y;
 
                 var chemText = d3.select("#Info").select("div")	;
+
+                /*chemText.html(function() {
+                    console.log("chemtext update called");
+                    var maxesNew = countOverMaxNew(selectedSubDataArray.values);
+                    var maxesOld = countOverMaxOld(selectedSubDataArray.values);
+                    function countOverMaxNew(data){
+                        var overMaxNew;
+                        var overMaxOld;
+                        for (i=0; i<data.length;i++){
+                            k=0;
+                            if(data[i].WertText>newMaxLineDaten[0].y){
+                                overMaxNew[k]=data[i].WertText;
+                                k++;
+                            }
+                        }
+                    }
+                    function countOverMaxOld(data){
+                        var overMaxOld;
+                        for (i=0; i<data.length;i++){
+                            j=0;
+                            if (data[i].WertText>oldMaxLineDaten[0].y){
+                                overMaxOld[j]=data[i].WertText;
+                                j++;
+                            }
+                        }
+                    }
+                    var text = "Gemessener Maximalwert in ng/L:"+ d3.max(selectedSubDataArray.values,function(d){return d.WertText;}) +"<br/>" +
+                        "Anzahl Überschreitungen Alter Richtwert: " +maxesOld.lenght; +"<br/>" +
+                        "Anzahl Überschreitungen Neuer Richtwert: " +maxesOnew.lenght; +"<br/>" ;
+                    return text; 
+                });*/
+
+                //var chemText = d3.select("#Info2").select("div")	;
 
                 chemText.html(function() {
                     console.log("chemtext update called");
