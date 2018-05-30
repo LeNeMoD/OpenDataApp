@@ -7,6 +7,9 @@ body {
     z-index: 9999 !important;
 }
 
+#PointersInitiative {
+    pointer-events: all;
+}
 
 .affix ~ .container-fluid {
     position: relative;
@@ -19,9 +22,7 @@ body {
 #story-content {
     pointer-events: all;
 }
-#Karte {
-    max-width: 50%;
-}
+
 #Story {
     pointer-events: none;
     margin-top: -60px;
