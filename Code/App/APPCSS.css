@@ -16,6 +16,14 @@ body {
     top: 100px;
 }
 
+p {
+    font-size: 18px;
+}
+
+.panel-title {
+    font-size: 20px;
+}
+
 #Home {
     background-color: goldenrod;
 }
