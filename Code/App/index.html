@@ -468,9 +468,9 @@
             }
 
             function handleBtnYearClick(){
-                console.log("btn Clickt")
-                console.log("btn id is: ");
-                console.log(this.id);
+                //console.log("btn Clickt")
+                //console.log("btn id is: ");
+                //console.log(this.id);
                 //console.log("masterData ")
                 //console.log(selectedSubDataArrayMaster)
                 saveSubYearArrays(selectedSubDataArrayMaster);
@@ -589,7 +589,7 @@
                         if(resizeTimeout)
                             clearTimeout(resizeTimeout);
                         resizeTimeout = setTimeout(function() {
-                            console.log("The window was resized! call Zuordnungen");
+                            //console.log("The window was resized! call Zuordnungen");
                             heightZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientHeight;
                             widthZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientWidth;
                             drawZuordnungenKreise(data2);
@@ -762,9 +762,9 @@
                         text = text + "einer Verminderung um "+ prozentMehr + " %."
                     }
 
-                    console.log("subdataArray logged in chemieThings");
-                    console.log(selectedSubDataArray);
-                    console.log(selectedSubDataArray.values.length);
+                    //console.log("subdataArray logged in chemieThings");
+                    //console.log(selectedSubDataArray);
+                    //console.log(selectedSubDataArray.values.length);
                     dummyVariable =  selectedSubDataArray.values[0];
                     dummyVariable.WertText = 0;
                     var maxesNew = [];
@@ -774,50 +774,50 @@
                     maxesOld[0] = dummyVariable;
                     countOverMaxOld(selectedSubDataArray);
                     function countOverMaxNew(data){
-                        console.log("countOverMaxNew");
+                        //console.log("countOverMaxNew");
                         var overMaxNew = [];
                         overMaxNew[0] = dummyVariable;
-                        console.log(data.values.length);
-                        console.log("overMaxNew before");
-                        console.log(overMaxNew);
+                        //console.log(data.values.length);
+                        //console.log("overMaxNew before");
+                        //console.log(overMaxNew);
                         k=1;
                         for (i=0; i<data.values.length;i++){
                             if(data.values[i].WertText>newMaxLineDaten[0].y){
                                 maxesNew[k]=data.values[i];
-                                console.log("entered overMaxNew if")
+                                //console.log("entered overMaxNew if")
                                 k++;
                             }
                         }
-                        console.log("overMaxNew after");
-                        console.log(overMaxNew);
+                        //console.log("overMaxNew after");
+                        //console.log(overMaxNew);
                     }
                     function countOverMaxOld(data){
-                        console.log("countOverMaxOld");
+                        //console.log("countOverMaxOld");
                         var overMaxOld = [];
                         overMaxOld[0] = dummyVariable;
-                        console.log("overMaxOld before");
-                        console.log(overMaxOld);
+                        //console.log("overMaxOld before");
+                        //console.log(overMaxOld);
                         j=1;
                         for (i=0; i<data.values.length;i++){
                             if (data.values[i].WertText>oldMaxLineDaten[0].y){
-                                console.log("entered overMaxOld if")
-                                console.log(data.values[i]);
-                                console.log(data.values[i].WertText);
+                                //console.log("entered overMaxOld if")
+                                //console.log(data.values[i]);
+                                //console.log(data.values[i].WertText);
                                 maxesOld[j]=data.values[i];
                                 j++;
                             }
                         }
-                        console.log("overMaxOld after");
-                        console.log(overMaxOld);
+                        //console.log("overMaxOld after");
+                        //console.log(overMaxOld);
                     }
-                    console.log("maxesNew");
-                    console.log(maxesNew);
-                    console.log("maxesNew lenght");
-                    console.log(maxesNew.length);
-                    console.log("maxesOld");
-                    console.log(maxesOld);
-                    console.log("maxesOld lenght");
-                    console.log(maxesOld.length);
+                    //console.log("maxesNew");
+                    //console.log(maxesNew);
+                    //console.log("maxesNew lenght");
+                    //console.log(maxesNew.length);
+                    //console.log("maxesOld");
+                    //console.log(maxesOld);
+                    //console.log("maxesOld lenght");
+                    //console.log(maxesOld.length);
 
                     text = text +"<br/>" + "Gemessener Maximalwert in ng/L:"+ d3.max(selectedSubDataArray.values,function(d){return d.WertText;}) +"<br/>"+
                         "Anzahl Überschreitungen Alter Richtwert: "
@@ -1196,7 +1196,7 @@
                     if(resizeTimeout)
                         clearTimeout(resizeTimeout);
                     resizeTimeout = setTimeout(function() {
-                        console.log("The window was resized!");
+                        //console.log("The window was resized!");
                         //var myDiv = document.getElementById('divGraphSVG');
                         var myDiv = document.getElementById('graphSVG');
                         //console.log(myDiv.clientHeight);
@@ -1569,7 +1569,7 @@
                     if(resizeTimeout)
                         clearTimeout(resizeTimeout);
                     resizeTimeout = setTimeout(function() {
-                        console.log("The window was resized!");
+                        //console.log("The window was resized!");
                         //var myDiv = document.getElementById('divGraphSVG');
                         var myDiv = document.getElementById('graphSVG');
                         //console.log(myDiv.clientHeight);
@@ -1619,7 +1619,7 @@
             function getSubDataArray(data, key, int){
                 //console.log(data);
                 //console.log(key);
-                console.log(int);
+                //console.log(int);
                 subdataArray = [];
                 if(int==0){
                     //console.log("entered if=0 in getSubdataArray");
