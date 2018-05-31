@@ -1702,7 +1702,8 @@
                 divTooltip.transition()		
                     .duration(200)		
                     .style("opacity", .95);		
-                divTooltip.html("Probe Datum: "+ formatTime(d.PbNahmeDatum) + "<br/>"  + "Wert in ng/L: "+ d.WertText + "<br/>" + "Mess Grenze ng/L: " + d.Bestimmungsgrenze)	
+                divTooltip.html("Probe Datum: "+ formatTime(d.PbNahmeDatum) + "<br/>"  + "Wert in ng/L: "+ d.WertText + "<br/>" + "Mess Grenze ng/L: " + d.Bestimmungsgrenze + "<br/>"  + "Alter Richtwert ng/L: " +oldMaxLineDaten[0].y 
+                               + "<br/>"  + "Neuer Richtwert ng/L: " +newMaxLineDaten[0].y)	
                     .style("left", (d3.event.pageX + 5 ) + "px")		
                     .style("top", (d3.event.pageY - 28) + "px");	
                 //d3.select(this).style("fill","green");
