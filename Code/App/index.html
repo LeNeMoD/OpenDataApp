@@ -538,7 +538,7 @@
                         .attr("r", function(d){
                         //console.log("d.length is: "+ d.values.length)
                         //console.log("d.length max "+ d3.max(data2.values.length));
-                        return rscale(d.values.length);})
+                        return rscale(d.values.length *2);})
                         .attr("id", function(d){
                         return d.key;})
                         .style("fill", function (d){
@@ -554,7 +554,7 @@
                         .attr("r", function(d){
                         //console.log("d.length is: "+ d.values.length)
                         //console.log("d.length max "+ d3.max(data2.values.length));
-                        return rscale(d.values.length);})
+                        return rscale(d.values.length *2);})
 
                     zuordnungKreise.exit().remove();
 
@@ -566,7 +566,7 @@
                         .append("text")
                         .attr("x", function(d,i) {
                         return (widthZuordnungen/4)*(i+1);})
-                        .attr("y", function(d) {return (heightZuordnungen/2)-40})
+                        .attr("y", function(d) {return (heightZuordnungen/2)-60})
                         .text( function(d) { return ""+d.key })
                         .attr("text-anchor", "middle")
                         .attr("font-family", "sans-serif")
@@ -576,7 +576,7 @@
 
                     text.attr("x", function(d,i) {
                         return (widthZuordnungen/4)*(i+1);})
-                        .attr("y", function(d) {return (heightZuordnungen/2)-40})
+                        .attr("y", function(d) {return (heightZuordnungen/2)-60})
                         .text( function(d) { return ""+d.key });
 
                     text.exit().remove();
@@ -720,7 +720,7 @@
                 //console.log("source was: "+ image.src)
                 //console.log("picture name is : "+ parameterName)
                 //console.log("link name is : " + parameterName+".png")
-                image.src = parameterName+".png";
+                image.src = "bilder/"+parameterName+".png";
                 var titel = d3.select("#chemieTitel")
                 titel.selectAll("h1")
                     .data(selectedZuordnung)
@@ -759,7 +759,6 @@
                         text = text + "einer Verminderung um "+ prozentMehr + " %."
                     }
 
-                    //debugger;
                     console.log("subdataArray logged in chemieThings");
                     console.log(selectedSubDataArray);
                     console.log(selectedSubDataArray.values.length);
@@ -825,7 +824,7 @@
                             text = text + "0" +"<br/>" ;
                         }else text = text + (maxesOld.length-1) +"<br/>" ;
                     }
-                    debugger;
+                    //debugger;
                     text = text +"Anzahl Überschreitungen Neuer Richtwert: " 
                     maxesNewText(maxesNew);
                     function maxesNewText(data){
