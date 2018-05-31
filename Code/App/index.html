@@ -401,6 +401,7 @@
             function handlerClickAlleJahre(){
                 console.log("alle jahre was clicked");
                 selectedSubDataArray = selectedSubDataArrayMaster;
+                updateMinMaxlineValues(selectedSubDataArray);
                 window.dispatchEvent(new Event('resize'));
 
             }
@@ -1627,6 +1628,14 @@
                         return nested[0];
                     }
                 }
+                updateMinMaxlineValues(subdataArray);
+
+                //console.log("subdataArray");
+                //console.log(subdataArray);
+                return subdataArray;
+            }           
+            
+            function updateMinMaxlineValues(subdataArray){
                 //console.log("subdataArray in getSubdataArray is: ");
                 //console.log(subdataArray);
 
@@ -1668,8 +1677,7 @@
 
                 //console.log("subdataArray");
                 //console.log(subdataArray);
-                return subdataArray;
-            }           
+            }
 
             function handleMouseEnterData(d, i) {
                 var formatTime = d3.timeFormat("%e %B %Y");
