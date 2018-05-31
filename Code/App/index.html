@@ -24,7 +24,7 @@
         <!-- Jumbotron -->    
 
         <div id="Home" class="jumbotron text-center">
-            <h1>Pestizide im Rhein</h1> 
+            <h1>Pestizidkonzentration im Rhein</h1> 
             <p>Eine Opendata-Visualisierung von Domenico und Silvan</p> 
         </div>
 
@@ -76,8 +76,9 @@
                             <h1 class="panel-title">Story</h1>
                         </div>
                         <div class="panel-body">
-                            <p>Die Schweiz gilt als ein Land mit sehr sauberem und qualitativ hochwertigem Wasser. Dass man Wasser einfach vom Wasserhahn trinken kann, ist ein Privileg, um welches Schweizerinnen und Schweizer froh sind. Naheliegend ist folglich auch, dass man zu diesem Privileg Sorge tragen sollte. In Schweizer Gewässern werden deshalb regelmässig Proben entnommen. Die Messungen der RÜS, der Messstation des Rheins vor der Grenze zu Deutschland, werden in der App visualisiert, um einen Überblick zu verschaffen.</p>
-                            <p>Im Rahmen der Vorlesung "Open Data" wollten wird deshalb eine App entwickeln, die Pestizidkonzentrationen im Rhein abbildet.</p>
+                            <p>Die Schweiz gilt als ein Land mit sehr sauberem und qualitativ hochwertigem Wasser. Dass man Wasser einfach vom Wasserhahn trinken kann, ist ein Privileg, um welches Schweizerinnen und Schweizer froh sind. Naheliegend ist folglich auch, dass man zu diesem Privileg Sorge tragen sollte. In Schweizer Gewässern werden deshalb regelmässig Proben entnommen, um die Qualität sicherzustellen. Im Rahmen der Vorlesung "Open Data" hat uns das Amt für Umwelt und Energie die Messungen der Rhein Überwachungsstation (RÜS), der Messstation des Rheins vor der Grenze zu Deutschland, zur Verfügung gestellt.</p>
+                            <p>Aktuell ist eine Entwurf zur Revision der Schweizer Gewässerverschutzordnung in Arbeit, der zum Ziel hat, die Maximalwerte für die Konzetration eines Pestizides statt wie bisher für alle Pestizide gleich zu behandeln, den Wert der jeweiligen Schädlichkeit des Stoffes anzupassen.</p>
+                            <p>Des Weiteren soll unsere Visualisierung die Thematik von zwei aktuellen Volksinitiativen aufgreifen und einige Informationen dazu bereitstellen können.</p>
                         </div>
                     </div>
                     </div>
@@ -89,25 +90,38 @@
                             <h1 class="panel-title">Die App</h1>
                         </div>
                         <div class="panel-body">
-                            <p>In der App können nun die Messungen der Pestizidkonzentrationen von 2013 bis 2017 nach der Messmethode "ORBITRAP_GROSS_ENVI_669_AS" mit den Höchstwerten nach bisherigem und neuem Reglement (welches bisher nur als Entwurf besteht) verglichen werden.</p>
-                            <p>Der Nutzer kann in einem ersten Schritt mit einem Klick auf eine von drei Punkten, die die Anzahl in einer Pestizidgruppe gemessenen Pestizide repräsentieren auswählen, in welcher Gruppe er ein Pestizid betrachten möchte.
-                            Dazu wird auf der linken Seite das Pestizid, welches genauer angeschaut werden soll, angewählt. In der Grafik sieht man nun, wie die Messungen ausgefallen sind und dazu die Höchstwerte.</p>
-
-                            <div class="text-center">
+                            <p>In der App können die Messungen der Pestizidkonzentrationen von 2013 bis 2017 nach der Messmethode "ORBITRAP_GROSS_ENVI_669_AS" dargestellt werden.
+                            Dazu wird auch der Wasserabfluss am Messtag angezeigt, damit Zusammenhänge von Pestizidkonzentration und Wassermenge ersichtlich sind. Viele Messwerte in den Daten sind so tief, dass die Messgeräte keine genauen Messung machen konnten. Aus diesem Grund wird die kleinste noch messbare Konzentration in einer Hellblauen linie dargestellt. Messungen die darunter liegen, bewegen sich folglich zwischen diesem Wert und null.
+                            </p>
+                            <p>Zu jedem Pestizid wird zudem die chemische Struktur angezeigt, um dem Nutzer noch mehr Infos bieten zu können. Auf einem weiteren Diagramm wird der Gewässerschutzverordnung und deren Revisionsentwurf rechnung getragen indem der alte und neu zugelassene Maximalwert eines Pestizides in Form einer gelben bzw. roten Linie dargestellt wird, um auch für den Laien eine konkrete Vorstellung schaffen zu können, ob eine Konzentration hoch oder tief ist.
+                            </p>
+                            <p>Der Nutzer kann in einem ersten Schritt mit einem Klick auf eine von drei Punkten, die die Anzahl in einer Pestizidgruppe gemessenen Pestizide repräsentieren auswählen, in welcher Gruppe er ein Pestizid betrachten möchte. Dazu wird auf der linken Seite das Pestizid, welches genauer angeschaut werden soll, angewählt. In der Grafik sieht man nun, wie die Messungen ausgefallen sind und dazu die Höchstwerte.
+                            </p>
+                            <p>
+                            Die Messungen werden durch farbige Punkte repräsentiert.
+                            </p>
+                            <ul id="List">
+                                <li>Blaue Punkte stellen Werte dar, die zu klein für eine genaue Messung waren.</li>
+                                <li>Grüne Punkte stellen Werte dar, die unter dem Maximalwert liegen.</li>
+                                <li>Rote Punkte zeigen, dass ein Wert über dem Maximalwert liegt.</li>
+                            </ul>
+                            <p>Durch das Farbkonzept kann der Leser schnell erkennen, ob ein Pestizid problematisch ist.
+                            </p>
+                            <div class="text-center" id="BDL">
                                 <a href="#Bedienungsanleitung" class="btn btn-primary align" data-toggle="collapse">Bedienungsanleitung einblenden    <span class="glyphicon glyphicon-eye-open"></span></a>
                             </div>
                             <div id="Bedienungsanleitung" class="collapse col-sm-6 col-sm-offset-3 thumb">
                                 <div>
                                     <ol class="text-left" style="background-color: lightgray">
-                                        <li>Wählen Sie eine Pestizidgruppe</li>
-                                        <li>Wählen Sie ein bestimmtes Pestizid</li>
+                                        <li>Wählen Sie eine Pestizidgruppe (Klick auf Kreis)</li>
+                                        <li>Wählen Sie ein bestimmtes Pestizid (Auswahl Dropdown)</li>
                                         <li>Wählen Sie das Jahr, das Sie betrachten möchten</li>
                                     </ol>
                                 </div>
                             </div>
 
                             <!-- Select Bar -->
-                            <div class="container-fluid text-center col-sm-12">
+                            <div class="container-fluid text-center col-md-12">
                                 <div id="zuordnungenBtnsDiv">
                                     <label for="Auswahl" id="zuordnungenLabelText">Wählen Sie eine Pestizidgruppe</label>
                                     <svg id="zuordnungenBtnsSVG"  >
@@ -116,7 +130,7 @@
                             </div>
 
                             <div class="container-fluid">
-                                <div class="form-group">
+                                <div class="form-group col-md-6 col-md-push-3">
                                     <label for="Auswahl" id="AuswahlPestizid">Wählen Sie hier das Pestizid, dessen Werte Sie genauer anschauen möchten:</label>
                                     <select class="form-control" id="Auswahl" >
                                         <!--<option>P1</option><option>P2</option><option>P3</option><option>P4</option>-->
@@ -160,7 +174,7 @@
                             
 
                             <div id="emptySideDiv"class="col-md-3">
-                                <h1>Legende zur Grafik</h1>
+                                <h1 class="text-left">Legende zur Grafik</h1>
                                 <img src="Legende.JPG" class="img-responsive">
                             </div>
                             </div>
@@ -172,7 +186,7 @@
                         </div>
                         <div class="panel-body">
                             <p>Die Messstation RÜS hat uns Messungen von über 100 verschiedenen Pestiziden bereitgestellt. Einige davon sind auch von der Revision der Gewässerschutzverordnung betroffen. Die Daten zeigen, dass die meisten Stoffe in solch geringen Konzentrationen vorhanden waren, dass von den Messgeräten keine Daten erfasst werden konnten. Allerdings können bei einigen Stoffen Überschreitungen des Grenzwerts oder auch diverse Annäherungen festgestellt werden. Die Daten können gerade im Zusammenhang mit den zwei Initiativen dem Leser einen Einblick gewähren, wie die Lage im Rhein bezüglich der Pestizidkonzentrationen aussieht.</p>
-                            <p>
+                            <p>Zusammenfassend kann aber gesagt werden, das der Anteil der Überschreitungen verschwindend klein ist und das Wasser im Rhein bezüglich Pestiziden relativ "sauber" ist.
                             </p>
                         </div>
                     </div>
@@ -194,16 +208,18 @@
                             <p><a href="https://www.bafu.admin.ch/bafu/de/home/themen/thema-wasser/wasser--rechtliche-grundlagen/wasser--vernehmlassungen-und-anhoerungen/mikroverunreinigungen-grenzwerte-vernehmlassung.html">Mehr Infos zur Revision</a></p>
                         </div>
                     </div>
+                    <div id="initiative2-content">
                     <div id="Initiative2" class="panel-primary col-md-6">
-                        <div class="panel-heading">
-                            <h1 class="panel-title">Initiative Schweiz ohne Pestizide</h1>
-                        </div>
-                        <div class="panel-body">
-                            <p>Die Initiative will den Einsatz synthetischer Pestizide in der landwirtschaftlichen Produktion, in der Verarbeitung landwirtschaftlicher Erzeugnisse und in der Boden- und Landschaftspflege verbieten. Die Einfuhr zu gewerblichen Zwecken von Lebensmitteln, die synthetische Pestizide enthalten oder mithilfe solcher hergestellt worden sind, soll ebenfalls verboten werden.</p>
-                            <p>
-                                Mit diesem Konsequenten Ansatz geht die Initiative noch einen Schritt weiter als die Initiative für sauberes Trinkwasser.</p>
-                            <p><a href="http://www.future3.ch/de">Mehr Infos zur Initiative</a>
-                            </p>
+                            <div class="panel-heading">
+                                <h1 class="panel-title">Initiative Schweiz ohne Pestizide</h1>
+                            </div>
+                            <div class="panel-body" id="initiative2-body">
+                                <p>Die Initiative will den Einsatz synthetischer Pestizide in der landwirtschaftlichen Produktion, in der Verarbeitung landwirtschaftlicher Erzeugnisse und in der Boden- und Landschaftspflege verbieten. Die Einfuhr zu gewerblichen Zwecken von Lebensmitteln, die synthetische Pestizide enthalten oder mithilfe solcher hergestellt worden sind, soll ebenfalls verboten werden.</p>
+                                <p>
+                                    Mit diesem Konsequenten Ansatz geht die Initiative noch einen Schritt weiter als die Initiative für sauberes Trinkwasser.</p>
+                                <p><a href="http://www.future3.ch/de">Mehr Infos zur Initiative</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div id="initiative1-content">
@@ -241,74 +257,39 @@
                                 <h1 class="panel-title">Entwicklung</h1>
                             </div>
                             <div class="panel-body">
-                                <h1>Von der Datenbank zur App</h1>
-                                <p>Zu Beginn fanden wir eine riesige Datenbank mit einer grossen Vielfalt an Messungen von verschiedenen Stoffen im Rhein vor. Sowohl im Wasser als auch als Schwebepartikel wurden verschiedenste Stoffe gemessen. Dazu gab es auch viele unterschiedliche Messmethoden.
-                                </p>
-                                <p>
-                                Wir haben uns dann überlegt, die Daten mit aktuellen Initiativen in Verbindung zu bringen und dem Leser einige Informationen über den Gehalt von Pestiziden in Wasser zur Verfügung stellen zu können.
-
-                                </p>
-                            </div>
-                           
-                            
-                           <div class="col-xs-3 col-sm-2">
-                                <img class="img-responsive" src="html-logo.png" alt="HTML5" style="max-height: 150px; align-content: center">
-                            </div>
-                            <div class="col-xs-9 col-sm-4 small well well-sm">
-                                <h1>HTML 5</h1>
-                                <p>jfdjoejf
-                                    sdfjpj
-                                </p>
-                                <p>fergewg
-                                </p>
-                                <p>dsf
-                                </p>
-                            </div>
-
-                            <!-- CSS -->
-
-                            <div class="col-xs-3 col-sm-2">
-                                <img class="img-responsive" src="css-logo.png" alt="CSS3" style="max-height: 150px; align-content: center">
-                            </div>
-                            <div class="col-xs-9 col-sm-4 small well well-sm">
-                                <h1>CSS</h1>
-                                <p>dfje
-                                </p>
-                                <p>ödsljfp
-                                </p>
-                                <p>rgwg
-                                </p>
-                            </div>
-
-                            <!-- JS -->
-
-                            <div class="col-xs-3 col-sm-2 col-md-2">
-                                <img class="img-responsive" src="javascript-logo.png" alt="JS" style="max-height: 150px; align-content: center">
-                            </div>
-
-                            <div class="col-xs-9 col-sm-4 col-md-4 small well well-sm">
-                                <h1>Java Script</h1>
-                                <p>jfdjoejf
-                                    sdfjpj
-                                </p>
-                                <p>fergewg
-                                </p>
-                                <p>kjge</p>
-                            </div>
-
-                            <!-- Bootstrap -->
-
-                            <div class="col-xs-3 col-sm-2">
-                                <img class="img-responsive" src="bootstrap-logo.png" alt="Bootstrap" style="max-height: 150px; align-content: center">
-                            </div>
-                            <div class="col-xs-9 col-sm-4 small well well-sm">
-                                <h1>Bootstrap</h1>
-                                <p>dfje
-                                </p>
-                                <p>ödsljfp
-                                </p>
-                                <p>dsgerw
-                                </p>
+                                <div class="col-md-6">
+                                    <h1 class="text-left">1. Konzept und Visualisierung</h1>
+                                    <p>Zu Beginn fanden wir eine riesige Datenbank mit einer grossen Vielfalt an Messungen von verschiedenen Stoffen im Rhein vor. Sowohl im Wasser als auch als Schwebepartikel wurden verschiedenste Stoffe gemessen. Dazu gab es auch viele unterschiedliche Messmethoden.
+                                    </p>
+                                    <p> Wir haben uns dann überlegt, alle Messungen abzubilden, damit man schnell und übersichtlich die verschiedenen Messwerte anschauen kann.</p>
+                                    <p>
+                                    Hier sahen wir vor allem das Problem, dass kleine Werte, die für die Messgeräte nicht Messbar sind und sich so zwischen dem kleinst messbaren Wert und null bewegen, kaum sinnvoll visualisierbar sind.
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h1 class="text-left">2. Impact, Nutzen und Relation</h1>
+                                    <p>Eine blosse Sortierung der Messwerte wäre für den Nutzer jedoch kaum Sinnvoll gewesen, da man sich als Laie kaum etwas unter den Konzentrationen vorstellen kann. Wir haben uns also gefragt, wie wir die Visualisierung gestalten können, damit auch der Laie etwas aus den Daten ziehen kann.
+                                    </p>
+                                    <p>
+                                    In der Folge war eine Revision unseres bisherigen Konzepts nötig, um einen Impact mit den Daten zu erstellen.</p>
+                                    <p>Wir hatten die Idee, die Daten mit aktuellen Initiativen in Verbindung zu bringen und dem Leser einige Informationen über den Gehalt von Pestiziden in Wasser zur Verfügung stellen zu können.</p>
+                                    <p>Um für den Leser Relationen herstellen zu können, haben wir die Daten mit der Gewässerschutzverordnung abgeglichen und den Entwurf der Revision der Verordnung in die Daten einfliessen lassen. So kann der Laie erkennen, wann die Konzentration "zu hoch" war oder er sieht, dass das Wasser relativ "sauber" ist.
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h1 class="text-left">3. Chemische Struktur und Veränderung</h1>
+                                    <p>Um nicht nur den dem Laien mit der Relation zum Maximalwert zu bieten, haben wir zu den Pestiziden die chamische Struktur in die App integriert. Dies bringt für den Chemiker einen Mehrwert, indem er so mehr Informationen zum Stoff erhält und für den Laien ist eine bildliche Darstellung rein optisch attraktiver.
+                                    </p>
+                                    <p>Damit dem Nutzer der App schnell Infos zur Veränderung vom alten zum neuen Maximalwert kompakt präsentiert werden können, haben wir diese Infos auch gleich neben der Grafik bereitgestellt.
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h1 class="text-left">4. Werk am Backend</h1>
+                                    <p>Wegen den vielen Daten am Anfang versuchten wir mit einem sehr kleinen Beispieldatensatz eine erste funktionierende Visualisierung zu erstellen. Damit konnten wir auch sehr gut erkennen, was die Funktionen bewirken. Mit dem Hinzufügen von weiteren Daten wurden wir dann auf weitere Probleme aufmerksam. So musste oft der Code wieder angepasst werden um Eigenschaften von einzelnen Stoffen erfassen zu können.
+                                    </p>
+                                    <p>
+                                    Wir hatten also immer einen Payoff zwischen "schnell die Funktion verstehen und eine Visualisierung erstellen" und "Probleme der Vielfältigkeit der Daten bereits am Anfang beachten, und erst spät zu einem sichtbaren Resultat kommen".</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -326,7 +307,7 @@
                             <h1 class="panel-title">Über uns</h1>
                         </div>
                         <div class="panel-body">
-                            <p>Text</p>
+                    
                         </div>
                         <div class="col-xs-3 col-xs-push-9 col-sm-2 col-sm-push-0">
                             <img class="img-responsive img-circle" src="DomenicoIapelloCropped.jpg" alt="Domenico Iapello">

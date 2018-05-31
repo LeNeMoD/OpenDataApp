@@ -7,6 +7,9 @@ body {
     z-index: 9999 !important;
 }
 
+#BDL {
+    margin-top: 50px;
+}
 #PointersInitiative {
     pointer-events: all;
 }
@@ -17,6 +20,9 @@ body {
 }
 
 p {
+    font-size: 18px;
+}
+#List {
     font-size: 18px;
 }
 
@@ -71,6 +77,12 @@ p {
 #Initiative2 {
     margin-top: -60px;
     padding-top: 60px;
+}
+#initiative2-body{
+    pointer-events: all;
+}
+#initiative2-content {
+    pointer-events: none;
 }
 #AuswahlPestizid {
     margin-top: 40px;
