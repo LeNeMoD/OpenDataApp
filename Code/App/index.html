@@ -150,6 +150,9 @@
                                     <div id="Info">
                                         <div></div>
                                     </div>
+                                    <div id="daumen">
+                                        <div></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -161,7 +164,7 @@
 
                                 <div id="emptySideDiv"class="col-md-4">
                                     <h1>Legende zur Grafik</h1>
-                                    <img src="Legende.JPG" class="img-responsive">
+                                    <img id="legendenBild" src="Legende.jpg" class="img-responsive">
                                 </div>
                             </div>
                         </div>
@@ -834,8 +837,19 @@
                     }
                     anzahlUeberAlt = maxesOld.length;
                     anzahlUeberNeu = maxesNew.length;
+                    if(maxesOld.length==1 )
+                        document.getElementById("daumen").className= "glyphicon glyphicon-thumbs-up";
+                    if(maxesNew.length==1 )
+                        document.getElementById("daumen").className= "glyphicon glyphicon-thumbs-up";
+                    if(maxesNew.length>1 )
+                        document.getElementById("daumen").className= "glyphicon glyphicon-thumbs-down";
+                    if(maxesOld.length>1 )
+                        document.getElementById("daumen").className= "glyphicon glyphicon-thumbs-down";
+
                     return text; 
                 });
+
+
             }
 
             function startGraphThings(data){
@@ -1633,7 +1647,7 @@
                 //console.log(subdataArray);
                 return subdataArray;
             }           
-            
+
             function updateMinMaxlineValues(subdataArray){
                 //console.log("subdataArray in getSubdataArray is: ");
                 //console.log(subdataArray);
