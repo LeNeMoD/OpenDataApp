@@ -69,8 +69,9 @@
         <div class="container-fluid">
             <div class="panel-group text-justify">
                 <div class="row">
-                        <div id="story-content">
-                    <div id="Story" class="panel-primary col-md-12">
+                    <div id="story-content">
+                        <div id="Story" class="panel-primary col-md-12">
+
 
                         <div class="panel-heading">
                             <h1 class="panel-title">Story</h1>
@@ -79,8 +80,8 @@
                             <p>Die Schweiz gilt als ein Land mit sehr sauberem und qualitativ hochwertigem Wasser. Dass man Wasser einfach vom Wasserhahn trinken kann, ist ein Privileg, um welches Schweizerinnen und Schweizer froh sind. Naheliegend ist folglich auch, dass man zu diesem Privileg Sorge tragen sollte. In Schweizer Gewässern werden deshalb regelmässig Proben entnommen, um die Qualität sicherzustellen. Im Rahmen der Vorlesung "Open Data" hat uns das Amt für Umwelt und Energie die Messungen der Rhein Überwachungsstation (RÜS), der Messstation des Rheins vor der Grenze zu Deutschland, zur Verfügung gestellt.</p>
                             <p>Aktuell ist eine Entwurf zur Revision der Schweizer Gewässerverschutzordnung in Arbeit, der zum Ziel hat, die Maximalwerte für die Konzetration eines Pestizides statt wie bisher für alle Pestizide gleich zu behandeln, den Wert der jeweiligen Schädlichkeit des Stoffes anzupassen.</p>
                             <p>Des Weiteren soll unsere Visualisierung die Thematik von zwei aktuellen Volksinitiativen aufgreifen und einige Informationen dazu bereitstellen können.</p>
+
                         </div>
-                    </div>
                     </div>
 
                     <!-- App -->
@@ -90,6 +91,7 @@
                             <h1 class="panel-title">Die App</h1>
                         </div>
                         <div class="panel-body">
+
                             <p>In der App können die Messungen der Pestizidkonzentrationen von 2013 bis 2017 nach der Messmethode "ORBITRAP_GROSS_ENVI_669_AS" dargestellt werden.
                             Dazu wird auch der Wasserabfluss am Messtag angezeigt, damit Zusammenhänge von Pestizidkonzentration und Wassermenge ersichtlich sind. Viele Messwerte in den Daten sind so tief, dass die Messgeräte keine genauen Messung machen konnten. Aus diesem Grund wird die kleinste noch messbare Konzentration in einer Hellblauen linie dargestellt. Messungen die darunter liegen, bewegen sich folglich zwischen diesem Wert und null.
                             </p>
@@ -108,6 +110,7 @@
                             <p>Durch das Farbkonzept kann der Leser schnell erkennen, ob ein Pestizid problematisch ist.
                             </p>
                             <div class="text-center" id="BDL">
+
                                 <a href="#Bedienungsanleitung" class="btn btn-primary align" data-toggle="collapse">Bedienungsanleitung einblenden    <span class="glyphicon glyphicon-eye-open"></span></a>
                             </div>
                             <div id="Bedienungsanleitung" class="collapse col-sm-6 col-sm-offset-3 thumb">
@@ -153,30 +156,33 @@
                             <!--Radio group--> 
                             <!-- App hier einbetten -->
                             <div class="row">
-                                <div class="text-center col-md-9" id="divGraphSVG">
+                                <div class="text-center col-md-8" id="divGraphSVG">
                                     <svg id="graphSVG"  >
                                     </svg>
                                 </div>
-                                <div id="chemieDiv" class="col-md-3 text-center">
+                                <div id="chemieDiv" class="col-md-4 text-center">
                                     <h1 id="chemieTitel"></h1>
                                     <h2 id="chemieTitel2"></h2>
                                     <img class="imgChemie" id="imgChemieID" >
                                     <div id="Info">
                                         <div></div>
                                     </div>
+                                    <div id="daumen">
+                                        <div></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-9" id="divGraphSVG2">
+                                <div class="col-md-8" id="divGraphSVG2">
                                     <svg id="graphSVG2"  >
                                     </svg>
                                 </div>
-                            
 
                             <div id="emptySideDiv"class="col-md-3">
                                 <h1 class="text-left">Legende zur Grafik</h1>
-                                <img src="Legende.JPG" class="img-responsive">
+                                <img id="legendenBild" src="Legende.JPG" class="img-responsive">
                             </div>
+
                             </div>
                         </div>
                     </div>
@@ -194,7 +200,7 @@
             </div>
         </div>
 
-    <!-- NeueVerordnung -->
+        <!-- NeueVerordnung -->
 
         <div class="container-fluid">
             <div class="panel-group text-justify">
@@ -234,10 +240,10 @@
                                 <p><a href="https://www.initiative-sauberes-trinkwasser.ch/pestizide/">Mehr Infos zur Initiative</a>
                                 </p>
                                 <p>
-                                <a href="https://www.bafu.admin.ch/bafu/de/home/themen/wasser/fachinformationen/zustand-der-gewaesser/zustand-des-grundwassers/grundwasser-qualitaet/pflanzenschutzmittel-im-grundwasser.html">Mehr Infos zur Verschmutzung der Gewässer</a>
+                                    <a href="https://www.bafu.admin.ch/bafu/de/home/themen/wasser/fachinformationen/zustand-der-gewaesser/zustand-des-grundwassers/grundwasser-qualitaet/pflanzenschutzmittel-im-grundwasser.html">Mehr Infos zur Verschmutzung der Gewässer</a>
                                 </p>
                                 <div class="col-md-6 col-md-push-3"> 
-                                        <img src="Verschmutzung.jpg" class="img-responsive" id="Karte">
+                                    <img src="Verschmutzung.jpg" class="img-responsive" id="Karte">
                                 </div>
                             </div>
                         </div>
@@ -245,7 +251,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Entwicklung -->
 
         <div id="entwicklung-content">
@@ -382,6 +388,7 @@
             function handlerClickAlleJahre(){
                 console.log("alle jahre was clicked");
                 selectedSubDataArray = selectedSubDataArrayMaster;
+                updateMinMaxlineValues(selectedSubDataArray);
                 window.dispatchEvent(new Event('resize'));
 
             }
@@ -403,8 +410,8 @@
                 graphDivHeight = document.getElementById('divGraphSVG').clientHeight;
                 graphDivWidth = document.getElementById('divGraphSVG').clientWidth;                
 
-                console.log("Init graphDiv Height :" + graphDivHeight);
-                console.log("Init graphDiv Width :" + graphDivWidth);
+                //console.log("Init graphDiv Height :" + graphDivHeight);
+                //console.log("Init graphDiv Width :" + graphDivWidth);
 
                 d.forEach(function(d) {
                     d.PbNahmeDatum = parseTime(d.PbNahmeDatum);
@@ -422,7 +429,7 @@
             });
 
             function nestJahreAndBuildButtons(data){
-                console.log("build buttons called ");
+                //console.log("build buttons called ");
 
                 var buttonsDiv = d3.select("#yearButtons");
 
@@ -445,9 +452,9 @@
             }
 
             function handleBtnYearClick(){
-                console.log("btn Clickt")
-                console.log("btn id is: ");
-                console.log(this.id);
+                //console.log("btn Clickt")
+                //console.log("btn id is: ");
+                //console.log(this.id);
                 //console.log("masterData ")
                 //console.log(selectedSubDataArrayMaster)
                 saveSubYearArrays(selectedSubDataArrayMaster);
@@ -460,7 +467,7 @@
             }
 
             function selectTimeFrameData(idYear){
-                console.log("selectTimeFrameData called with id: " +idYear);
+                //console.log("selectTimeFrameData called with id: " +idYear);
                 selectedSubDataArray = blubberino(idYear);
 
                 function blubberino (d){
@@ -495,7 +502,7 @@
 
                 function drawZuordnungenKreise(data2){
 
-                    console.log("called draw Zuordnung")
+                    //console.log("called draw Zuordnung")
 
                     var rscale = d3.scaleLinear()
                     .domain([0,150000])
@@ -518,7 +525,7 @@
                         .attr("r", function(d){
                         //console.log("d.length is: "+ d.values.length)
                         //console.log("d.length max "+ d3.max(data2.values.length));
-                        return rscale(d.values.length);})
+                        return rscale(d.values.length *2);})
                         .attr("id", function(d){
                         return d.key;})
                         .style("fill", function (d){
@@ -534,7 +541,7 @@
                         .attr("r", function(d){
                         //console.log("d.length is: "+ d.values.length)
                         //console.log("d.length max "+ d3.max(data2.values.length));
-                        return rscale(d.values.length);})
+                        return rscale(d.values.length *2);})
 
                     zuordnungKreise.exit().remove();
 
@@ -546,7 +553,7 @@
                         .append("text")
                         .attr("x", function(d,i) {
                         return (widthZuordnungen/4)*(i+1);})
-                        .attr("y", function(d) {return (heightZuordnungen/2)-40})
+                        .attr("y", function(d) {return (heightZuordnungen/2)-60})
                         .text( function(d) { return ""+d.key })
                         .attr("text-anchor", "middle")
                         .attr("font-family", "sans-serif")
@@ -556,7 +563,7 @@
 
                     text.attr("x", function(d,i) {
                         return (widthZuordnungen/4)*(i+1);})
-                        .attr("y", function(d) {return (heightZuordnungen/2)-40})
+                        .attr("y", function(d) {return (heightZuordnungen/2)-60})
                         .text( function(d) { return ""+d.key });
 
                     text.exit().remove();
@@ -566,7 +573,7 @@
                         if(resizeTimeout)
                             clearTimeout(resizeTimeout);
                         resizeTimeout = setTimeout(function() {
-                            console.log("The window was resized! call Zuordnungen");
+                            //console.log("The window was resized! call Zuordnungen");
                             heightZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientHeight;
                             widthZuordnungen = document.getElementById('zuordnungenBtnsSVG').clientWidth;
                             drawZuordnungenKreise(data2);
@@ -678,10 +685,10 @@
                         counter = 1;
                         var selecteditem = $(this).find("option:selected").val(); 
                         selectedParameter = selecteditem;
-                        updateChemieThings(selecteditem);
                         //console.log(selectedParameter);
                         selectedSubDataArrayMaster = getSubDataArray(nestedDataAllParameter,selectedParameter,0)
                         selectedSubDataArray = selectedSubDataArrayMaster;
+                        updateChemieThings(selecteditem);
                         //console.log("subarray change log selected subdataArray");
                         //console.log(selectedSubDataArray);
                         nestJahreAndBuildButtons(selectedSubDataArray.values);
@@ -693,12 +700,14 @@
                 });
             }
 
+            var anzahlUeberNeu;
+            var anzahlUeberAlt;
             function updateChemieThings(parameterName) {
                 var image = document.getElementById("imgChemieID");
                 //console.log("source was: "+ image.src)
                 //console.log("picture name is : "+ parameterName)
                 //console.log("link name is : " + parameterName+".png")
-                image.src = parameterName+".png";
+                image.src = "bilder/"+parameterName+".png";
                 var titel = d3.select("#chemieTitel")
                 titel.selectAll("h1")
                     .data(selectedZuordnung)
@@ -721,41 +730,8 @@
 
                 var chemText = d3.select("#Info").select("div")	;
 
-                /*chemText.html(function() {
-                    console.log("chemtext update called");
-                    var maxesNew = countOverMaxNew(selectedSubDataArray.values);
-                    var maxesOld = countOverMaxOld(selectedSubDataArray.values);
-                    function countOverMaxNew(data){
-                        var overMaxNew;
-                        var overMaxOld;
-                        for (i=0; i<data.length;i++){
-                            k=0;
-                            if(data[i].WertText>newMaxLineDaten[0].y){
-                                overMaxNew[k]=data[i].WertText;
-                                k++;
-                            }
-                        }
-                    }
-                    function countOverMaxOld(data){
-                        var overMaxOld;
-                        for (i=0; i<data.length;i++){
-                            j=0;
-                            if (data[i].WertText>oldMaxLineDaten[0].y){
-                                overMaxOld[j]=data[i].WertText;
-                                j++;
-                            }
-                        }
-                    }
-                    var text = "Gemessener Maximalwert in ng/L:"+ d3.max(selectedSubDataArray.values,function(d){return d.WertText;}) +"<br/>" +
-                        "Anzahl Überschreitungen Alter Richtwert: " +maxesOld.lenght; +"<br/>" +
-                        "Anzahl Überschreitungen Neuer Richtwert: " +maxesOnew.lenght; +"<br/>" ;
-                    return text; 
-                });*/
-
-                //var chemText = d3.select("#Info2").select("div")	;
-
                 chemText.html(function() {
-                    console.log("chemtext update called");
+                    //console.log("chemtext update called");
                     var text = "Der Richtwert von "+ parameterName + " hat sich wie folgt verändert:" + "<br/>" +
                         "Alter Richtwert: "+ oldMaxLineDaten[0].y+ " ng/L"+ "<br/>" + 
                         "Neuer Richtwert: "+ newMaxLineDaten[0].y+ " ng/L"+"<br/>" + 
@@ -769,8 +745,95 @@
                         var prozentMehr = (1-((newMaxLineDaten[0].y)/(oldMaxLineDaten[0].y)))*100; 
                         text = text + "einer Verminderung um "+ prozentMehr + " %."
                     }
+
+                    //console.log("subdataArray logged in chemieThings");
+                    //console.log(selectedSubDataArray);
+                    //console.log(selectedSubDataArray.values.length);
+                    dummyVariable =  selectedSubDataArray.values[0];
+                    dummyVariable.WertText = 0;
+                    var maxesNew = [];
+                    maxesNew[0] = dummyVariable;
+                    countOverMaxNew(selectedSubDataArray);
+                    var maxesOld = [];
+                    maxesOld[0] = dummyVariable;
+                    countOverMaxOld(selectedSubDataArray);
+                    function countOverMaxNew(data){
+                        //console.log("countOverMaxNew");
+                        var overMaxNew = [];
+                        overMaxNew[0] = dummyVariable;
+                        //console.log(data.values.length);
+                        //console.log("overMaxNew before");
+                        //console.log(overMaxNew);
+                        k=1;
+                        for (i=0; i<data.values.length;i++){
+                            if(data.values[i].WertText>newMaxLineDaten[0].y){
+                                maxesNew[k]=data.values[i];
+                                //console.log("entered overMaxNew if")
+                                k++;
+                            }
+                        }
+                        //console.log("overMaxNew after");
+                        //console.log(overMaxNew);
+                    }
+                    function countOverMaxOld(data){
+                        //console.log("countOverMaxOld");
+                        var overMaxOld = [];
+                        overMaxOld[0] = dummyVariable;
+                        //console.log("overMaxOld before");
+                        //console.log(overMaxOld);
+                        j=1;
+                        for (i=0; i<data.values.length;i++){
+                            if (data.values[i].WertText>oldMaxLineDaten[0].y){
+                                //console.log("entered overMaxOld if")
+                                //console.log(data.values[i]);
+                                //console.log(data.values[i].WertText);
+                                maxesOld[j]=data.values[i];
+                                j++;
+                            }
+                        }
+                        //console.log("overMaxOld after");
+                        //console.log(overMaxOld);
+                    }
+                    //console.log("maxesNew");
+                    //console.log(maxesNew);
+                    //console.log("maxesNew lenght");
+                    //console.log(maxesNew.length);
+                    //console.log("maxesOld");
+                    //console.log(maxesOld);
+                    //console.log("maxesOld lenght");
+                    //console.log(maxesOld.length);
+
+                    text = text +"<br/>" + "Gemessener Maximalwert in ng/L:"+ d3.max(selectedSubDataArray.values,function(d){return d.WertText;}) +"<br/>"+
+                        "Anzahl Überschreitungen Alter Richtwert: "
+                    maxesOldText(maxesOld);
+                    function maxesOldText(data){
+                        if (maxesOld.length==1){
+                            text = text + "0" +"<br/>" ;
+                        }else text = text + (maxesOld.length-1) +"<br/>" ;
+                    }
+                    //debugger;
+                    text = text +"Anzahl Überschreitungen Neuer Richtwert: " 
+                    maxesNewText(maxesNew);
+                    function maxesNewText(data){
+                        if (maxesNew.length==1){
+                            text = text + "0" +"<br/>" ;
+                        }else text = text + (maxesNew.length -1);
+                    }
+                    anzahlUeberAlt = maxesOld.length;
+                    anzahlUeberNeu = maxesNew.length;
+                    if(maxesOld.length==1 )
+                        document.getElementById("daumen").className= "glyphicon glyphicon-thumbs-up";
+                    if(maxesNew.length==1 )
+                        document.getElementById("daumen").className= "glyphicon glyphicon-thumbs-up";
+                    if(maxesNew.length>1 )
+                        document.getElementById("daumen").className= "glyphicon glyphicon-thumbs-down";
+                    if(maxesOld.length>1 )
+                        document.getElementById("daumen").className= "glyphicon glyphicon-thumbs-down";
+
                     return text; 
                 });
+
+
             }
 
             function startGraphThings(data){
@@ -886,8 +949,8 @@
                 .attr("id","pathWasser")
                 .style('fill', 'none')
                 .style('stroke', function (d){
-                    console.log("pathWasser Called line ca 920")
-                    console.log([selectedSubDataArray]);
+                    //console.log("pathWasser Called line ca 920")
+                    //console.log([selectedSubDataArray]);
                     return "Blue";})
                 .style('stroke-width', '2px');
 
@@ -895,7 +958,7 @@
 
                 function updateChartElements(){
 
-                    console.log("updateChartAxis called");
+                    //console.log("updateChartAxis called");
                     //console.log(data);
                     //console.log("chartdraw graphDiv height "+ graphDivHeight);
 
@@ -1017,7 +1080,7 @@
                 drawLineMessGrenze()
 
                 function drawWasserLine(){
-                    console.log("drawWasserLine methode called");
+                    //console.log("drawWasserLine methode called");
                     lineWasser.x(function(d) { 
                         //console.log("d.Datum_Start is: ");
                         //console.log(d.PbNahmeDatum);
@@ -1117,7 +1180,7 @@
                     if(resizeTimeout)
                         clearTimeout(resizeTimeout);
                     resizeTimeout = setTimeout(function() {
-                        console.log("The window was resized!");
+                        //console.log("The window was resized!");
                         //var myDiv = document.getElementById('divGraphSVG');
                         var myDiv = document.getElementById('graphSVG');
                         //console.log(myDiv.clientHeight);
@@ -1263,7 +1326,7 @@
 
                 function updateChartElements(){
 
-                    console.log("updateChartAxis2");
+                    //console.log("updateChartAxis2");
                     //console.log(data);
                     //console.log("chartdraw graphDiv height "+ graphDivHeight);
 
@@ -1490,7 +1553,7 @@
                     if(resizeTimeout)
                         clearTimeout(resizeTimeout);
                     resizeTimeout = setTimeout(function() {
-                        console.log("The window was resized!");
+                        //console.log("The window was resized!");
                         //var myDiv = document.getElementById('divGraphSVG');
                         var myDiv = document.getElementById('graphSVG');
                         //console.log(myDiv.clientHeight);
@@ -1540,7 +1603,7 @@
             function getSubDataArray(data, key, int){
                 //console.log(data);
                 //console.log(key);
-                console.log(int);
+                //console.log(int);
                 subdataArray = [];
                 if(int==0){
                     //console.log("entered if=0 in getSubdataArray");
@@ -1562,6 +1625,14 @@
                         return nested[0];
                     }
                 }
+                updateMinMaxlineValues(subdataArray);
+
+                //console.log("subdataArray");
+                //console.log(subdataArray);
+                return subdataArray;
+            }           
+
+            function updateMinMaxlineValues(subdataArray){
                 //console.log("subdataArray in getSubdataArray is: ");
                 //console.log(subdataArray);
 
@@ -1603,8 +1674,7 @@
 
                 //console.log("subdataArray");
                 //console.log(subdataArray);
-                return subdataArray;
-            }           
+            }
 
             function handleMouseEnterData(d, i) {
                 var formatTime = d3.timeFormat("%e %B %Y");
@@ -1616,7 +1686,8 @@
                 divTooltip.transition()		
                     .duration(200)		
                     .style("opacity", .95);		
-                divTooltip.html("Probe Datum: "+ formatTime(d.PbNahmeDatum) + "<br/>"  + "Wert in ng/L: "+ d.WertText + "<br/>" + "Mess Grenze ng/L: " + d.Bestimmungsgrenze)	
+                divTooltip.html("Probe Datum: "+ formatTime(d.PbNahmeDatum) + "<br/>"  + "Wert in ng/L: "+ d.WertText + "<br/>" + "Mess Grenze ng/L: " + d.Bestimmungsgrenze + "<br/>"  + "Alter Richtwert ng/L: " +oldMaxLineDaten[0].y 
+                               + "<br/>"  + "Neuer Richtwert ng/L: " +newMaxLineDaten[0].y)	
                     .style("left", (d3.event.pageX + 5 ) + "px")		
                     .style("top", (d3.event.pageY - 28) + "px");	
                 //d3.select(this).style("fill","green");
