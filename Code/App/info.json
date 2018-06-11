@@ -1,11 +1,12 @@
 {
-"title": "Pestizidkonzentration im Rhein",
-"description": "Die App bietet dem Leser eine Auswahl von Pestiziden, deren Messungen er sich anschauen kann. Neben der Konzentration wird auch der alte und der neue Höchstwert, sowie der Wasserabfluss am jeweiligen Messtag angezeigt. Der Laie kann sich so z. B. im Bezug zu den Initiativen, die sich mit Pestiziden beschäftigen ein Bild machen und wird feststellen, dass die Maximalwerte meist eingehalten werden.",
-"authors": [
-    {"name": "Domenice Iapello", "email": "domenico.iapello@students.unibe.ch"},
-    {"name": "Silvan Hegi", "email": "silvan.hegi@students.unibe.ch"}
-],
-"date": "2018-05-31",
-"category": "environment",
-"software_license": "GNU General Public License v3"
+    "title": "Pestizidkonzentration im Rhein",
+    "description": "Die App bietet dem Leser eine Auswahl von Pestiziden, deren Messungen er sich anschauen kann. Neben der Konzentration wird auch der alte und der neue Höchstwert, sowie der Wasserabfluss am jeweiligen Messtag angezeigt. Der Laie kann sich so z. B. im Bezug zu den Initiativen, die sich mit Pestiziden beschäftigen ein Bild machen und wird feststellen, dass die Maximalwerte meist eingehalten werden.",
+    "authors": [
+        {"name": "Domenice Iapello", "email": "domenico.iapello@students.unibe.ch"},
+        {"name": "Silvan Hegi", "email": "silvan.hegi@students.unibe.ch"}
+    ],
+    "date": "2018-05-31",
+    "category": "environment",
+    "GitHub":"https://github.com/LeNeMoD/OpenDataApp/tree/master",
+    "software_license": "GNU General Public License v3"
 }
