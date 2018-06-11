@@ -180,7 +180,7 @@
 
                             <div id="emptySideDiv"class="col-md-3">
                                 <h1 class="text-left">Legende zur Grafik</h1>
-                                <img id="legendenBild" src="Legende.JPG" class="img-responsive">
+                                <img id="legendenBild" src="Legende.jpg" class="img-responsive">
                             </div>
 
                             </div>
@@ -1124,7 +1124,7 @@
                     .style("stroke-dasharray", ("1, 2"))
                     .attr("stroke",function(d){
                         return "black"})
-                    .style("fill", function(d){if(d.WertText>oldMaxLineDaten.y){return "orange";}else if(d.WertText>newMaxLineDaten[0].y){return "red";}else if(d.WertText == 0){return "#76D7EA";}else{return "green";}})
+                    .style("fill", function(d){if(d.WertText>oldMaxLineDaten[0].y && d.WertText>newMaxLineDaten[0].y){return "red";}else if(d.WertText>newMaxLineDaten[0].y){return "orange";}else if(d.WertText == 0){return "#76D7EA";}else if (d.WertText>oldMaxLineDaten[0].y){return "red";} else{return "green";}})
                     .on("mouseover", handleMouseEnterData)
                     .on("mouseout", handleMouseLeaveData);
                 }
@@ -1137,7 +1137,7 @@
                         .style("stroke-dasharray", ("1, 2"))
                         .attr("stroke",function(d){
                         return "black"})
-                        .style("fill", function(d){if(d.WertText>oldMaxLineDaten.y){return "orange";}else if(d.WertText>newMaxLineDaten[0].y){return "red";}else if(d.WertText == 0){return "#76D7EA";}else{return "green";}})
+                        .style("fill", function(d){if(d.WertText>oldMaxLineDaten[0].y && d.WertText>newMaxLineDaten[0].y){return "red";}else if(d.WertText>newMaxLineDaten[0].y){return "orange";}else if(d.WertText == 0){return "#76D7EA";}else if (d.WertText>oldMaxLineDaten[0].y){return "red";} else{return "green";}})
                         .attr("cx", function(d){
                         return xScale(d.PbNahmeDatum);
                     })
@@ -1499,7 +1499,7 @@
                     .style("stroke-dasharray", ("1, 2"))
                     .attr("stroke",function(d){
                         return "black"})
-                    .style("fill", function(d){if(d.WertText>oldMaxLineDaten.y){return "orange";}else if(d.WertText>newMaxLineDaten[0].y){return "red";}else if(d.WertText == 0){return "#76D7EA";}else{return "green";}})
+                    .style("fill", function(d){if(d.WertText>oldMaxLineDaten[0].y && d.WertText>newMaxLineDaten[0].y){return "red";}else if(d.WertText>newMaxLineDaten[0].y){return "orange";}else if(d.WertText == 0){return "#76D7EA";}else if (d.WertText>oldMaxLineDaten[0].y){return "red";} else{return "green";}})
                     .on("mouseover", handleMouseEnterData)
                     .on("mouseout", handleMouseLeaveData);
                 }
@@ -1512,7 +1512,7 @@
                         .style("stroke-dasharray", ("1, 2"))
                         .attr("stroke",function(d){
                         return "black"})
-                        .style("fill", function(d){if(d.WertText>oldMaxLineDaten.y){return "orange";}else if(d.WertText>newMaxLineDaten[0].y){return "red";}else if(d.WertText == 0){return "#76D7EA";}else{return "green";}})
+                        .style("fill", function(d){if(d.WertText>oldMaxLineDaten[0].y && d.WertText>newMaxLineDaten[0].y){return "red";}else if(d.WertText>newMaxLineDaten[0].y){return "orange";}else if(d.WertText == 0){return "#76D7EA";}else if (d.WertText>oldMaxLineDaten[0].y){return "red";} else{return "green";}})
                         .attr("cx", function(d){
                         return xScale(d.PbNahmeDatum);
                     })
@@ -1698,7 +1698,7 @@
                     .attr("r", 5)
                     .attr("stroke",function(d){
                     return "black"})
-                    .style("fill", function(d){if(d.WertText>oldMaxLineDaten.y){return "orange";}else if(d.WertText>newMaxLineDaten[0].y){return "red";}else if(d.WertText == 0){return "#76D7EA";}else{return "green";}})
+                    .style("fill", function(d){if(d.WertText>oldMaxLineDaten[0].y && d.WertText>newMaxLineDaten[0].y){return "red";}else if(d.WertText>newMaxLineDaten[0].y){return "orange";}else if(d.WertText == 0){return "#76D7EA";}else if (d.WertText>oldMaxLineDaten[0].y){return "red";} else{return "green";}})
                 divTooltip.transition()		
                     .duration(500)		
                     .style("opacity", 0);
